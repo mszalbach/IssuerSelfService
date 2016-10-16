@@ -64,6 +64,7 @@
 
     <modules>
         <module>acceptance-test</module>
+        <module>server</module>
     </modules>
 
 
