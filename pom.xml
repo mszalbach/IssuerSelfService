@@ -38,6 +38,11 @@
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <version>2.19.1</version>
                 </plugin>
+                <plugin>
+                    <groupId>com.github.eirslett</groupId>
+                    <artifactId>frontend-maven-plugin</artifactId>
+                    <version>1.0</version>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -65,6 +70,7 @@
     <modules>
         <module>acceptance-test</module>
         <module>server</module>
+        <module>client</module>
     </modules>
 
 
