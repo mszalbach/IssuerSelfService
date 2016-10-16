@@ -6,4 +6,4 @@ import org.junit.runner.RunWith;
  * Created by mszalbach on 09.08.16.
  */
 @RunWith(CucumberWithSerenity.class)
-public class AcceptanceTest {}
+public class AllStories {}
