@@ -84,12 +84,12 @@
                                     <mode>dir</mode>
                                     <descriptor>server/assembly.xml</descriptor>
                                 </assembly>
+                                <entryPoint>java -jar /maven/iss-server.jar</entryPoint>
                             </build>
                             <run>
                                 <ports>
                                     <port>8081:8081</port>
                                 </ports>
-                                <entrypoint>java -jar /maven/iss-server.jar</entrypoint>
                                 <wait>
                                     <url>http://${docker.host.address}:8081/hello</url>
                                     <time>10000</time>
