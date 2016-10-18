@@ -4,14 +4,9 @@ machine:
   services:
     - docker
 
-dependencies:
-  override:
-    #doing everything in dependency phase creates a better maven cache
-    - mvn verify -B -Dcircleci
-
 test:
   override:
-    - echo "do nothing"
+    - mvn verify -B -Dcircleci
   post:
       - mkdir -p $CIRCLE_TEST_REPORTS/junit/
       - find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
