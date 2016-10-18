@@ -7,7 +7,7 @@ machine:
 dependencies:
   override:
     #doing everything in dependency phase creates a better maven cache
-    - mvn verify -B
+    - mvn verify -B -Dcircleci
 
 test:
   override:
