@@ -11,6 +11,7 @@
 
 
     <artifactId>iss-acceptance-test</artifactId>
+    <packaging>pom</packaging>
 
     <build>
         <plugins>
@@ -74,6 +75,7 @@
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <configuration>
+                    <startParallel>true</startParallel>
                     <images>
                         <image>
                             <alias>server</alias>
@@ -180,7 +182,7 @@
             <groupId>de.blogspot.mszalbach.iss</groupId>
             <artifactId>iss-server</artifactId>
             <version>${project.version}</version>
-            <scope>provided</scope>
+
         </dependency>
         <dependency>
             <groupId>de.blogspot.mszalbach.iss</groupId>
