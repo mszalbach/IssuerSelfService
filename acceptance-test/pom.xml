@@ -2,12 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>iss-parent</artifactId>
         <groupId>de.blogspot.mszalbach.iss</groupId>
+        <artifactId>iss-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
+
 
     <artifactId>iss-acceptance-test</artifactId>
 
@@ -28,6 +29,116 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.10</version>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>de.blogspot.mszalbach.iss</groupId>
+                                    <artifactId>iss-server</artifactId>
+                                    <type>jar</type>
+                                    <outputDirectory>${project.build.directory}/server</outputDirectory>
+                                    <destFileName>iss-server.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>unpack</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>de.blogspot.mszalbach.iss</groupId>
+                                    <artifactId>iss-client</artifactId>
+                                    <type>zip</type>
+                                    <classifier>dist</classifier>
+                                    <outputDirectory>${project.build.directory}/client</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <configuration>
+                    <images>
+                        <image>
+                            <alias>server</alias>
+                            <name>%g/iss-server:%v</name>
+                            <build>
+                                <from>frolvlad/alpine-oraclejdk8:slim</from>
+                                <assembly>
+                                    <mode>dir</mode>
+                                    <descriptor>server/assembly.xml</descriptor>
+                                </assembly>
+                            </build>
+                            <run>
+                                <ports>
+                                    <port>8081:8081</port>
+                                </ports>
+                                <entrypoint>java -jar /maven/iss-server.jar</entrypoint>
+                                <wait>
+                                    <url>http://${docker.host.address}:8081/hello</url>
+                                    <time>10000</time>
+                                </wait>
+                            </run>
+                        </image>
+                        <image>
+                            <alias>client</alias>
+                            <name>%g/iss-client:%v</name>
+                            <build>
+                                <from>nginx</from>
+                                <assembly>
+                                    <mode>dir</mode>
+                                    <basedir>/usr/share/nginx/html</basedir>
+                                    <descriptor>client/assembly.xml</descriptor>
+                                </assembly>
+                            </build>
+                            <run>
+                                <ports>
+                                    <port>80:80</port>
+                                </ports>
+                                <wait>
+                                    <url>http://${docker.host.address}/client</url>
+                                    <time>10000</time>
+                                </wait>
+                            </run>
+                        </image>
+                    </images>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>start</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stop</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <executions>
                     <execution>
@@ -39,6 +150,10 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <systemPropertyVariables>
+                        <server.docker.ip>${docker.container.server.ip}</server.docker.ip>
+                        <client.docker.ip>${docker.container.client.ip}</client.docker.ip>
+                    </systemPropertyVariables>
                     <testFailureIgnore>true</testFailureIgnore>
                     <includes>
                         <include>**/AllStories.java</include>
@@ -61,7 +176,19 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
         </dependency>
+        <dependency>
+            <groupId>de.blogspot.mszalbach.iss</groupId>
+            <artifactId>iss-server</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>de.blogspot.mszalbach.iss</groupId>
+            <artifactId>iss-client</artifactId>
+            <version>${project.version}</version>
+            <type>zip</type>
+            <classifier>dist</classifier>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
-
-
 </project>
