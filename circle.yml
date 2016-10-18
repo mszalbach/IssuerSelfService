@@ -1,0 +1,18 @@
+machine:
+  java:
+    version: oraclejdk8
+  services:
+    - docker
+
+dependencies:
+  override:
+    #doing everything in dependency phase creates a better maven cache
+    - mvn verify -B
+
+test:
+  override:
+    - echo "do nothing"
+  post:
+      - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+      - find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
+      - cp -R acceptance-test/target/site/serenity/* $CIRCLE_TEST_REPORTS/serenity/
