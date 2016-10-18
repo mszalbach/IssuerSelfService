@@ -4,6 +4,10 @@ machine:
   services:
     - docker
 
+dependencies:
+  override:
+    - mvn --fail-never dependency:go-offline || true
+
 test:
   override:
     - mvn verify -B -Dcircleci
