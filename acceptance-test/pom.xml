@@ -115,9 +115,6 @@
                                 </runCmds>
                             </build>
                             <run>
-                                <ports>
-                                    <port>80:80</port>
-                                </ports>
                                 <links>
                                     <link>server:server</link>
                                     <link>client:client</link>
