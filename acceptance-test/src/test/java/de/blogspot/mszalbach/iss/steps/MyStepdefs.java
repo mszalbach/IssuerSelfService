@@ -24,11 +24,7 @@ public class MyStepdefs {
 
     @Angenommen("Ralf hat folgende Wertpapiere$")
     public void createSecuritiesForUser(List<Security> securities) {
-
-        for (Security security : securities) {
-            securityRest.create_security(security);
-        }
-
+        securityRest.create_securities(securities);
     }
 
     @Dann("^sollte seine Werpapierliste (\\d+) Einträge haben$")

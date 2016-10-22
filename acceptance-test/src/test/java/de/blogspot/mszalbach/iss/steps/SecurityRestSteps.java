@@ -6,6 +6,8 @@ import de.blogspot.mszalbach.iss.domain.Security;
 import net.thucydides.core.annotations.Step;
 import org.apache.http.HttpStatus;
 
+import java.util.List;
+
 import static net.serenitybdd.rest.SerenityRest.given;
 import static org.hamcrest.CoreMatchers.is;
 
@@ -22,5 +24,13 @@ public class SecurityRestSteps {
     @Step
     public void create_security(Security security) {
         given().contentType(ContentType.JSON).body(security).when().post("securities").then().statusCode(is(HttpStatus.SC_CREATED));
+    }
+
+    @Step
+    public void create_securities(List<Security> securities) {
+        for (Security security : securities) {
+            create_security(security);
+        }
+
     }
 }
