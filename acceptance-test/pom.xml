@@ -16,6 +16,10 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
                 <groupId>net.serenity-bdd.maven.plugins</groupId>
                 <artifactId>serenity-maven-plugin</artifactId>
                 <executions>
@@ -155,7 +159,7 @@
                 </executions>
                 <configuration>
                     <systemPropertyVariables>
-                        <server.docker.ip>${docker.container.proxy.ip}</server.docker.ip>
+                        <webdriver.base.url>http://${docker.container.proxy.ip}</webdriver.base.url>
                     </systemPropertyVariables>
                     <testFailureIgnore>true</testFailureIgnore>
                     <includes>
