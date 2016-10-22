@@ -45,7 +45,7 @@ const common = {
     devServer: {
         proxy: {
             '/api/**': {
-                target: 'http://localhost:8081',
+                target: 'http://localhost:8081/api',
                 rewrite: function (req) {
                     req.url = req.url.replace(/^\/api(.+)$/, '$1');
                 }

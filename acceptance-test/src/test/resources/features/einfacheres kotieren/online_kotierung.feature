@@ -5,11 +5,10 @@ Funktionalität: Online Kotierung
   möchte ich in der Lage sein meine Kotierungen Online zu machen
   damit ich einfacher kotieren kann
 
-  @wip
-  Szenario: Als Emittent möchte ich meine Wertpapiere Online einsehen
+  Szenario: alle meine Wertpapiere anzeigen
+    Angenommen Ralf hat folgende Wertpapiere
+      | isin         | symbol |
+      | US02079K1079 | GOOG   |
+      | US0378331005 | AAPL   |
+    Dann sollte seine Werpapierliste 2 Einträge haben
 
-  @wip
-  Szenario: Als Emittent möchte ich ein einzelnes Wertpapier neu anlegen
-
-  @wip
-  Szenario: Als Emittent möchte ich eines meiner Wertpapiere löschen

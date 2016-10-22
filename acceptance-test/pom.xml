@@ -11,7 +11,6 @@
 
 
     <artifactId>iss-acceptance-test</artifactId>
-    <packaging>pom</packaging>
 
     <build>
         <plugins>
@@ -47,6 +46,7 @@
                                 <artifactItem>
                                     <groupId>de.blogspot.mszalbach.iss</groupId>
                                     <artifactId>iss-server</artifactId>
+                                    <classifier>exec</classifier>
                                     <type>jar</type>
                                     <outputDirectory>${project.build.directory}/server</outputDirectory>
                                     <destFileName>iss-server.jar</destFileName>
@@ -119,10 +119,20 @@
                                 </runCmds>
                             </build>
                             <run>
+                                <ports>
+                                    <port>9090:80</port>
+                                </ports>
                                 <links>
                                     <link>server:server</link>
                                     <link>client:client</link>
                                 </links>
+                                <wait>
+                                    <!-- ensure api is started before trying to run tests -->
+                                    <http>
+                                        <url>http://localhost:9090/api</url>
+                                    </http>
+                                    <time>20000</time>
+                                </wait>
                             </run>
                         </image>
                     </images>
@@ -160,10 +170,11 @@
                 <configuration>
                     <systemPropertyVariables>
                         <webdriver.base.url>http://${docker.container.proxy.ip}</webdriver.base.url>
+                        <api.url>http://${docker.container.proxy.ip}/api</api.url>
                     </systemPropertyVariables>
                     <testFailureIgnore>true</testFailureIgnore>
                     <includes>
-                        <include>**/AllStories.java</include>
+                        <include>**/AllStories</include>
                     </includes>
                 </configuration>
             </plugin>
@@ -174,6 +185,13 @@
         <dependency>
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-rest-assured</artifactId>
+            <version>1.1.42</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>net.serenity-bdd</groupId>
@@ -182,11 +200,19 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>de.blogspot.mszalbach.iss</groupId>
             <artifactId>iss-server</artifactId>
             <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>de.blogspot.mszalbach.iss</groupId>
+            <artifactId>iss-server</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>de.blogspot.mszalbach.iss</groupId>
@@ -195,6 +221,18 @@
             <type>zip</type>
             <classifier>dist</classifier>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-json</artifactId>
+            <version>2.2.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-xml</artifactId>
+            <version>2.4.7</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
