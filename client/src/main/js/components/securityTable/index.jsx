@@ -5,7 +5,7 @@ export default class SecurityTable extends React.Component {
     render() {
         const {securities} = this.props;
         return (
-            <table>
+            <table id="securities">
                 <thead>
                 <tr>
                     <th>ISIN</th>

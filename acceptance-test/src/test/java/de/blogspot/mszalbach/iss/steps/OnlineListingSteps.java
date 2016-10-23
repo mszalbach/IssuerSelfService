@@ -14,10 +14,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 /**
  * Created by foobarkilla on 22.10.16.
  */
-public class MyStepdefs {
+public class OnlineListingSteps {
 
-
-    SecurityListPage securityList;
+    SecurityListPage securityPage;
 
     @Steps
     SecurityRestSteps securityRest;
@@ -29,7 +28,8 @@ public class MyStepdefs {
 
     @Dann("^sollte seine Werpapierliste (\\d+) Einträge haben$")
     public void checkSecurityCount(int count) {
-        assertThat(securityList.getCount(), is(count));
+        securityPage.open();
+        assertThat(securityPage.getCount(), is(count));
     }
 
 }
