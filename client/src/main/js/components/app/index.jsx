@@ -1,36 +1,26 @@
 import React from "react";
 import SecurityTable from "../securityTable";
+import client from "../../rest/client";
 
 export default class App extends React.Component {
 
-    render() {
-        var securities = [
-            {
-                "isin": "US02079K1079",
-                "symbol": "GOOG",
-                "_links": {
-                    "self": {
-                        "href": "http://localhost:8081/api/securities/1"
-                    },
-                    "security": {
-                        "href": "http://localhost:8081/api/securities/1"
-                    }
-                }
-            },
-            {
-                "isin": "US0378331005",
-                "symbol": "AAPL",
-                "_links": {
-                    "self": {
-                        "href": "http://localhost:8081/api/securities/3"
-                    },
-                    "security": {
-                        "href": "http://localhost:8081/api/securities/3"
-                    }
-                }
-            }
-        ];
+    constructor(props) {
+        super(props);
+        this.state = {securities: []};
+    }
 
-        return <SecurityTable securities={securities}/>;
+    componentDidMount() {
+        this.loadFromServer();
+        console.log(this.state.securities)
+    }
+
+    loadFromServer() {
+        client({method: 'GET', path: '/securities'}).then(response => {
+            this.setState({securities: response.entity._embedded.securities});
+        });
+    }
+
+    render() {
+        return <SecurityTable securities={this.state.securities}/>;
     }
 }
