@@ -38,6 +38,12 @@
                         </configuration>
                     </execution>
                     <execution>
+                        <id>javascript tests</id>
+                        <goals>
+                            <goal>karma</goal>
+                        </goals>
+                    </execution>
+                    <execution>
                         <id>webpack build</id>
                         <goals>
                             <goal>webpack</goal>
