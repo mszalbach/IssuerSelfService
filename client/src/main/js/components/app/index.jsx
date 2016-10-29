@@ -1,12 +1,17 @@
 import React from "react";
 import SecurityTable from "../securityTable";
+import CreateDialog from "../createDialog";
 import client from "../../rest/client";
 
 export default class App extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {securities: []};
+        this.state = {
+            securities: [],
+            attributes: ["isin", "symbol"]
+
+        };
     }
 
     componentDidMount() {
@@ -20,7 +25,22 @@ export default class App extends React.Component {
         });
     }
 
+    onCreate(newSecurity) {
+        console.log(newSecurity);
+        client({
+            method: 'POST',
+            path: '/securities',
+            entity: newSecurity,
+            headers: {'Content-Type': 'application/json'}
+        }).then(response => {
+            this.loadFromServer();
+        })
+    }
+
     render() {
-        return <SecurityTable securities={this.state.securities}/>;
+        return <div>
+            <CreateDialog attributes={this.state.attributes} onCreate={(security) => this.onCreate(security)}/>
+            <SecurityTable securities={this.state.securities}/>
+        </div>;
     }
 }

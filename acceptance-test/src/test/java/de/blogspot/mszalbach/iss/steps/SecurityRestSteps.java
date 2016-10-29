@@ -6,6 +6,8 @@ import de.blogspot.mszalbach.iss.domain.Security;
 import net.thucydides.core.annotations.Step;
 import org.apache.http.HttpStatus;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static net.serenitybdd.rest.SerenityRest.given;
@@ -32,5 +34,11 @@ public class SecurityRestSteps {
             create_security(security);
         }
 
+    }
+
+    public List<Security> findSecurity(Security security) {
+        Security[] securities = given().contentType(ContentType.JSON).when().get("securities/search/findByIsin?isin=" + security.isin).jsonPath().getObject("_embedded.securities", Security[].class);
+
+        return new ArrayList<>(Arrays.asList(securities));
     }
 }

@@ -13,8 +13,7 @@ export default class SecurityTable extends React.Component {
                 </tr>
                 </thead>
                 <tbody>
-                {securities.map(security => <SecurityRow key={security._links.self.href} security={security}/>
-                )}
+                {securities.map(security => <SecurityRow key={security._links.self.href} security={security}/>)}
                 </tbody>
             </table>
         );

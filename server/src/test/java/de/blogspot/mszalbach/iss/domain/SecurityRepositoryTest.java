@@ -15,6 +15,7 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
@@ -67,6 +68,13 @@ public class SecurityRepositoryTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("_embedded.securities[0].isin", is("testIsin1")))
                 .andExpect(jsonPath("_embedded.securities[0].symbol", is("testSymbol1")));
+    }
+
+    @Test
+    public void should_be_able_to_create_securities() throws Exception {
+        assertThat(securityRepository.count(), is(0L));
+        mockMvc.perform(post("/api/securities").content("{\"isin\": \"testIsin1\",\"symbol\":\"testSymbol1\"}")).andExpect(status().isCreated());
+        assertThat(securityRepository.count(), is(1L));
     }
 
 }

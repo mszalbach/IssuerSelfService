@@ -1,6 +1,8 @@
 package de.blogspot.mszalbach.iss.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,6 +12,7 @@ import java.util.Objects;
  * Created by foobarkilla on 22.10.16.
  */
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Security {
 
     @Id

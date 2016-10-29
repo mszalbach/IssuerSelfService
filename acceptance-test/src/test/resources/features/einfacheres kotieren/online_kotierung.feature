@@ -12,3 +12,11 @@ Funktionalität: Online Kotierung
       | US0378331005 | AAPL   |
     Dann sollte seine Werpapierliste 2 Einträge haben
 
+  Szenario: Neues Wertpapier anlegen
+    Angenommen Ralf darf Wertpapiere anlegen
+    Wenn er ein Wertpapier mit folgenden Daten anlegt
+      | isin         | symbol |
+      | US5949181045 | MSFT   |
+    Dann sollte es folgendes Wertpapier existieren
+      | isin         | symbol |
+      | US5949181045 | MSFT   |
