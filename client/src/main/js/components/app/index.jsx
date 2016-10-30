@@ -16,7 +16,6 @@ export default class App extends React.Component {
 
     componentDidMount() {
         this.loadFromServer();
-        console.log(this.state.securities)
     }
 
     loadFromServer() {

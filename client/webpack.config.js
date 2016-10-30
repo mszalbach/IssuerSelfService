@@ -59,6 +59,10 @@ const common = {
         new ExtractTextPlugin('bundle.css'),
         new HtmlWebpackPlugin({
             template: './src/main/js/index.html'
+        }),
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery"
         })
     ]
 };
