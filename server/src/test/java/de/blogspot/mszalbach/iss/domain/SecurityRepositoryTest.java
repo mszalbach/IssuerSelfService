@@ -73,8 +73,18 @@ public class SecurityRepositoryTest {
     @Test
     public void should_be_able_to_create_securities() throws Exception {
         assertThat(securityRepository.count(), is(0L));
-        mockMvc.perform(post("/api/securities").content("{\"isin\": \"testIsin1\",\"symbol\":\"testSymbol1\"}")).andExpect(status().isCreated());
+        mockMvc.perform(post("/api/securities")
+                .content("{\"isin\": \"testIsin1\",\"symbol\":\"testSymbol1\"}"))
+                .andExpect(status().isCreated());
         assertThat(securityRepository.count(), is(1L));
+    }
+
+    @Test
+    public void should_return_shema_for_securities() throws Exception {
+        mockMvc.perform(get("/api/profile/securities")
+                .accept("application/schema+json"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("title", is("Security")));
     }
 
 }
