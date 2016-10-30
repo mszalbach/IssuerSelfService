@@ -26,7 +26,6 @@ export default class App extends React.Component {
     }
 
     onCreate(newSecurity) {
-        console.log(newSecurity);
         client({
             method: 'POST',
             path: '/securities',
@@ -37,10 +36,19 @@ export default class App extends React.Component {
         })
     }
 
+    onDelete(security) {
+        client({
+            method: 'DELETE',
+            path: security._links.self.href
+        }).then(response => {
+            this.loadFromServer();
+        })
+    }
+
     render() {
         return <div>
             <CreateDialog attributes={this.state.attributes} onCreate={(security) => this.onCreate(security)}/>
-            <SecurityTable securities={this.state.securities}/>
+            <SecurityTable securities={this.state.securities} onDelete={(security) => this.onDelete(security)}/>
         </div>;
     }
 }

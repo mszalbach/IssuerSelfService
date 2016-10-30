@@ -20,3 +20,10 @@ Funktionalität: Online Kotierung
     Dann sollte es folgendes Wertpapier existieren
       | isin         | symbol |
       | US5949181045 | MSFT   |
+
+  Szenario: Wertpapiere löschen
+    Angenommen Ralf hat folgende Wertpapiere
+      | isin         | symbol |
+      | US9843321061 | YHOO   |
+    Wenn er das Wertpapier "US9843321061" löscht
+    Dann gibt es kein Wertpapier "US9843321061" mehr

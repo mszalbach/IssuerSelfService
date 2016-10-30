@@ -2,11 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 export default class CreateDialog extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
     handleSubmit(e) {
         e.preventDefault();
         var newSecurity = {};
@@ -30,7 +25,7 @@ export default class CreateDialog extends React.Component {
             <h2>Create new Security</h2>
             <form>
                 {inputs}
-                <button id="create" onClick={this.handleSubmit}>Create</button>
+                <button id="create" onClick={(event)=>this.handleSubmit(event)}>Create</button>
             </form>
         </div>;
     }

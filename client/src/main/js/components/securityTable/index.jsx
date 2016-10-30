@@ -10,10 +10,12 @@ export default class SecurityTable extends React.Component {
                 <tr>
                     <th>ISIN</th>
                     <th>Symbol</th>
+                    <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
-                {securities.map(security => <SecurityRow key={security._links.self.href} security={security}/>)}
+                {securities.map(security => <SecurityRow key={security._links.self.href} security={security}
+                                                         onDelete={this.props.onDelete}/>)}
                 </tbody>
             </table>
         );
@@ -22,11 +24,19 @@ export default class SecurityTable extends React.Component {
 
 class SecurityRow extends React.Component {
 
+    handleDelete() {
+        this.props.onDelete(this.props.security);
+    }
+
     render() {
+        let security = this.props.security;
         return (
             <tr>
-                <td>{this.props.security.isin}</td>
-                <td>{this.props.security.symbol}</td>
+                <td>{security.isin}</td>
+                <td>{security.symbol}</td>
+                <td>
+                    <button id={"delete_" + security.isin} onClick={() => this.handleDelete()}>X</button>
+                </td>
             </tr>
         );
     }

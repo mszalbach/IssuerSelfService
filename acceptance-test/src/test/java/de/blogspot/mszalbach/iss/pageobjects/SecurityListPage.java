@@ -1,5 +1,7 @@
 package de.blogspot.mszalbach.iss.pageobjects;
 
+import de.blogspot.mszalbach.iss.domain.Security;
+import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.thucydides.core.annotations.DefaultUrl;
@@ -24,4 +26,9 @@ public class SecurityListPage extends PageObject {
         return rows.size();
     }
 
+    public void deleteSeurity(Security security) {
+        WebElement deleteButton = find(By.id("delete_" + security.isin));
+        deleteButton.click();
+
+    }
 }

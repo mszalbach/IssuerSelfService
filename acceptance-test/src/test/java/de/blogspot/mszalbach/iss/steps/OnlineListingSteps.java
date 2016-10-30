@@ -12,6 +12,7 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 
 /**
@@ -51,5 +52,16 @@ public class OnlineListingSteps {
     @Dann("^sollte es folgendes Wertpapier existieren$")
     public void checkForExistingSecurity(List<Security> security) throws Throwable {
         assertThat(securityRest.findSecurity(security.get(0)).size(), greaterThanOrEqualTo(1));
+    }
+
+    @Wenn("^er das Wertpapier \"([^\"]*)\" löscht$")
+    public void deleteSecurityViaWebsite(String isin) throws Throwable {
+        securityPage.open();
+        securityPage.deleteSeurity(new Security(isin, ""));
+    }
+
+    @Dann("^gibt es kein Wertpapier \"([^\"]*)\" mehr$")
+    public void gibtEsKeinWertpapierMehr(String isin) throws Throwable {
+        assertThat(securityRest.findSecurity(new Security(isin, "")), empty());
     }
 }
