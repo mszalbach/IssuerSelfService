@@ -4,7 +4,6 @@ import cucumber.api.java.de.Angenommen;
 import cucumber.api.java.de.Dann;
 import cucumber.api.java.de.Wenn;
 import de.blogspot.mszalbach.iss.domain.Security;
-import de.blogspot.mszalbach.iss.pageobjects.SecurityEnterPage;
 import de.blogspot.mszalbach.iss.pageobjects.SecurityListPage;
 import net.thucydides.core.annotations.Steps;
 
@@ -22,8 +21,6 @@ public class OnlineListingSteps {
 
     SecurityListPage securityPage;
 
-    SecurityEnterPage securityEnterPage;
-
     @Steps
     SecurityRestSteps securityRest;
 
@@ -40,13 +37,12 @@ public class OnlineListingSteps {
 
     @Angenommen("^Ralf darf Wertpapiere anlegen$")
     public void goToSecurityEntry() throws Throwable {
-        securityEnterPage.open();
+        securityPage.open();
     }
 
     @Wenn("^er ein Wertpapier mit folgenden Daten anlegt$")
     public void enterSecurityViaWebsite(List<Security> security) throws Throwable {
-        securityEnterPage.insertSecurity(security.get(0));
-        securityEnterPage.submitForm();
+        securityPage.openCreateSecurityDialog().insertSecurity(security.get(0)).submitForm();
     }
 
     @Dann("^sollte es folgendes Wertpapier existieren$")
@@ -61,7 +57,7 @@ public class OnlineListingSteps {
     }
 
     @Dann("^gibt es kein Wertpapier \"([^\"]*)\" mehr$")
-    public void gibtEsKeinWertpapierMehr(String isin) throws Throwable {
+    public void checkSecurityDidNotExist(String isin) throws Throwable {
         assertThat(securityRest.findSecurity(new Security(isin, "")), empty());
     }
 }

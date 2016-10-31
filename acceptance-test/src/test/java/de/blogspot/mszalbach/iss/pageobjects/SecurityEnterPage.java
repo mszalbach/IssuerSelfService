@@ -12,9 +12,10 @@ import org.openqa.selenium.WebElement;
 @DefaultUrl("http://localhost:8080")
 public class SecurityEnterPage extends PageObject {
 
-    public void insertSecurity(Security security) {
+    public SecurityEnterPage insertSecurity(Security security) {
         typeIntoField("isin", security.isin);
         typeIntoField("symbol", security.symbol);
+        return this;
     }
 
 

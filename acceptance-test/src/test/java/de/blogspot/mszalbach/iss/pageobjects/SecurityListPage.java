@@ -29,6 +29,11 @@ public class SecurityListPage extends PageObject {
     public void deleteSeurity(Security security) {
         WebElement deleteButton = find(By.id("delete_" + security.isin));
         deleteButton.click();
+    }
 
+    public SecurityEnterPage openCreateSecurityDialog() {
+        WebElement openCreateButton = find(By.id("openCreate"));
+        openCreateButton.click();
+        return this.switchToPage(SecurityEnterPage.class);
     }
 }

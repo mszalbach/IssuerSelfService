@@ -1,11 +1,12 @@
 import React from "react";
+import {Table, Button} from "react-bootstrap";
 
 export default class SecurityTable extends React.Component {
 
     render() {
         const {securities} = this.props;
         return (
-            <table id="securities">
+            <Table id="securities" striped bordered condensed hover responsive>
                 <thead>
                 <tr>
                     <th>ISIN</th>
@@ -17,7 +18,7 @@ export default class SecurityTable extends React.Component {
                 {securities.map(security => <SecurityRow key={security._links.self.href} security={security}
                                                          onDelete={this.props.onDelete}/>)}
                 </tbody>
-            </table>
+            </Table>
         );
     }
 }
@@ -35,7 +36,7 @@ class SecurityRow extends React.Component {
                 <td>{security.isin}</td>
                 <td>{security.symbol}</td>
                 <td>
-                    <button id={"delete_" + security.isin} onClick={() => this.handleDelete()}>X</button>
+                    <Button id={"delete_" + security.isin} onClick={() => this.handleDelete()}>X</Button>
                 </td>
             </tr>
         );

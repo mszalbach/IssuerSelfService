@@ -2,6 +2,8 @@ import React from "react";
 import SecurityTable from "../securityTable";
 import CreateDialog from "../createDialog";
 import client from "../../rest/client";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/css/bootstrap-theme.css";
 
 export default class App extends React.Component {
 
@@ -47,6 +49,7 @@ export default class App extends React.Component {
     render() {
         return <div>
             <CreateDialog attributes={this.state.attributes} onCreate={(security) => this.onCreate(security)}/>
+            <br/>
             <SecurityTable securities={this.state.securities} onDelete={(security) => this.onDelete(security)}/>
         </div>;
     }
