@@ -5,7 +5,7 @@ import client from "../../rest/client";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap-theme.css";
 
-export default class App extends React.Component {
+export default class Securities extends React.Component {
 
     constructor(props) {
         super(props);
