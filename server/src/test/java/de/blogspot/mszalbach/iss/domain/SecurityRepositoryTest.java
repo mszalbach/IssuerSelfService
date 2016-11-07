@@ -31,6 +31,9 @@ public class SecurityRepositoryTest {
     @Autowired
     private SecurityRepository securityRepository;
 
+    @Autowired
+    private WebApplicationContext webApplicationContext;
+
     private MockMvc mockMvc;
 
     @Before
@@ -43,8 +46,6 @@ public class SecurityRepositoryTest {
         this.securityRepository.deleteAll();
     }
 
-    @Autowired
-    private WebApplicationContext webApplicationContext;
 
     @Test
     public void should_return_securities() throws Exception {

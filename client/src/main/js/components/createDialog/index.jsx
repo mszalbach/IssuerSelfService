@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {Button, Modal, FormGroup, FormControl, ControlLabel, Form} from "react-bootstrap";
+
 export default class CreateDialog extends React.Component {
 
     constructor(props) {

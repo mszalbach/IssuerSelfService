@@ -1,21 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {Route, Router, IndexRedirect, hashHistory} from "react-router";
-import Securities from "container/securities";
-import LoginPage from "components/loginPage";
-import NoMatch from "components/noMatch";
-import initStore from "config/store";
 import {syncHistoryWithStore} from "react-router-redux";
 import {Provider} from "react-redux";
+import Securities from "container/securities";
+import LoginPage from "container/login";
+import NoMatch from "components/noMatch";
+import initStore from "config/store";
+
+const store = initStore();
+const history = syncHistoryWithStore(hashHistory, store);
 
 export default class App extends React.Component {
 
-
     render() {
-        const store = initStore();
-        const history = syncHistoryWithStore(hashHistory, store);
-
-
         return (
             <Provider store={store}>
                 <Router history={history}>
@@ -31,6 +29,7 @@ export default class App extends React.Component {
             </Provider>
         )
     }
+
 }
 
 

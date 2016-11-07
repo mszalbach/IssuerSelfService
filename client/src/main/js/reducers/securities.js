@@ -28,7 +28,7 @@ function setSecurities(data) {
 
 export function fetchSecurities() {
     return function (dispatch) {
-        return client({method: 'GET', path: '/securities'}).then(response => {
+        return client({method: 'GET', path: '/api/securities'}).then(response => {
                 dispatch(setSecurities(response));
             }
         );
@@ -61,7 +61,7 @@ export function addSecurity(security) {
     return function (dispatch) {
         return client({
             method: 'POST',
-            path: '/securities',
+            path: '/api/securities',
             entity: security,
             headers: {'Content-Type': 'application/json'}
         }).then(response => {

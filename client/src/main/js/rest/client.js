@@ -1,8 +1,9 @@
-var rest = require('rest');
-var pathPrefix = require('rest/interceptor/pathPrefix');
-var errorCode = require('rest/interceptor/errorCode');
-var mime = require('rest/interceptor/mime');
+import rest from "rest";
+import errorCode from "rest/interceptor/errorCode";
+import mime from "rest/interceptor/mime";
+import basicAuth from "rest/interceptor/basicAuth";
+
 
 module.exports = rest.wrap(mime)
     .wrap(errorCode, {code: 500})
-    .wrap(pathPrefix, {prefix: '/api'});
+    .wrap(basicAuth, {username: 'Ralf', password: 'ralf'});

@@ -25,7 +25,7 @@ public class SecurityRestSteps {
 
     @Step
     public void create_security(Security security) {
-        given().contentType(ContentType.JSON).body(security).when().post("securities").then().statusCode(is(HttpStatus.SC_CREATED));
+        given().contentType(ContentType.JSON).body(security).auth().basic("Ralf", "ralf").when().post("securities").then().statusCode(is(HttpStatus.SC_CREATED));
     }
 
     @Step
@@ -37,7 +37,7 @@ public class SecurityRestSteps {
     }
 
     public List<Security> findSecurity(Security security) {
-        Security[] securities = given().contentType(ContentType.JSON).when().get("securities/search/findByIsin?isin=" + security.isin).jsonPath().getObject("_embedded.securities", Security[].class);
+        Security[] securities = given().contentType(ContentType.JSON).auth().basic("Ralf", "ralf").when().get("securities/search/findByIsin?isin=" + security.isin).jsonPath().getObject("_embedded.securities", Security[].class);
 
         return new ArrayList<>(Arrays.asList(securities));
     }
