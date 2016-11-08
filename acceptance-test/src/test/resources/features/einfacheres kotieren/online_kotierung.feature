@@ -10,10 +10,11 @@ Funktionalität: Online Kotierung
       | isin         | symbol |
       | US02079K1079 | GOOG   |
       | US0378331005 | AAPL   |
+    Und Ralf ist angemeldet
     Dann sollte seine Werpapierliste 2 Einträge haben
 
   Szenario: Neues Wertpapier anlegen
-    Angenommen Ralf darf Wertpapiere anlegen
+    Angenommen Ralf ist angemeldet
     Wenn er ein Wertpapier mit folgenden Daten anlegt
       | isin         | symbol |
       | US5949181045 | MSFT   |
@@ -25,5 +26,6 @@ Funktionalität: Online Kotierung
     Angenommen Ralf hat folgende Wertpapiere
       | isin         | symbol |
       | US9843321061 | YHOO   |
-    Wenn er das Wertpapier "US9843321061" löscht
+    Wenn Ralf ist angemeldet
+    Und er das Wertpapier "US9843321061" löscht
     Dann gibt es kein Wertpapier "US9843321061" mehr

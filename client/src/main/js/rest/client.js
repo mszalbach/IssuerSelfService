@@ -1,9 +1,19 @@
 import rest from "rest";
 import errorCode from "rest/interceptor/errorCode";
 import mime from "rest/interceptor/mime";
-import basicAuth from "rest/interceptor/basicAuth";
+import defaultRequest from "rest/interceptor/defaultRequest";
 
+module.exports = {
+    createClient: function () {
+        let client = rest;
 
-module.exports = rest.wrap(mime)
-    .wrap(errorCode, {code: 500})
-    .wrap(basicAuth, {username: 'Ralf', password: 'ralf'});
+        var token = localStorage.getItem('auth-token');
+        if (token) {
+            client = client.wrap(defaultRequest, {headers: {'X-Auth-Token': token}})
+        }
+
+        return client.wrap(mime)
+            .wrap(errorCode, {code: 400})
+            .wrap(defaultRequest, {headers: {'X-Requested-With': 'XMLHttpRequest'}});
+    }
+};

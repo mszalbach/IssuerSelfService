@@ -209,12 +209,6 @@
         </dependency>
         <dependency>
             <groupId>de.blogspot.mszalbach.iss</groupId>
-            <artifactId>iss-server</artifactId>
-            <version>${project.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>de.blogspot.mszalbach.iss</groupId>
             <artifactId>iss-client</artifactId>
             <version>${project.version}</version>
             <type>zip</type>

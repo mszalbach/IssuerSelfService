@@ -15,7 +15,7 @@ import static net.thucydides.core.pages.components.HtmlTable.rowsFrom;
 /**
  * Created by foobarkilla on 22.10.16.
  */
-@DefaultUrl("http://localhost:8080")
+@DefaultUrl("http://localhost:8080/#/securities")
 public class SecurityListPage extends PageObject {
 
     @FindBy(id = "securities")
@@ -26,7 +26,7 @@ public class SecurityListPage extends PageObject {
         return rows.size();
     }
 
-    public void deleteSeurity(Security security) {
+    public void deleteSecurity(Security security) {
         WebElement deleteButton = find(By.id("delete_" + security.isin));
         deleteButton.click();
     }

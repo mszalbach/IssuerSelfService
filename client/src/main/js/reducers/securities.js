@@ -1,4 +1,4 @@
-import client from "../rest/client";
+import {createClient} from "../rest/client";
 
 const FETCH_SUCCESS = 'securities/FETCH_SUCCESS';
 const DELETE_SUCCESS = 'security/DELETE_SUCCESS';
@@ -28,7 +28,7 @@ function setSecurities(data) {
 
 export function fetchSecurities() {
     return function (dispatch) {
-        return client({method: 'GET', path: '/api/securities'}).then(response => {
+        return createClient()({method: 'GET', path: '/api/securities'}).then(response => {
                 dispatch(setSecurities(response));
             }
         );
@@ -41,7 +41,7 @@ function securityDeleted() {
 
 export function deleteSecurity(security) {
     return function (dispatch) {
-        return client({
+        return createClient()({
             method: 'DELETE',
             path: security._links.self.href
         }).then(response => {
@@ -59,7 +59,7 @@ function securityAdded() {
 export function addSecurity(security) {
 
     return function (dispatch) {
-        return client({
+        return createClient()({
             method: 'POST',
             path: '/api/securities',
             entity: security,

@@ -23,6 +23,7 @@ class Securities extends React.Component {
 
     render() {
         return <div>
+            <div>Hallo {localStorage.getItem('auth-token')}</div>
             <CreateDialog attributes={this.state.attributes} onCreate={(security) => this.props.addSecurity(security)}/>
             <br/>
             <SecurityTable securities={this.props.securities}

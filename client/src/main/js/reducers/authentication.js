@@ -1,5 +1,5 @@
-import client from "../rest/client";
-
+import {hashHistory} from "react-router";
+import {createClient} from "../rest/client";
 
 const LOGIN = 'authentication/LOGIN';
 const LOGIN_SUCCESS = 'authentication/LOGIN_SUCCESS';
@@ -7,18 +7,12 @@ const LOGIN_FAIL = 'authentication/LOGIN_FAIL';
 
 const LOGOUT = 'authentication/LOGOUT';
 const LOGOUT_SUCCESS = 'authentication/LOGOUT_SUCCESS';
-const LOGOUT_FAIL = 'authentication/LOGOUT_FAIL';
-
-const GET_SESSION = 'authentication/GET_SESSION';
-const GET_SESSION_SUCCESS = 'authentication/GET_SESSION_SUCCESS';
-const GET_SESSION_FAIL = 'authentication/GET_SESSION_FAIL';
-
-const ERROR_MESSAGE = 'authentication/ERROR_MESSAGE';
 
 const initialState = {
     isAuthenticated: false,
     username: null,
-    token: null
+    token: null,
+    errorMessage: null,
 };
 
 export default function reducer(state = initialState, action) {
@@ -35,7 +29,7 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 isAuthenticated: false,
                 username: null,
-                errorMessage: action.message
+                errorMessage: action.errorMessage
             };
         case LOGOUT_SUCCESS:
             return {
@@ -44,30 +38,57 @@ export default function reducer(state = initialState, action) {
                 username: null,
                 token: null
             };
-        case GET_SESSION:
-            return {
-                ...state,
-                loading: true
-            };
         default:
             return state;
     }
 }
 
-function setLogin(data) {
-    return {type: LOGIN_SUCCESS, username: "Ralf", token: data.entity};
-}
-
 
 export function login(username, password) {
     return function (dispatch) {
-        return client({
+        return createClient()({
             method: 'POST',
             path: '/api/session',
-            headers: {'Content-Type': 'text/plain'}
+            entity: {
+                'username': username,
+                'password': password,
+            },
+            headers: {'Content-Type': 'application/json'}
         }).then(response => {
+                localStorage.setItem('auth-token', response.entity.token);
                 dispatch(setLogin(response));
+                hashHistory.push('securities');
+
+            },
+            response => {
+                dispatch(setLoginError(response));
             }
         );
     };
+}
+
+function setLogin(data) {
+    return {type: LOGIN_SUCCESS, username: data.entity.userName, token: data.entity.token};
+}
+
+function setLoginError(data) {
+    return {type: LOGIN_FAIL, errorMessage: data.status.code + ":" + data.status.text};
+}
+
+export function logout() {
+    return function (dispatch) {
+        return createClient()({
+            method: 'DELETE',
+            path: '/api/session'
+        }).then(response => {
+            localStorage.removeItem('auth-token');
+            dispatch(setLogin(response));
+            hashHistory.push('login');
+
+        });
+    };
+}
+
+function setLogout(data) {
+    return {type: LOGOUT_SUCCESS};
 }

@@ -6,14 +6,22 @@ export default class LoginPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: "Ralf",
-            password: "ralf"
+            user: "",
+            password: ""
         };
     }
 
     handleSubmit() {
-        this.props.login(this.state.user, this.state.password);
+        let {login} = this.props;
+        login(this.state.user, this.state.password);
+    }
 
+    handleUserChange(e) {
+        this.setState({user: e.target.value});
+    }
+
+    handlePasswordChange(e) {
+        this.setState({password: e.target.value});
     }
 
     render() {
@@ -26,11 +34,13 @@ export default class LoginPage extends React.Component {
                 <Form>
                     <FormGroup>
                         <ControlLabel>User</ControlLabel>
-                        <FormControl id="user" type="text" placeholder="User" value={this.state.user}/>
+                        <FormControl id="user" type="text" placeholder="User" value={this.state.user}
+                                     onChange={(e)=>this.handleUserChange(e)}/>
                     </FormGroup>
                     <FormGroup>
                         <ControlLabel>Password</ControlLabel>
-                        <FormControl id="password" type="password" placeholder="Password" value={this.state.password}/>
+                        <FormControl id="password" type="password" placeholder="Password" value={this.state.password}
+                                     onChange={(e) => this.handlePasswordChange(e)}/>
                     </FormGroup>
                     <Button id="login" onClick={() => this.handleSubmit()}>Login</Button>
                 </Form>

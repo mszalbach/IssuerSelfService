@@ -36,6 +36,7 @@ public class SecurityRestSteps {
 
     }
 
+    @Step
     public List<Security> findSecurity(Security security) {
         Security[] securities = given().contentType(ContentType.JSON).auth().basic("Ralf", "ralf").when().get("securities/search/findByIsin?isin=" + security.isin).jsonPath().getObject("_embedded.securities", Security[].class);
 

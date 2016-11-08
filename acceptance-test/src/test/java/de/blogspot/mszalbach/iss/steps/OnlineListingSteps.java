@@ -4,6 +4,7 @@ import cucumber.api.java.de.Angenommen;
 import cucumber.api.java.de.Dann;
 import cucumber.api.java.de.Wenn;
 import de.blogspot.mszalbach.iss.domain.Security;
+import de.blogspot.mszalbach.iss.pageobjects.LoginPage;
 import de.blogspot.mszalbach.iss.pageobjects.SecurityListPage;
 import net.thucydides.core.annotations.Steps;
 
@@ -21,6 +22,8 @@ public class OnlineListingSteps {
 
     SecurityListPage securityPage;
 
+    LoginPage loginPage;
+
     @Steps
     SecurityRestSteps securityRest;
 
@@ -31,7 +34,6 @@ public class OnlineListingSteps {
 
     @Dann("^sollte seine Werpapierliste (\\d+) Einträge haben$")
     public void checkSecurityCount(int count) {
-        securityPage.open();
         assertThat(securityPage.getCount(), is(count));
     }
 
@@ -53,11 +55,18 @@ public class OnlineListingSteps {
     @Wenn("^er das Wertpapier \"([^\"]*)\" löscht$")
     public void deleteSecurityViaWebsite(String isin) throws Throwable {
         securityPage.open();
-        securityPage.deleteSeurity(new Security(isin, ""));
+        securityPage.deleteSecurity(new Security(isin, ""));
     }
 
     @Dann("^gibt es kein Wertpapier \"([^\"]*)\" mehr$")
     public void checkSecurityDidNotExist(String isin) throws Throwable {
         assertThat(securityRest.findSecurity(new Security(isin, "")), empty());
+    }
+
+    @Angenommen("^Ralf ist angemeldet$")
+    public void loginAsRalf() throws Throwable {
+        loginPage.open();
+        loginPage.login("Ralf", "ralf");
+        loginPage.submitForm();
     }
 }
