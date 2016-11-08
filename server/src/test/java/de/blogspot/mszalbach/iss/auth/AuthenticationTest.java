@@ -6,15 +6,19 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
@@ -69,9 +73,18 @@ public class AuthenticationTest {
     }
 
     @Test
-    public void should__allow_access_to_session_resource() throws Exception {
+    public void should_allow_access_to_session_resource() throws Exception {
 
         mockMvc.perform(get("/api/session")).andExpect(status().isOk());
+    }
+
+    @Test
+    public void should_genearate_a_token_when_logging_in_via_session() throws Exception {
+        mockMvc.perform(post("/api/session").contentType(MediaType.APPLICATION_JSON)
+                .content("{\"username\": \"Ralf\",\"password\":\"ralf\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("token", is("1")))
+                .andExpect(jsonPath("userName", is("Ralf")));
     }
 
 }

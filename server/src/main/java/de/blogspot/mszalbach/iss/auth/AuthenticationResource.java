@@ -5,12 +5,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -25,22 +25,21 @@ public class AuthenticationResource {
     AuthenticationManager authenticationManager;
 
     @RequestMapping(method = RequestMethod.POST)
-    public String login(HttpSession httpSession) {
-        Authentication authentication = new UsernamePasswordAuthenticationToken("Ralf", "ralf");
+    public User login(@RequestBody Credentials credentials, HttpSession httpSession) {
+        Authentication authentication = new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword());
         SecurityContextHolder.getContext().setAuthentication(authenticationManager.authenticate(authentication));
-        return httpSession.getId();
+        User user = new User(credentials.getUsername(), httpSession.getId(), true);
+        httpSession.setAttribute("user", user);
+        return user;
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public void logout(HttpServletRequest request) throws ServletException {
-        request.logout();
+    public void logout(HttpSession session) throws ServletException {
+        session.invalidate();
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public Object details() throws ServletException {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return auth;
-
-
+    public User details(HttpSession session) throws ServletException {
+        return (User) session.getAttribute("user");
     }
 }
