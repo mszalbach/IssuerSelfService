@@ -11,7 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -45,7 +44,7 @@ public class AuthenticationResource {
     }
 
     @ExceptionHandler(AuthenticationException.class)
-    public ResponseEntity<AuthenticationException> userNotAuthenticated(HttpServletRequest req, AuthenticationException e) {
+    public ResponseEntity<AuthenticationException> userNotAuthenticated(AuthenticationException e) {
         return new ResponseEntity<>(e, HttpStatus.UNAUTHORIZED);
     }
 }
