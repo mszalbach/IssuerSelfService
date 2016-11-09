@@ -1,6 +1,7 @@
 import {createClient} from "../rest/client";
 
 const FETCH_SUCCESS = 'securities/FETCH_SUCCESS';
+const FETCH_FAIL = 'securities/FETCH_FAIL';
 const DELETE_SUCCESS = 'security/DELETE_SUCCESS';
 const ADD_SUCCESS = 'security/ADD_SUCCESS';
 
@@ -16,6 +17,11 @@ export default function securitiesReducer(state = initialState, action) {
                 ...state,
                 securities: action.securities,
             };
+        case FETCH_FAIL:
+            return {
+                ...state,
+                securities: action.securities,
+            };
         default:
             return state;
     }
@@ -25,11 +31,19 @@ function setSecurities(data) {
     return {type: FETCH_SUCCESS, securities: data.entity._embedded.securities};
 }
 
+function setSecuritiesError() {
+    return {type: FETCH_FAIL, securities: []};
+}
+
 
 export function fetchSecurities() {
     return function (dispatch) {
-        return createClient()({method: 'GET', path: '/api/securities'}).then(response => {
+        return createClient()({method: 'GET', path: '/api/securities'}).then(
+            response => {
                 dispatch(setSecurities(response));
+            },
+            response => {
+                dispatch(setSecuritiesError());
             }
         );
     };
