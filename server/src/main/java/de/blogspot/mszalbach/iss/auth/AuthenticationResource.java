@@ -1,16 +1,17 @@
 package de.blogspot.mszalbach.iss.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -41,5 +42,10 @@ public class AuthenticationResource {
     @RequestMapping(method = RequestMethod.GET)
     public User details(HttpSession session) throws ServletException {
         return (User) session.getAttribute("user");
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<AuthenticationException> userNotAuthenticated(HttpServletRequest req, AuthenticationException e) {
+        return new ResponseEntity<>(e, HttpStatus.UNAUTHORIZED);
     }
 }

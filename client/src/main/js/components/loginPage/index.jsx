@@ -26,7 +26,7 @@ export default class LoginPage extends React.Component {
 
     render() {
         const {errorMessage} = this.props;
-        const errorPanel = errorMessage ? <Alert bsStyle="warning">{errorMessage}</Alert> : null;
+        const errorPanel = errorMessage ? <Alert id="loginError" bsStyle="warning">{errorMessage}</Alert> : null;
 
         return (
             <div>

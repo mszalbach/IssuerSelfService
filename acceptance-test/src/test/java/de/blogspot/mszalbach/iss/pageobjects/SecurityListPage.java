@@ -2,7 +2,6 @@ package de.blogspot.mszalbach.iss.pageobjects;
 
 import de.blogspot.mszalbach.iss.domain.Security;
 import net.serenitybdd.core.annotations.findby.By;
-import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.WebElement;
@@ -18,11 +17,8 @@ import static net.thucydides.core.pages.components.HtmlTable.rowsFrom;
 @DefaultUrl("http://localhost:8080/#/securities")
 public class SecurityListPage extends PageObject {
 
-    @FindBy(id = "securities")
-    WebElement securitiesTable;
-
     public int getCount() {
-        List<Map<Object, String>> rows = rowsFrom(securitiesTable);
+        List<Map<Object, String>> rows = rowsFrom(find(By.id("securities")));
         return rows.size();
     }
 
@@ -35,5 +31,11 @@ public class SecurityListPage extends PageObject {
         WebElement openCreateButton = find(By.id("openCreate"));
         openCreateButton.click();
         return this.switchToPage(SecurityEnterPage.class);
+    }
+
+    public String loggedInAs() {
+        WebElement userdropdown = find(By.id("userdropdown"));
+        userdropdown.click();
+        return userdropdown.getText();
     }
 }

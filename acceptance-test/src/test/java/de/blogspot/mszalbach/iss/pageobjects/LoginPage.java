@@ -32,4 +32,9 @@ public class LoginPage extends PageObject {
         find(By.id(id)).click();
     }
 
+    public String getLoginError() {
+        WebElement loginError = find(By.id("loginError"));
+        element(loginError).waitUntilPresent();
+        return loginError.getText().trim();
+    }
 }

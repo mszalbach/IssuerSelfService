@@ -22,7 +22,8 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 isAuthenticated: true,
                 username: action.username,
-                token: action.token
+                token: action.token,
+                errorMessage: null
             };
         case LOGIN_FAIL:
             return {
@@ -36,7 +37,8 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 isAuthenticated: false,
                 username: null,
-                token: null
+                token: null,
+                errorMessage: null
             };
         default:
             return state;
@@ -72,7 +74,7 @@ function setLogin(data) {
 }
 
 function setLoginError(data) {
-    return {type: LOGIN_FAIL, errorMessage: data.status.code + ":" + data.status.text};
+    return {type: LOGIN_FAIL, errorMessage: data.status.code + ":" + data.entity.message};
 }
 
 export function logout() {

@@ -8,11 +8,16 @@ export default class UserControl extends React.Component {
     render() {
         let {username, logout, isAuthenticated} = this.props;
 
+        let control;
         if (isAuthenticated) {
-            return <UserDropdown username={username} logout={logout}/>
+            control = <UserDropdown username={username} logout={logout}/>;
         } else {
-            return <SignInButton />
+            control = <SignInButton />;
         }
+
+        return ( <div id="usercontrol">
+            {control}
+        </div>)
     }
 }
 
