@@ -82,9 +82,8 @@ export function logout() {
             path: '/api/session'
         }).then(response => {
             localStorage.removeItem('auth-token');
-            dispatch(setLogin(response));
+            dispatch(setLogout(response));
             hashHistory.push('login');
-
         });
     };
 }

@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import SecurityTable from "../../components/securityTable";
 import CreateDialog from "../../components/createDialog";
+import UserDropdown from "../../container/userControl";
 import {fetchSecurities, deleteSecurity, addSecurity} from "../../reducers/securities";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap-theme.css";
@@ -23,7 +24,7 @@ class Securities extends React.Component {
 
     render() {
         return <div>
-            <div>Hallo {localStorage.getItem('auth-token')}</div>
+            <UserDropdown/>
             <CreateDialog attributes={this.state.attributes} onCreate={(security) => this.props.addSecurity(security)}/>
             <br/>
             <SecurityTable securities={this.props.securities}
