@@ -74,7 +74,10 @@ function setLogin(data) {
 }
 
 function setLoginError(data) {
-    return {type: LOGIN_FAIL, errorMessage: data.status.code + ":" + data.entity.message};
+    return {
+        type: LOGIN_FAIL,
+        errorMessage: data.status.code + ":" + (data.entity.message ? data.entity.message : data.status.text)
+    };
 }
 
 export function logout() {
