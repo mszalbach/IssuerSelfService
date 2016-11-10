@@ -1,12 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {Route, Router, IndexRedirect, hashHistory} from "react-router";
+import {hashHistory, Route, Router, IndexRedirect} from "react-router";
 import {syncHistoryWithStore} from "react-router-redux";
 import {Provider} from "react-redux";
-import Securities from "container/securities";
-import LoginPage from "container/login";
-import NoMatch from "components/noMatch";
 import initStore from "config/store";
+import MainLayout from "./components/MainLayout";
+import Landing from "./components/landingPage";
+import LoginPage from "./container/login";
+import NoMatch from "./components/noMatch";
+import Securities from "container/securities";
+import {requireAuthentication} from "container/auth";
 
 const store = initStore();
 const history = syncHistoryWithStore(hashHistory, store);
@@ -17,19 +20,20 @@ export default class App extends React.Component {
         return (
             <Provider store={store}>
                 <Router history={history}>
-                    <Route path="/">
-                        <IndexRedirect to="/securities"/>
+                    <Route path="/" component={MainLayout}>
+                        <IndexRedirect to="landing"/>
+                        <Route path="landing"
+                               component={Landing}/>
+                        <Route path="securities"
+                               component={requireAuthentication(Securities)}/>
+                        <Route path="login"
+                               component={LoginPage}/>
+                        <Route path="*" component={NoMatch}/>
                     </Route>
-                    <Route path="securities"
-                           component={Securities}/>
-                    <Route path="login"
-                           component={LoginPage}/>
-                    <Route path="*" component={NoMatch}/>
                 </Router>
             </Provider>
         )
-    }
-
+    };
 }
 
 

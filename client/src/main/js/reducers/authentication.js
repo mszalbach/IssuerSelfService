@@ -47,7 +47,7 @@ export default function reducer(state = initialState, action) {
 
 
 export function login(username, password) {
-    return function (dispatch) {
+    return function (dispatch, getState) {
         return createClient()({
             method: 'POST',
             path: '/api/session',

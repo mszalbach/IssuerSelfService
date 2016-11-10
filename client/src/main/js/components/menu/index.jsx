@@ -24,7 +24,10 @@ export default class Menu extends React.Component {
                     </Navbar.Brand>
                 </Navbar.Header>
                 <Nav>
-                    <LinkContainer to="/securities">
+                    <LinkContainer to="landing">
+                        <NavItem>Landing</NavItem>
+                    </LinkContainer>
+                    <LinkContainer to="securities">
                         <NavItem>Securities</NavItem>
                     </LinkContainer>
                 </Nav>

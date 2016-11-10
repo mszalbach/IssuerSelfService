@@ -2,7 +2,6 @@ import React from "react";
 import {connect} from "react-redux";
 import SecurityTable from "../../components/securityTable";
 import CreateDialog from "../../components/createDialog";
-import Menu from "../../container/menu";
 import {fetchSecurities, deleteSecurity, addSecurity} from "../../reducers/securities";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap-theme.css";
@@ -28,7 +27,6 @@ class Securities extends React.Component {
 
     render() {
         return <div>
-            <Menu />
             <CreateDialog attributes={this.state.attributes} onCreate={this.props.addSecurity}/>
             <br/>
             <SecurityTable securities={this.props.securities}
