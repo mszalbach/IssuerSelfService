@@ -4,23 +4,26 @@ import {Button, Modal, FormGroup, FormControl, ControlLabel, Form} from "react-b
 
 export default class CreateDialog extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            showModal: false
-        };
-    }
 
-    close() {
+    static propTypes = {
+        onCreate: React.PropTypes.func.isRequired,
+        attributes: React.PropTypes.array.isRequired
+    };
+
+    state = {
+        showModal: false,
+    };
+
+    close = () => {
         this.setState({showModal: false});
-    }
+    };
 
 
-    open() {
+    open = () => {
         this.setState({showModal: true});
-    }
+    };
 
-    handleSubmit(e) {
+    handleSubmit = (e) => {
         e.preventDefault();
         var newSecurity = {};
         this.props.attributes.forEach(attribute => {
@@ -31,7 +34,7 @@ export default class CreateDialog extends React.Component {
             ReactDOM.findDOMNode(this.refs[attribute]).value = ''; // clear out the dialog's inputs
         });
         this.close();
-    }
+    };
 
     render() {
         var inputs = this.props.attributes.map(attribute =>
@@ -43,9 +46,9 @@ export default class CreateDialog extends React.Component {
 
         return (
             <div>
-                <Button onClick={() => this.open()} id="openCreate">Create Security</Button>
+                <Button onClick={this.open} id="openCreate">Create Security</Button>
 
-                <Modal show={this.state.showModal} onHide={() => this.close()}>
+                <Modal show={this.state.showModal} onHide={this.close}>
                     <Modal.Header closeButton>
                         <Modal.Title>Create Security</Modal.Title>
                     </Modal.Header>
@@ -55,8 +58,8 @@ export default class CreateDialog extends React.Component {
                         </Form>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button id="create" onClick={(event)=>this.handleSubmit(event)}>Create</Button>
-                        <Button onClick={() => this.close()}>Close</Button>
+                        <Button id="create" onClick={this.handleSubmit}>Create</Button>
+                        <Button onClick={this.close}>Close</Button>
                     </Modal.Footer>
                 </Modal>
             </div>

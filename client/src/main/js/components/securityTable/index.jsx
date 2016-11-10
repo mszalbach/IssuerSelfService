@@ -3,8 +3,13 @@ import {Table, Button} from "react-bootstrap";
 
 export default class SecurityTable extends React.Component {
 
+    static propTypes = {
+        securities: React.PropTypes.array.isRequired,
+        onDelete: React.PropTypes.func.isRequired
+    };
+
     render() {
-        const {securities} = this.props;
+        let {securities, onDelete} = this.props;
         return (
             <Table id="securities" striped bordered condensed hover responsive>
                 <thead>
@@ -16,7 +21,7 @@ export default class SecurityTable extends React.Component {
                 </thead>
                 <tbody>
                 {securities.map(security => <SecurityRow key={security._links.self.href} security={security}
-                                                         onDelete={this.props.onDelete}/>)}
+                                                         onDelete={onDelete}/>)}
                 </tbody>
             </Table>
         );
@@ -25,9 +30,9 @@ export default class SecurityTable extends React.Component {
 
 class SecurityRow extends React.Component {
 
-    handleDelete() {
+    handleDelete = () => {
         this.props.onDelete(this.props.security);
-    }
+    };
 
     render() {
         let security = this.props.security;
@@ -36,7 +41,7 @@ class SecurityRow extends React.Component {
                 <td>{security.isin}</td>
                 <td>{security.symbol}</td>
                 <td>
-                    <Button id={"delete_" + security.isin} onClick={() => this.handleDelete()}>X</Button>
+                    <Button id={"delete_" + security.isin} onClick={this.handleDelete}>X</Button>
                 </td>
             </tr>
         );

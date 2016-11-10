@@ -10,12 +10,16 @@ import "bootstrap/dist/css/bootstrap-theme.css";
 
 class Securities extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            attributes: ["isin", "symbol"]
-        };
-    }
+    static propTypes = {
+        fetchSecurities: React.PropTypes.func.isRequired,
+        deleteSecurity: React.PropTypes.func.isRequired,
+        addSecurity: React.PropTypes.func.isRequired,
+    };
+
+    state = {
+        attributes: ["isin", "symbol"],
+    };
+
 
     componentDidMount() {
         this.props.fetchSecurities();
@@ -25,10 +29,10 @@ class Securities extends React.Component {
     render() {
         return <div>
             <UserDropdown/>
-            <CreateDialog attributes={this.state.attributes} onCreate={(security) => this.props.addSecurity(security)}/>
+            <CreateDialog attributes={this.state.attributes} onCreate={this.props.addSecurity}/>
             <br/>
             <SecurityTable securities={this.props.securities}
-                           onDelete={(security) => this.props.deleteSecurity(security)}/>
+                           onDelete={this.props.deleteSecurity}/>
         </div>;
     }
 }

@@ -3,30 +3,33 @@ import {Button, FormGroup, FormControl, ControlLabel, Form, Alert} from "react-b
 
 export default class LoginPage extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            user: "",
-            password: ""
-        };
-    }
 
-    handleSubmit() {
+    static propTypes = {
+        login: React.PropTypes.func.isRequired,
+        errorMessage: React.PropTypes.string
+    };
+
+    state = {
+        user: "",
+        password: ""
+    };
+
+    handleSubmit = () => {
         let {login} = this.props;
         login(this.state.user, this.state.password);
     }
 
-    handleUserChange(e) {
+    handleUserChange = (e) => {
         this.setState({user: e.target.value});
     }
 
-    handlePasswordChange(e) {
+    handlePasswordChange = (e) => {
         this.setState({password: e.target.value});
     }
 
     render() {
-        const {errorMessage} = this.props;
-        const errorPanel = errorMessage ? <Alert id="loginError" bsStyle="warning">{errorMessage}</Alert> : null;
+        let {errorMessage} = this.props;
+        let errorPanel = errorMessage ? <Alert id="loginError" bsStyle="warning">{errorMessage}</Alert> : null;
 
         return (
             <div>
@@ -35,14 +38,14 @@ export default class LoginPage extends React.Component {
                     <FormGroup>
                         <ControlLabel>User</ControlLabel>
                         <FormControl id="user" type="text" placeholder="User" value={this.state.user}
-                                     onChange={(e)=>this.handleUserChange(e)}/>
+                                     onChange={this.handleUserChange}/>
                     </FormGroup>
                     <FormGroup>
                         <ControlLabel>Password</ControlLabel>
                         <FormControl id="password" type="password" placeholder="Password" value={this.state.password}
-                                     onChange={(e) => this.handlePasswordChange(e)}/>
+                                     onChange={this.handlePasswordChange}/>
                     </FormGroup>
-                    <Button id="login" onClick={() => this.handleSubmit()}>Login</Button>
+                    <Button id="login" onClick={this.handleSubmit}>Login</Button>
                 </Form>
             </div>
         )

@@ -5,6 +5,13 @@ import {hashHistory} from "react-router";
 export default class UserControl extends React.Component {
 
 
+    static propTypes = {
+        username: React.PropTypes.string,
+        logout: React.PropTypes.func,
+        isAuthenticated: React.PropTypes.bool,
+    };
+
+
     render() {
         let {username, logout, isAuthenticated} = this.props;
 
@@ -36,11 +43,11 @@ export class UserDropdown extends React.Component {
 
 export class SignInButton extends React.Component {
 
-    handleSubmit() {
+    handleSubmit = () => {
         hashHistory.push("login");
-    }
+    };
 
     render() {
-        return <Button id="signin" onClick={() => this.handleSubmit()}>Sign In</Button>
+        return <Button id="signin" onClick={this.handleSubmit}>Sign In</Button>
     }
 }
