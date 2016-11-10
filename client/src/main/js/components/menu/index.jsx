@@ -1,8 +1,7 @@
 import React from "react";
 import {Link} from "react-router";
-import {Navbar, Nav, NavItem} from "react-bootstrap";
+import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from "react-bootstrap";
 import {LinkContainer} from "react-router-bootstrap";
-import UserControl from "../../components/userControl";
 
 export default class Menu extends React.Component {
 
@@ -30,9 +29,39 @@ export default class Menu extends React.Component {
                     </LinkContainer>
                 </Nav>
                 <Nav pullRight>
-                    <UserControl username={username} logout={logout} isAuthenticated={isAuthenticated}/>
+                    { isAuthenticated ? (
+                        <UserDropdown username={username} logout={logout}/>
+                    ) : (
+                        <SignInButton />
+                    )}
                 </Nav>
             </Navbar>
+        )
+    }
+}
+
+export class UserDropdown extends React.Component {
+
+
+    render() {
+        let {username, logout} = this.props;
+        return (
+            <NavDropdown title={username} id="userdropdown">
+                <MenuItem header>Signed in as <strong>{username}</strong></MenuItem>
+                <MenuItem divider/>
+                <MenuItem id="logout" eventKey="1" onClick={logout}>Logout</MenuItem>
+            </NavDropdown>)
+    }
+}
+
+
+export class SignInButton extends React.Component {
+
+    render() {
+        return (
+            <LinkContainer to="/login">
+                <NavItem id="signin">Sign In</NavItem>
+            </LinkContainer>
         )
     }
 }
