@@ -16,18 +16,13 @@ export function requireAuthentication(Component) {
         }
 
         render() {
-            // render the component that requires auth (passed to this wrapper)
-            return (
-                <Component  {...this.props} />
-            )
+            return this.props.isAuthenticated ? <Component  {...this.props} /> : null;
         }
     }
 
-    const mapStateToProps =
+    return connect(
         (state) => ({
             isAuthenticated: state.authentication.isAuthenticated
-        });
-
-    return connect(mapStateToProps)(AuthComponent);
+        }))(AuthComponent);
 
 }
