@@ -34,6 +34,7 @@ public class OnlineListingSteps {
 
     @Dann("^sollte seine Werpapierliste (\\d+) Einträge haben$")
     public void checkSecurityCount(int count) {
+        securityPage.open();
         assertThat(securityPage.getCount(), is(count));
     }
 
@@ -44,6 +45,7 @@ public class OnlineListingSteps {
 
     @Wenn("^er ein Wertpapier mit folgenden Daten anlegt$")
     public void enterSecurityViaWebsite(List<Security> security) throws Throwable {
+        securityPage.open();
         securityPage.openCreateSecurityDialog().insertSecurity(security.get(0)).submitForm();
     }
 
