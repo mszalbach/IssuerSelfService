@@ -1,6 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {hashHistory} from "react-router";
+import {replace} from "react-router-redux";
 
 export function requireAuthentication(Component) {
 
@@ -8,7 +9,7 @@ export function requireAuthentication(Component) {
 
         componentWillMount() {
             if (!this.props.isAuthenticated) {
-                hashHistory.replace({
+                this.props.replace({
                     pathname: '/login',
                     state: {nextPathname: hashHistory.getCurrentLocation().pathname}
                 });
@@ -23,6 +24,8 @@ export function requireAuthentication(Component) {
     return connect(
         (state) => ({
             isAuthenticated: state.authentication.isAuthenticated
-        }))(AuthComponent);
+        }),
+        {replace}
+    )(AuthComponent);
 
 }

@@ -1,4 +1,4 @@
-import {hashHistory} from "react-router";
+import {push} from "react-router-redux";
 import {createClient} from "../rest/client";
 
 const LOGIN = 'authentication/LOGIN';
@@ -59,8 +59,8 @@ export function login(username, password) {
         }).then(response => {
                 localStorage.setItem('auth-token', response.entity.token);
                 dispatch(setLogin(response));
-                hashHistory.push('securities');
-
+                let pathname = getState().routing.locationBeforeTransitions.state.nextPathname || '';
+                dispatch(push(pathname));
             },
             response => {
                 dispatch(setLoginError(response));
@@ -88,7 +88,7 @@ export function logout() {
         }).then(response => {
             localStorage.removeItem('auth-token');
             dispatch(setLogout(response));
-            hashHistory.push('login');
+            dispatch(push('login'));
         });
     };
 }
