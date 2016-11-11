@@ -59,8 +59,12 @@ export function login(username, password) {
         }).then(response => {
                 localStorage.setItem('auth-token', response.entity.token);
                 dispatch(setLogin(response));
-                let pathname = getState().routing.locationBeforeTransitions.state.nextPathname || '';
-                dispatch(push(pathname));
+
+                let nextPath = '';
+                if (getState().routing.locationBeforeTransitions.state) {
+                    nextPath = getState().routing.locationBeforeTransitions.state || '';
+                }
+                dispatch(push(nextPath));
             },
             response => {
                 dispatch(setLoginError(response));
