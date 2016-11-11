@@ -29,7 +29,8 @@ class Securities extends React.Component {
         return <div>
             <CreateDialog attributes={this.state.attributes} onCreate={this.props.addSecurity}/>
             <br/>
-            <SecurityTable securities={this.props.securities}
+            <SecurityTable attributes={this.state.attributes}
+                           securities={this.props.securities}
                            onDelete={this.props.deleteSecurity}/>
         </div>;
     }

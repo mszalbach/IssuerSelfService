@@ -5,22 +5,26 @@ export default class SecurityTable extends React.Component {
 
     static propTypes = {
         securities: React.PropTypes.array.isRequired,
+        attributes: React.PropTypes.array.isRequired,
         onDelete: React.PropTypes.func.isRequired
     };
 
     render() {
-        let {securities, onDelete} = this.props;
+        let {securities, attributes, onDelete} = this.props;
         return (
             <Table id="securities" striped bordered condensed hover responsive>
                 <thead>
                 <tr>
-                    <th>ISIN</th>
-                    <th>Symbol</th>
+                    {attributes.map(attribute =>
+                        <th key={"heading_" + attribute}>{attribute}</th>
+                    )}
                     <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
-                {securities.map(security => <SecurityRow key={security._links.self.href} security={security}
+                {securities.map(security => <SecurityRow key={security._links.self.href}
+                                                         security={security}
+                                                         attributes={attributes}
                                                          onDelete={onDelete}/>)}
                 </tbody>
             </Table>
@@ -35,11 +39,12 @@ class SecurityRow extends React.Component {
     };
 
     render() {
-        let security = this.props.security;
+        let {security, attributes} = this.props;
         return (
             <tr>
-                <td>{security.isin}</td>
-                <td>{security.symbol}</td>
+                {attributes.map(attribute =>
+                    <td key={attribute}>{security[attribute]}</td>)
+                }
                 <td>
                     <Button id={"delete_" + security.isin} onClick={this.handleDelete}>X</Button>
                 </td>
