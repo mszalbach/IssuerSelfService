@@ -4,11 +4,12 @@ const FETCH_SUCCESS = 'securities/FETCH_SUCCESS';
 const FETCH_FAIL = 'securities/FETCH_FAIL';
 const DELETE_SUCCESS = 'security/DELETE_SUCCESS';
 const ADD_SUCCESS = 'security/ADD_SUCCESS';
+const FETCH_ATTRIBUTES_SUCCESS = 'security/FETCH_ATTRIBUTES_SUCCESS';
 
 
 const initialState = {
     securities: [],
-    attributes: ["isin", "symbol"]
+    attributes: []
 };
 
 export default function securitiesReducer(state = initialState, action) {
@@ -22,6 +23,11 @@ export default function securitiesReducer(state = initialState, action) {
             return {
                 ...state,
                 securities: action.securities,
+            };
+        case FETCH_ATTRIBUTES_SUCCESS:
+            return {
+                ...state,
+                attributes: action.attributes,
             };
         default:
             return state;
@@ -84,4 +90,22 @@ export function addSecurity(security) {
             dispatch(fetchSecurities());
         })
     };
+}
+
+export function fetchAttributes() {
+    return function (dispatch) {
+        return createClient()({
+            method: 'GET',
+            path: '/api/profile/securities',
+            headers: {'Content-Type': 'application/schema+json'}
+        }).then(
+            response => {
+                dispatch(setAttributes(response));
+            }
+        );
+    };
+}
+
+function setAttributes(data) {
+    return {type: FETCH_ATTRIBUTES_SUCCESS, attributes: Object.keys(data.entity.properties)};
 }

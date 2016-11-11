@@ -24,7 +24,8 @@ describe('<SecurityTable/>', () => {
     });
     it('should call delete function', () => {
         let onDeleteSpy = jasmine.createSpy('onDeleteSpy');
-        let wrapper = mount(<SecurityTable securities={securities} onDelete={onDeleteSpy} attributes={attributes}/>);
+        let wrapper = mount(<SecurityTable securities={securities} deleteSecurity={onDeleteSpy}
+                                           attributes={attributes}/>);
         wrapper.find("#delete_US02079K1079").simulate('click');
         expect(onDeleteSpy).toHaveBeenCalledWith(
             {

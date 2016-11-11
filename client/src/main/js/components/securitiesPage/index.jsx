@@ -6,10 +6,12 @@ import CreateDialog from "../../container/createDialog";
 export default class SecuritiesPage extends React.Component {
 
     static propTypes = {
-        fetchSecurities: React.PropTypes.func.isRequired
+        fetchSecurities: React.PropTypes.func.isRequired,
+        fetchAttributes: React.PropTypes.func.isRequired
     };
 
     componentDidMount() {
+        this.props.fetchAttributes();
         this.props.fetchSecurities();
     }
 

@@ -35,7 +35,7 @@ describe('<CreateDialog/>', () => {
 
     it('should call onCreateFunction with form values', () => {
         let onCreateSpy = jasmine.createSpy('onCreateSpy');
-        let wrapper = mount(<CreateDialog attributes={["correct"]} onCreate={onCreateSpy}/>);
+        let wrapper = mount(<CreateDialog attributes={["correct"]} addSecurity={onCreateSpy}/>);
         wrapper.find("button").simulate('click');
         document.getElementById("correct").value = "True";
         document.getElementById("create").click();
