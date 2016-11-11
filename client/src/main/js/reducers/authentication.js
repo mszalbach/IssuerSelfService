@@ -11,7 +11,6 @@ const LOGOUT_SUCCESS = 'authentication/LOGOUT_SUCCESS';
 const initialState = {
     isAuthenticated: false,
     username: null,
-    token: null,
     errorMessage: null,
 };
 
@@ -22,7 +21,6 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 isAuthenticated: true,
                 username: action.username,
-                token: action.token,
                 errorMessage: null
             };
         case LOGIN_FAIL:
@@ -37,7 +35,6 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 isAuthenticated: false,
                 username: null,
-                token: null,
                 errorMessage: null
             };
         default:
@@ -59,10 +56,9 @@ export function login(username, password) {
         }).then(response => {
                 localStorage.setItem('auth-token', response.entity.token);
                 dispatch(setLogin(response));
-
                 let nextPath = '';
                 if (getState().routing.locationBeforeTransitions.state) {
-                    nextPath = getState().routing.locationBeforeTransitions.state || '';
+                    nextPath = getState().routing.locationBeforeTransitions.state.nextPathname || '';
                 }
                 dispatch(push(nextPath));
             },
@@ -74,7 +70,7 @@ export function login(username, password) {
 }
 
 function setLogin(data) {
-    return {type: LOGIN_SUCCESS, username: data.entity.userName, token: data.entity.token};
+    return {type: LOGIN_SUCCESS, username: data.entity.userName};
 }
 
 function setLoginError(data) {
@@ -91,12 +87,12 @@ export function logout() {
             path: '/api/session'
         }).then(response => {
             localStorage.removeItem('auth-token');
-            dispatch(setLogout(response));
+            dispatch(setLogout());
             dispatch(push('login'));
         });
     };
 }
 
-function setLogout(data) {
+function setLogout() {
     return {type: LOGOUT_SUCCESS};
 }
