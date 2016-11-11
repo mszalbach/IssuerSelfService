@@ -6,7 +6,7 @@ export default class CreateDialog extends React.Component {
 
 
     static propTypes = {
-        onCreate: React.PropTypes.func.isRequired,
+        addSecurity: React.PropTypes.func.isRequired,
         attributes: React.PropTypes.array.isRequired
     };
 
@@ -29,7 +29,7 @@ export default class CreateDialog extends React.Component {
         this.props.attributes.forEach(attribute => {
             newSecurity[attribute] = ReactDOM.findDOMNode(this.refs[attribute]).value.trim();
         });
-        this.props.onCreate(newSecurity);
+        this.props.addSecurity(newSecurity);
         this.props.attributes.forEach(attribute => {
             ReactDOM.findDOMNode(this.refs[attribute]).value = ''; // clear out the dialog's inputs
         });

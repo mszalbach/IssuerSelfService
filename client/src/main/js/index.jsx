@@ -6,9 +6,9 @@ import {Provider} from "react-redux";
 import initStore from "config/store";
 import MainLayout from "./components/MainLayout";
 import Landing from "./components/landingPage";
-import LoginPage from "./container/login";
+import LoginPage from "./container/loginPage";
 import NoMatch from "./components/noMatch";
-import Securities from "container/securities";
+import SecuritiesPage from "container/securitiesPage";
 import {requireAuthentication} from "container/auth";
 
 const store = initStore();
@@ -25,7 +25,7 @@ export default class App extends React.Component {
                         <Route path="landing"
                                component={Landing}/>
                         <Route path="securities"
-                               component={requireAuthentication(Securities)}/>
+                               component={requireAuthentication(SecuritiesPage)}/>
                         <Route path="login"
                                component={LoginPage}/>
                         <Route path="*" component={NoMatch}/>

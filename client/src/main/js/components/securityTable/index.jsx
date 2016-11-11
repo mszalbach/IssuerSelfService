@@ -6,11 +6,11 @@ export default class SecurityTable extends React.Component {
     static propTypes = {
         securities: React.PropTypes.array.isRequired,
         attributes: React.PropTypes.array.isRequired,
-        onDelete: React.PropTypes.func.isRequired
+        deleteSecurity: React.PropTypes.func.isRequired
     };
 
     render() {
-        let {securities, attributes, onDelete} = this.props;
+        let {securities, attributes, deleteSecurity} = this.props;
         return (
             <Table id="securities" striped bordered condensed hover responsive>
                 <thead>
@@ -25,7 +25,7 @@ export default class SecurityTable extends React.Component {
                 {securities.map(security => <SecurityRow key={security._links.self.href}
                                                          security={security}
                                                          attributes={attributes}
-                                                         onDelete={onDelete}/>)}
+                                                         onDelete={deleteSecurity}/>)}
                 </tbody>
             </Table>
         );

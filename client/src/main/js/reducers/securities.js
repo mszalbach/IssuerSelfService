@@ -7,7 +7,8 @@ const ADD_SUCCESS = 'security/ADD_SUCCESS';
 
 
 const initialState = {
-    securities: []
+    securities: [],
+    attributes: ["isin", "symbol"]
 };
 
 export default function securitiesReducer(state = initialState, action) {
