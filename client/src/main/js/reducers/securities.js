@@ -1,3 +1,4 @@
+import {toastr} from 'react-redux-toastr';
 import {createClient} from "../rest/client";
 
 const FETCH_SUCCESS = 'securities/FETCH_SUCCESS';
@@ -39,6 +40,7 @@ function setSecurities(data) {
 }
 
 function setSecuritiesError() {
+    toastr.warning("Security Fetch","Could not fetch Securities");
     return {type: FETCH_FAIL, securities: []};
 }
 
@@ -56,7 +58,8 @@ export function fetchSecurities() {
     };
 }
 
-function securityDeleted() {
+function securityDeleted(response) {
+    toastr.success("Security Delete","Security " + response.isin + " Deleted");
     return {type: DELETE_SUCCESS};
 }
 
@@ -66,14 +69,15 @@ export function deleteSecurity(security) {
             method: 'DELETE',
             path: security._links.self.href
         }).then(response => {
-                dispatch(securityDeleted());
+                dispatch(securityDeleted(security));
                 dispatch(fetchSecurities());
             }
         )
     };
 }
 
-function securityAdded() {
+function securityAdded(response) {
+    toastr.success("Security Add","Security " + response.entity.isin + " Added");
     return {type: ADD_SUCCESS};
 }
 
@@ -86,7 +90,7 @@ export function addSecurity(security) {
             entity: security,
             headers: {'Content-Type': 'application/json'}
         }).then(response => {
-            dispatch(securityAdded());
+            dispatch(securityAdded(response));
             dispatch(fetchSecurities());
         })
     };
@@ -100,12 +104,8 @@ export function fetchAttributes() {
             headers: {'Content-Type': 'application/schema+json'}
         }).then(
             response => {
-                dispatch(setAttributes(response));
+                dispatch({type: FETCH_ATTRIBUTES_SUCCESS, attributes: Object.keys(response.entity.properties)});
             }
         );
     };
-}
-
-function setAttributes(data) {
-    return {type: FETCH_ATTRIBUTES_SUCCESS, attributes: Object.keys(data.entity.properties)};
 }
