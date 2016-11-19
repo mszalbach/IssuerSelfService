@@ -29,3 +29,11 @@ Funktionalität: Online Kotierung
     Wenn Ralf ist angemeldet
     Und er das Wertpapier "US9843321061" löscht
     Dann gibt es kein Wertpapier "US9843321061" mehr
+
+  Szenario: Ungültiges Wertpapier anlegen
+    Angenommen Ralf ist angemeldet
+    Wenn er ein Wertpapier mit folgenden Daten anlegt
+      | isin   | symbol | nominalValue |
+      | FALSCH | MSFT   | -2           |
+    Dann sollte das Anlegen fehlschlagen mit folgenden Fehlern:
+      | ISIN not Valid. |

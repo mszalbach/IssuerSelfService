@@ -2,10 +2,14 @@ package de.blogspot.mszalbach.iss.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import de.blogspot.mszalbach.iss.validator.ISIN;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.DecimalMin;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -18,8 +22,13 @@ public class Security {
     @Id
     @GeneratedValue
     private Long id;
+    @ISIN
     public String isin;
     public String symbol;
+    @Column(scale = 2)
+    @DecimalMin("0")
+    public BigDecimal nominalValue;
+    public String issuer;
 
     public Security() {
     }
@@ -34,20 +43,11 @@ public class Security {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Security security = (Security) o;
-        return Objects.equals(isin, security.isin) &&
-                Objects.equals(symbol, security.symbol);
+        return Objects.equals(isin, security.isin);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(isin, symbol);
-    }
-
-    @Override
-    public String toString() {
-        return "Security{" +
-                "isin='" + isin + '\'' +
-                ", symbol='" + symbol + '\'' +
-                '}';
+        return Objects.hash(isin);
     }
 }

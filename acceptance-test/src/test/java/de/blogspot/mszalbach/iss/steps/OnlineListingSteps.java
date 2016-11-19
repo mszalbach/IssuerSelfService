@@ -1,5 +1,6 @@
 package de.blogspot.mszalbach.iss.steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.de.Angenommen;
 import cucumber.api.java.de.Dann;
 import cucumber.api.java.de.Wenn;
@@ -70,5 +71,10 @@ public class OnlineListingSteps {
         loginPage.open();
         loginPage.login("Ralf", "ralf");
         loginPage.submitForm();
+    }
+
+    @Dann("^sollte das Anlegen fehlschlagen mit folgenden Fehlern:$")
+    public void sollteDasAnlegenFehlschlagenMitFolgendenFehlern(List<String> errors) throws Throwable {
+        throw new PendingException();
     }
 }
