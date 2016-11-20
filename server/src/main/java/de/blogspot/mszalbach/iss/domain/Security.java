@@ -21,7 +21,7 @@ public class Security {
 
     @Id
     @GeneratedValue
-    private Long id;
+    public Long id;
     @ISIN
     public String isin;
     public String symbol;
