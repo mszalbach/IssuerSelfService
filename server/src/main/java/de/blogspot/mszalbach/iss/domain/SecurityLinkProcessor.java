@@ -1,7 +1,7 @@
 package de.blogspot.mszalbach.iss.domain;
 
-import de.blogspot.mszalbach.iss.statemachine.ContextEntity;
-import de.blogspot.mszalbach.iss.statemachine.DefaultStateMachineAdapter;
+import com.google.common.base.CaseFormat;
+import de.blogspot.mszalbach.iss.statemachine.security.SecurityStateMachieneAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.BasePathAwareController;
 import org.springframework.data.rest.webmvc.support.RepositoryEntityLinks;
@@ -15,13 +15,11 @@ import org.springframework.statemachine.transition.Transition;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.io.Serializable;
-
 /**
  * Created by foobarkilla on 20.11.16.
  */
 @BasePathAwareController
-public class SecurityWorkflowProcessor
+public class SecurityLinkProcessor
         implements ResourceProcessor<Resource<Security>> {
 
     @Autowired
@@ -31,7 +29,7 @@ public class SecurityWorkflowProcessor
     SecurityRepository repository;
 
     @Autowired
-    DefaultStateMachineAdapter<SecurityState, SecurityEvent, ContextEntity<SecurityState, SecurityEvent, Serializable>> stateMachineAdapter;
+    SecurityStateMachieneAdapter stateMachineAdapter;
 
 
 
@@ -59,7 +57,8 @@ public class SecurityWorkflowProcessor
             for ( Transition<SecurityState, SecurityEvent> transition : stateMachine.getTransitions() ) {
                 if ( stateMachine.getState().getId().equals( transition.getSource().getId() ) ) {
                     SecurityEvent event = transition.getTrigger().getEvent();
-                    securityResource.add( createLink( securityResource.getContent().getId(), event.toString() ) );
+                    securityResource
+                            .add( createLink( securityResource.getContent().getId(), event ) );
                 }
             }
 
@@ -72,7 +71,8 @@ public class SecurityWorkflowProcessor
 
 
 
-    private Link createLink( Object id, String path ) {
-        return entityLinks.linkForSingleResource( Security.class, id ).slash( path ).withRel( path + "-link" );
+    private Link createLink( Object id, Object event ) {
+        String rel = CaseFormat.UPPER_CAMEL.to( CaseFormat.LOWER_HYPHEN, event.toString() );
+        return entityLinks.linkForSingleResource( Security.class, id ).slash( event ).withRel( rel );
     }
 }

@@ -1,5 +1,7 @@
-package de.blogspot.mszalbach.iss.domain;
+package de.blogspot.mszalbach.iss.statemachine.security;
 
+import de.blogspot.mszalbach.iss.domain.SecurityEvent;
+import de.blogspot.mszalbach.iss.domain.SecurityState;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.statemachine.config.EnableStateMachineFactory;
 import org.springframework.statemachine.config.EnumStateMachineConfigurerAdapter;

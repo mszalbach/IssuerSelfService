@@ -1,8 +1,11 @@
 package de.blogspot.mszalbach.iss.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.blogspot.mszalbach.iss.statemachine.ContextEntity;
 import de.blogspot.mszalbach.iss.validator.ISIN;
 import org.springframework.statemachine.StateMachineContext;
@@ -38,7 +41,7 @@ public class Security
     private String     issuer;
 
     @Enumerated( EnumType.STRING )
-    SecurityState currentState;
+    private SecurityState currentState;
 
     @JsonIgnore
     StateMachineContext<SecurityState, SecurityEvent> stateMachineContext;
@@ -87,9 +90,45 @@ public class Security
     }
 
 
-
+    @JsonProperty
     public SecurityState getCurrentState() {
         return currentState;
+    }
+
+
+
+    public void setIsin( String isin ) {
+        this.isin = isin;
+    }
+
+
+
+    public void setSymbol( String symbol ) {
+        this.symbol = symbol;
+    }
+
+
+
+    public void setNominalValue( BigDecimal nominalValue ) {
+        this.nominalValue = nominalValue;
+    }
+
+
+
+    public void setId( Long id ) {
+        this.id = id;
+    }
+
+
+
+    public void setIssuer( String issuer ) {
+        this.issuer = issuer;
+    }
+
+
+    @JsonIgnore
+    public void setCurrentState( SecurityState currentState ) {
+        this.currentState = currentState;
     }
 
 

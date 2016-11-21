@@ -1,5 +1,6 @@
 package de.blogspot.mszalbach.iss.statemachine;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.config.StateMachineFactory;
@@ -10,17 +11,11 @@ import org.springframework.statemachine.persist.StateMachinePersister;
  */
 public class DefaultStateMachineAdapter<S, E, T> {
 
+    @Autowired
     private StateMachineFactory<S, E> stateMachineFactory;
 
+    @Autowired
     private StateMachinePersister<S, E, T> persister;
-
-
-
-    public DefaultStateMachineAdapter( StateMachineFactory<S, E> stateMachineFactory, StateMachinePersister<S, E, T> persister ) {
-        this.stateMachineFactory = stateMachineFactory;
-        this.persister = persister;
-    }
-
 
 
     public StateMachine<S, E> restore( T contextObject )
