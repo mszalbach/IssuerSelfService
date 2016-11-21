@@ -24,6 +24,7 @@
         <spring-boot.version>1.4.1.RELEASE</spring-boot.version>
         <!-- works with Firefox 45.0 -->
         <selenium.version>2.53.1</selenium.version>
+        <spring-statemachine.version>1.1.1.RELEASE</spring-statemachine.version>
     </properties>
 
     <build>
@@ -119,6 +120,22 @@
                 <groupId>commons-validator</groupId>
                 <artifactId>commons-validator</artifactId>
                 <version>1.5.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.statemachine</groupId>
+                <artifactId>spring-statemachine-core</artifactId>
+                <version>${spring-statemachine.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.statemachine</groupId>
+                <artifactId>spring-statemachine-kryo</artifactId>
+                <version>${spring-statemachine.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.statemachine</groupId>
+                <artifactId>spring-statemachine-test</artifactId>
+                <version>${spring-statemachine.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

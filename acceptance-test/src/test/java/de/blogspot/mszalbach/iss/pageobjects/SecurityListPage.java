@@ -23,7 +23,7 @@ public class SecurityListPage extends PageObject {
     }
 
     public void deleteSecurity(Security security) {
-        WebElement deleteButton = find(By.id("delete_" + security.isin));
+        WebElement deleteButton = find(By.id("delete_" + security.getIsin()));
         deleteButton.click();
     }
 

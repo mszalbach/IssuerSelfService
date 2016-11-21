@@ -1,6 +1,7 @@
 package de.blogspot.mszalbach.iss.domain;
 
 import de.blogspot.mszalbach.iss.Application;
+import de.blogspot.mszalbach.iss.statemachine.DefaultStateMachineAdapter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +25,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
  * Created by foobarkilla on 29.10.16.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = Application.class)
+@SpringBootTest(classes = {Application.class,DefaultStateMachineAdapter.class } )
 @WebAppConfiguration
 public class SecurityRepositoryTest {
 
