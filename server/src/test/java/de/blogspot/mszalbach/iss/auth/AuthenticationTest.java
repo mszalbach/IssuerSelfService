@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
  * Created by foobarkilla on 29.10.16.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {Application.class, AuthenticationConfiguration.class})
+@SpringBootTest
 @WebAppConfiguration
 public class AuthenticationTest {
 

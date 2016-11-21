@@ -1,7 +1,5 @@
 package de.blogspot.mszalbach.iss.domain;
 
-import de.blogspot.mszalbach.iss.Application;
-import de.blogspot.mszalbach.iss.statemachine.DefaultStateMachineAdapter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,8 +22,8 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 /**
  * Created by foobarkilla on 29.10.16.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {Application.class,DefaultStateMachineAdapter.class } )
+@RunWith( SpringJUnit4ClassRunner.class )
+@SpringBootTest
 @WebAppConfiguration
 public class SecurityRepositoryTest {
 
@@ -37,10 +35,14 @@ public class SecurityRepositoryTest {
 
     private MockMvc mockMvc;
 
+
+
     @Before
     public void setUp() {
-        this.mockMvc = webAppContextSetup(webApplicationContext).build();
+        this.mockMvc = webAppContextSetup( webApplicationContext ).build();
     }
+
+
 
     @After
     public void cleanUp() {
@@ -48,68 +50,116 @@ public class SecurityRepositoryTest {
     }
 
 
+
     @Test
-    public void should_return_securities() throws Exception {
-        securityRepository.save(new Security("US02079K1079", "Alphabet Inc"));
-        securityRepository.save(new Security("US5949181045", "Microsoft Corp"));
+    public void should_return_securities()
+            throws Exception {
+        securityRepository.save( new Security( "US02079K1079", "Alphabet Inc" ) );
+        securityRepository.save( new Security( "US5949181045", "Microsoft Corp" ) );
 
-        assertThat(securityRepository.count(), is(2L));
+        assertThat( securityRepository.count(), is( 2L ) );
 
-        mockMvc.perform(get("/api/securities"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("_embedded.securities[0].isin", is("US02079K1079")))
-                .andExpect(jsonPath("_embedded.securities[1].isin", is("US5949181045")));
+        mockMvc.perform( get( "/api/securities" ) )
+               .andExpect( status().isOk() )
+               .andExpect( jsonPath( "_embedded.securities[0].isin", is( "US02079K1079" ) ) )
+               .andExpect( jsonPath( "_embedded.securities[1].isin", is( "US5949181045" ) ) );
     }
 
+
+
     @Test
-    public void should_find_securities_by_isin() throws Exception {
-        securityRepository.save(new Security("US02079K1079", "Alphabet Inc"));
+    public void should_find_securities_by_isin()
+            throws Exception {
+        securityRepository.save( new Security( "US02079K1079", "Alphabet Inc" ) );
 
 
-        mockMvc.perform(get("/api/securities/search/findByIsin").param("isin", "US02079K1079"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("_embedded.securities[0].isin", is("US02079K1079")))
-                .andExpect(jsonPath("_embedded.securities[0].symbol", is("Alphabet Inc")));
+        mockMvc.perform( get( "/api/securities/search/findByIsin" ).param( "isin", "US02079K1079" ) )
+               .andExpect( status().isOk() )
+               .andExpect( jsonPath( "_embedded.securities[0].isin", is( "US02079K1079" ) ) )
+               .andExpect( jsonPath( "_embedded.securities[0].symbol", is( "Alphabet Inc" ) ) );
     }
 
-    @Test
-    public void should_be_able_to_create_securities() throws Exception {
-        assertThat(securityRepository.count(), is(0L));
-        mockMvc.perform(post("/api/securities")
-                .content("{\"isin\": \"US02079K1079\",\"symbol\":\"Alphabet Inc\"}"))
-                .andExpect(status().isCreated());
-        assertThat(securityRepository.count(), is(1L));
-    }
+
 
     @Test
-    public void should_return_shema_for_securities() throws Exception {
-        mockMvc.perform(get("/api/profile/securities")
-                .accept("application/schema+json"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("title", is("Security")));
+    public void should_be_able_to_create_securities()
+            throws Exception {
+        assertThat( securityRepository.count(), is( 0L ) );
+        mockMvc.perform( post( "/api/securities" )
+                                 .content( "{\"isin\": \"US02079K1079\",\"symbol\":\"Alphabet Inc\"}" ) )
+               .andExpect( status().isCreated() );
+        assertThat( securityRepository.count(), is( 1L ) );
     }
 
-    @Test
-    public void should_not_allow_security_without_isin() throws Exception {
-        mockMvc.perform(post("/api/securities")
-                .content("{\"symbol\":\"Alphabet Inc\"}"))
-                .andExpect(status().isBadRequest());
-    }
+
 
     @Test
-    public void should_not_allow_security_without_conform_isin() throws Exception {
-        mockMvc.perform(post("/api/securities")
-                .content("{\"isin\": \"US02079K1079000\",\"symbol\":\"To many digits\"}"))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("errors[0].message", is("ISIN not Valid.")));
+    public void should_return_shema_for_securities()
+            throws Exception {
+        mockMvc.perform( get( "/api/profile/securities" )
+                                 .accept( "application/schema+json" ) )
+               .andExpect( status().isOk() )
+               .andExpect( jsonPath( "title", is( "Security" ) ) );
     }
 
+
+
     @Test
-    public void should_not_allow_negative_nominalValue() throws Exception {
-        mockMvc.perform(post("/api/securities")
-                .content("{\"isin\": \"US02079K1079\",\"symbol\":\"Alphabet Inc\",\"nominalValue\": -1}"))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("errors[0].message", is("must be greater than or equal to 0")));
+    public void should_not_allow_security_without_isin()
+            throws Exception {
+        mockMvc.perform( post( "/api/securities" )
+                                 .content( "{\"symbol\":\"Alphabet Inc\"}" ) )
+               .andExpect( status().isBadRequest() );
+    }
+
+
+
+    @Test
+    public void should_not_allow_security_without_conform_isin()
+            throws Exception {
+        mockMvc.perform( post( "/api/securities" )
+                                 .content( "{\"isin\": \"US02079K1079000\",\"symbol\":\"To many digits\"}" ) )
+               .andExpect( status().isBadRequest() )
+               .andExpect( jsonPath( "errors[0].message", is( "ISIN not Valid." ) ) );
+    }
+
+
+
+    @Test
+    public void should_not_allow_negative_nominalValue()
+            throws Exception {
+        mockMvc.perform( post( "/api/securities" )
+                                 .content(
+                                         "{\"isin\": \"US02079K1079\",\"symbol\":\"Alphabet Inc\",\"nominalValue\": -1}" ) )
+               .andExpect( status().isBadRequest() )
+               .andExpect( jsonPath( "errors[0].message", is( "must be greater than or equal to 0" ) ) );
+    }
+
+
+
+    @Test
+    public void should_create_securities_with_state_open()
+            throws Exception {
+        mockMvc.perform( post( "/api/securities" )
+                                 .content( "{\"isin\": \"US02079K1079\",\"symbol\":\"Alphabet Inc\"}" ) )
+               .andExpect( status().isCreated() );
+        Security security = securityRepository.findByIsin( "US02079K1079" ).get( 0 );
+        assertThat( security.getCurrentState(), is( SecurityState.Open ) );
+    }
+
+
+
+    @Test
+    public void should_provide_links_to_events()
+            throws Exception {
+        mockMvc.perform( post( "/api/securities" )
+                                 .content( "{\"isin\": \"US02079K1079\",\"symbol\":\"Alphabet Inc\"}" ) )
+               .andExpect( status().isCreated() );
+
+        mockMvc.perform( get( "/api/securities/search/findByIsin" ).param( "isin", "US02079K1079" ) )
+               .andExpect( status().isOk() )
+               .andExpect( jsonPath( "_embedded.securities[0].isin", is( "US02079K1079" ) ) )
+               .andExpect( jsonPath( "_embedded.securities[0]._links.event1.href", is( "http://localhost/api/securities/4/Event1" ) ) );
     }
 
 }
