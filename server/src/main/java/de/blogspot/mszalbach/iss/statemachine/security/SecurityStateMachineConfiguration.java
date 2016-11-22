@@ -24,21 +24,26 @@ public class SecurityStateMachineConfiguration
         states
                 .withStates()
                 .initial( SecurityState.Open )
-                .end( SecurityState.Accepted )
                 .states( EnumSet.allOf( SecurityState.class ) );
     }
 
+
+
     @Override
-    public void configure(StateMachineTransitionConfigurer<SecurityState, SecurityEvent> transitions)
+    public void configure( StateMachineTransitionConfigurer<SecurityState, SecurityEvent> transitions )
             throws Exception {
         transitions
                 .withExternal()
-                .source(SecurityState.Open).target(SecurityState.Accepted)
-                .event(SecurityEvent.Event1)
+                .source( SecurityState.Open ).target( SecurityState.Accepted )
+                .event( SecurityEvent.Event1 )
                 .and()
                 .withExternal()
-                .source(SecurityState.Open).target(SecurityState.Canceled)
-                .event(SecurityEvent.Event2);
+                .source( SecurityState.Open ).target( SecurityState.Canceled )
+                .event( SecurityEvent.Event2 )
+                .and()
+                .withExternal()
+                .source( SecurityState.Accepted ).target( SecurityState.Accepted )
+                .event( SecurityEvent.Event1 );
     }
 
 
