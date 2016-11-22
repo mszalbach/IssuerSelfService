@@ -12,7 +12,7 @@ import java.io.Serializable;
  * Created by ms on 21.11.16.
  */
 @Component
-public class SecurityStateMachieneAdapter
+public class SecurityStateMachineAdapter
         extends DefaultStateMachineAdapter<SecurityState, SecurityEvent, ContextEntity<SecurityState, SecurityEvent, Serializable>> {
 
 }
