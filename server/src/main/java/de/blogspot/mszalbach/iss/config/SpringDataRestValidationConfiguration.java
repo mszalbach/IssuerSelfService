@@ -1,4 +1,4 @@
-package de.blogspot.mszalbach.iss;
+package de.blogspot.mszalbach.iss.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

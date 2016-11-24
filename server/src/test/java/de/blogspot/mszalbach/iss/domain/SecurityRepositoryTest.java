@@ -1,5 +1,6 @@
 package de.blogspot.mszalbach.iss.domain;
 
+import com.jayway.jsonpath.JsonPath;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +12,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -144,7 +146,7 @@ public class SecurityRepositoryTest {
                                  .content( "{\"isin\": \"US02079K1079\",\"symbol\":\"Alphabet Inc\"}" ) )
                .andExpect( status().isCreated() );
         Security security = securityRepository.findByIsin( "US02079K1079" ).get( 0 );
-        assertThat( security.getCurrentState(), is( SecurityState.Open ) );
+        assertThat( security.getState(), is( SecurityState.Open.toString() ) );
     }
 
 
@@ -159,7 +161,28 @@ public class SecurityRepositoryTest {
         mockMvc.perform( get( "/api/securities/search/findByIsin" ).param( "isin", "US02079K1079" ) )
                .andExpect( status().isOk() )
                .andExpect( jsonPath( "_embedded.securities[0].isin", is( "US02079K1079" ) ) )
-               .andExpect( jsonPath( "_embedded.securities[0]._links.event1.href", is( "http://localhost/api/securities/4/Event1" ) ) );
+               .andExpect( jsonPath( "_embedded.securities[0]._links.request.href", containsString( "/request" ) ) );
+    }
+
+
+
+    @Test
+    public void should_switch_state_to_requested_on_request_event()
+            throws Exception {
+        mockMvc.perform( post( "/api/securities" )
+                                 .content( "{\"isin\": \"US02079K1079\",\"symbol\":\"Alphabet Inc\"}" ) )
+               .andExpect( status().isCreated() );
+
+        String result = mockMvc.perform( get( "/api/securities/search/findByIsin" ).param( "isin", "US02079K1079" ) )
+                               .andExpect( status().isOk() ).andReturn().getResponse().getContentAsString();
+
+        Object requestUrl = JsonPath.read( result, "_embedded.securities[0]._links.request.href" );
+
+        mockMvc.perform( post( requestUrl.toString() ) ).andExpect( status().isAccepted() );
+
+        Security requestedSecurity = securityRepository.findByIsin( "US02079K1079" ).get( 0 );
+
+        assertThat( requestedSecurity.getState(), is( "Requested" ) );
     }
 
 }

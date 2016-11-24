@@ -21,10 +21,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <encoding>UTF-8</encoding>
         <serenity.version>1.1.42</serenity.version>
-        <spring-boot.version>1.4.1.RELEASE</spring-boot.version>
+        <spring-boot.version>1.4.2.RELEASE</spring-boot.version>
         <!-- works with Firefox 45.0 -->
         <selenium.version>2.53.1</selenium.version>
-        <spring-statemachine.version>1.1.1.RELEASE</spring-statemachine.version>
+        <java.version>1.8</java.version>
     </properties>
 
     <build>
@@ -40,8 +40,8 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.5.1</version>
                     <configuration>
-                        <source>1.8</source>
-                        <target>1.8</target>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -122,19 +122,14 @@
                 <version>1.5.1</version>
             </dependency>
             <dependency>
-                <groupId>org.springframework.statemachine</groupId>
-                <artifactId>spring-statemachine-core</artifactId>
-                <version>${spring-statemachine.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.statemachine</groupId>
-                <artifactId>spring-statemachine-kryo</artifactId>
-                <version>${spring-statemachine.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>20.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.squirrelframework</groupId>
+                <artifactId>squirrel-foundation</artifactId>
+                <version>0.3.8</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.statemachine</groupId>

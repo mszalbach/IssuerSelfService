@@ -1,14 +1,11 @@
 package de.blogspot.mszalbach.iss.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import de.blogspot.mszalbach.iss.statemachine.ContextEntity;
 import de.blogspot.mszalbach.iss.validator.ISIN;
-import org.springframework.statemachine.StateMachineContext;
+import org.squirrelframework.foundation.fsm.StateMachineData;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +14,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.DecimalMin;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -26,8 +22,7 @@ import java.util.Objects;
  */
 @Entity
 @JsonIgnoreProperties( ignoreUnknown = true )
-public class Security
-        implements ContextEntity<SecurityState, SecurityEvent, Serializable> {
+public class Security {
 
     @Id
     @GeneratedValue
@@ -40,11 +35,11 @@ public class Security
     private BigDecimal nominalValue;
     private String     issuer;
 
-    @Enumerated( EnumType.STRING )
-    private SecurityState currentState;
+    private String state;
 
     @JsonIgnore
-    StateMachineContext<SecurityState, SecurityEvent> stateMachineContext;
+    @Column( columnDefinition = "TEXT" )
+    private StateMachineData.Reader stateMachine;
 
 
 
@@ -60,7 +55,18 @@ public class Security
 
 
 
-    @Override
+    public String getState() {
+        return state;
+    }
+
+
+
+    public void setState( String state ) {
+        this.state = state;
+    }
+
+
+
     public Long getId() {
         return id;
     }
@@ -88,13 +94,6 @@ public class Security
     public String getIssuer() {
         return issuer;
     }
-
-
-    @JsonProperty
-    public SecurityState getCurrentState() {
-        return currentState;
-    }
-
 
 
     public void setIsin( String isin ) {
@@ -126,24 +125,15 @@ public class Security
     }
 
 
-    @JsonIgnore
-    public void setCurrentState( SecurityState currentState ) {
-        this.currentState = currentState;
+    public StateMachineData.Reader getStateMachine() {
+        return this.stateMachine;
     }
 
 
 
-    @Override
-    public StateMachineContext<SecurityState, SecurityEvent> getStateMachineContext() {
-        return this.stateMachineContext;
-    }
-
-
-
-    @Override
-    public void setStateMachineContext( StateMachineContext<SecurityState, SecurityEvent> stateMachineContext ) {
-        this.currentState = stateMachineContext.getState();
-        this.stateMachineContext = stateMachineContext;
+    public void setStateMachine( StateMachineData.Reader stateMachine ) {
+        this.state = stateMachine.currentState().toString();
+        this.stateMachine = stateMachine;
     }
 
 

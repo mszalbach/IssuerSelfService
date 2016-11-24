@@ -1,107 +1,58 @@
 package de.blogspot.mszalbach.iss.domain;
 
-import de.blogspot.mszalbach.iss.statemachine.security.SecurityStateMachineConfiguration;
-import org.junit.After;
+import de.blogspot.mszalbach.iss.config.SecurityStateMachineFactory;
+import de.blogspot.mszalbach.iss.statemachine.SecurityStateMachineAdapter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.messaging.Message;
-import org.springframework.statemachine.StateMachine;
-import org.springframework.statemachine.config.StateMachineFactory;
-import org.springframework.statemachine.listener.StateMachineListenerAdapter;
-import org.springframework.statemachine.state.State;
-import org.springframework.statemachine.test.StateMachineTestPlan;
-import org.springframework.statemachine.test.StateMachineTestPlanBuilder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.squirrelframework.foundation.fsm.StateMachine;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by ms on 21.11.16.
  */
 @RunWith( SpringJUnit4ClassRunner.class )
-@SpringBootTest( classes = { StateMachineFactory.class, SecurityStateMachineConfiguration.class } )
+@SpringBootTest( classes = { SecurityStateMachineAdapter.class, SecurityStateMachineFactory.class } )
 public class SecurityStateMachineTest {
 
     @Autowired
-    private StateMachineFactory<SecurityState, SecurityEvent> orderStateMachineFactory;
+    private SecurityStateMachineAdapter stateMachineFactory;
 
-    private StateMachine<SecurityState, SecurityEvent> stateMachine;
-
-    private final Logger log = LoggerFactory.getLogger( this.getClass() );
+    StateMachine machine;
 
 
 
     @Before
-    public void setUp() {
-        stateMachine = orderStateMachineFactory.getStateMachine();
-        stateMachine.addStateListener( new TestListener() );
-    }
-
-
-
-    @After
-    public void tearDown() {
-        stateMachine.stop();
+    public void init() {
+        machine = stateMachineFactory.create();
     }
 
 
 
     @Test
-    public void testWorkflow()
+    public void should_start_in_open_state()
             throws Exception {
-        StateMachineTestPlan<SecurityState, SecurityEvent> plan =
-                StateMachineTestPlanBuilder.<SecurityState, SecurityEvent>builder()
-                        .stateMachine( stateMachine )
-                        .step()
-                        .expectState(
-                                SecurityState.Open )
-                        .and()
-                        .step()
-                        .sendEvent( SecurityEvent.Event1 )
-                        .expectState(
-                                SecurityState.Accepted )
-                        .and()
-                        .step()
-                        .sendEvent( SecurityEvent.Event1 )
-                        .expectState( SecurityState.Accepted )
-                        .and()
-                        .build();
-        plan.test();
+        assertThat( machine.getCurrentState(), is( "Open" ) );
     }
 
 
 
-    private class TestListener
-            extends StateMachineListenerAdapter<SecurityState, SecurityEvent> {
+    @Test
+    public void should_change_to_requested_when_using_request_on_open_state() {
+        machine.fire( "request" );
+        assertThat( machine.getCurrentState(), is( "Requested" ) );
+    }
 
-
-        @Override
-        public void eventNotAccepted( Message<SecurityEvent> event ) {
-            log.error( "Event not accepted: {} ", event.getPayload() );
-        }
-
-
-
-        @Override
-        public void stateChanged( State<SecurityState, SecurityEvent> from, State<SecurityState, SecurityEvent> to ) {
-            if ( from == null ) {
-                log.info( "State change to {}", to.getId() );
-            } else {
-                log.info( "State change from {} to {}", from.getId(), to.getId() );
-            }
-
-        }
-
-
-
-        @Override
-        public void stateMachineError( StateMachine<SecurityState, SecurityEvent> stateMachine, Exception exception ) {
-            log.error( exception.getMessage(), exception );
-        }
-
+    @Test
+    public void should_not_be_able_to_use_cancel_on_open_state() {
+        assertThat( machine.canAccept("cancel"), is( false ) );
+        machine.fire( "cancel" );
+        assertThat( machine.getCurrentState(), is( "Open" ) );
     }
 
 }

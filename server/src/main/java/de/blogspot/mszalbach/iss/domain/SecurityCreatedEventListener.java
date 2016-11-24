@@ -1,6 +1,6 @@
 package de.blogspot.mszalbach.iss.domain;
 
-import de.blogspot.mszalbach.iss.statemachine.security.SecurityStateMachineAdapter;
+import de.blogspot.mszalbach.iss.statemachine.SecurityStateMachineAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.event.AbstractRepositoryEventListener;
 import org.springframework.stereotype.Component;
