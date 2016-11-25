@@ -20,7 +20,8 @@ public class WebSocketConfiguration
 
     @Override
     public void registerStompEndpoints( StompEndpointRegistry registry ) {
-        registry.addEndpoint( "/sockjs" ).withSockJS();
+        //cors problem without setAllowedOrigins
+        registry.addEndpoint( "/sockjs" ).setAllowedOrigins( "*" ).withSockJS();
     }
 
 

@@ -30,6 +30,10 @@ const common = {
         extensions: ['', '.js', '.jsx']
     },
 
+    node: {
+        net: 'empty',
+    },
+
     module: {
         loaders: [
             {test: /\.js[x]?$/, exclude: /node_modules/, loader: 'babel-loader'},
@@ -37,6 +41,7 @@ const common = {
             //needed for bootstrap
             {test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff'},
             {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
+            {test: /\.json(\?v=\d+\.\d+\.\d+)?$/, loader: 'json'},
             {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml'},
             {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
         ]
