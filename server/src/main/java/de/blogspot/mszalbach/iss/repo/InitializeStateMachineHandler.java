@@ -1,7 +1,10 @@
-package de.blogspot.mszalbach.iss.domain;
+package de.blogspot.mszalbach.iss.repo;
 
+import de.blogspot.mszalbach.iss.domain.Security;
 import de.blogspot.mszalbach.iss.statemachine.SecurityStateMachineAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
+import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.data.rest.core.event.AbstractRepositoryEventListener;
 import org.springframework.stereotype.Component;
 
@@ -9,15 +12,14 @@ import org.springframework.stereotype.Component;
  * Created by ms on 21.11.16.
  */
 @Component
-public class SecurityCreatedEventListener
-        extends AbstractRepositoryEventListener<Security> {
+@RepositoryEventHandler(Security.class)
+public class InitializeStateMachineHandler {
 
     @Autowired
     private SecurityStateMachineAdapter securityStateMachineAdapter;
 
 
-
-    @Override
+    @HandleBeforeCreate
     protected void onBeforeCreate( Security security ) {
         try {
             securityStateMachineAdapter.persist( securityStateMachineAdapter.create(), security );

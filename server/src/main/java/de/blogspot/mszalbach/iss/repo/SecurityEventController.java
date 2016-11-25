@@ -1,5 +1,7 @@
-package de.blogspot.mszalbach.iss.domain;
+package de.blogspot.mszalbach.iss.repo;
 
+import de.blogspot.mszalbach.iss.domain.Security;
+import de.blogspot.mszalbach.iss.repo.SecurityRepository;
 import de.blogspot.mszalbach.iss.statemachine.SecurityStateMachineAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.BasePathAwareController;

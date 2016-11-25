@@ -1,5 +1,6 @@
-package de.blogspot.mszalbach.iss.domain;
+package de.blogspot.mszalbach.iss.repo;
 
+import de.blogspot.mszalbach.iss.domain.Security;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 

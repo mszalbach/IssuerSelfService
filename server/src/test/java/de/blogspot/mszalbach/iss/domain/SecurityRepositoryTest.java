@@ -1,6 +1,7 @@
 package de.blogspot.mszalbach.iss.domain;
 
 import com.jayway.jsonpath.JsonPath;
+import de.blogspot.mszalbach.iss.repo.SecurityRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -146,7 +147,7 @@ public class SecurityRepositoryTest {
                                  .content( "{\"isin\": \"US02079K1079\",\"symbol\":\"Alphabet Inc\"}" ) )
                .andExpect( status().isCreated() );
         Security security = securityRepository.findByIsin( "US02079K1079" ).get( 0 );
-        assertThat( security.getState(), is( SecurityState.Open.toString() ) );
+        assertThat( security.getState(), is( "Open" ) );
     }
 
 
