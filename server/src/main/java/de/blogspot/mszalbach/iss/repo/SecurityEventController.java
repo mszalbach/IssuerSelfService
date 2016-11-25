@@ -1,7 +1,6 @@
 package de.blogspot.mszalbach.iss.repo;
 
 import de.blogspot.mszalbach.iss.domain.Security;
-import de.blogspot.mszalbach.iss.repo.SecurityRepository;
 import de.blogspot.mszalbach.iss.statemachine.SecurityStateMachineAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.BasePathAwareController;
@@ -16,11 +15,19 @@ import org.squirrelframework.foundation.fsm.UntypedStateMachine;
 @BasePathAwareController
 public class SecurityEventController {
 
-    @Autowired
-    SecurityStateMachineAdapter persister;
+
+    private SecurityStateMachineAdapter persister;
+
+
+    private SecurityRepository repository;
+
+
 
     @Autowired
-    SecurityRepository repository;
+    public SecurityEventController( SecurityStateMachineAdapter persister, SecurityRepository repository ) {
+        this.persister = persister;
+        this.repository = repository;
+    }
 
 
 

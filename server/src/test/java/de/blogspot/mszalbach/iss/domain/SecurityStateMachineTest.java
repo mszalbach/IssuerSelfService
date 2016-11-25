@@ -1,6 +1,6 @@
 package de.blogspot.mszalbach.iss.domain;
 
-import de.blogspot.mszalbach.iss.config.SecurityStateMachineFactory;
+import de.blogspot.mszalbach.iss.statemachine.SecurityStateMachineFactory;
 import de.blogspot.mszalbach.iss.statemachine.SecurityStateMachineAdapter;
 import org.junit.Before;
 import org.junit.Test;

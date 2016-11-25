@@ -21,8 +21,16 @@ import javax.servlet.http.HttpSession;
 public class AuthenticationResource {
 
 
+    private AuthenticationManager authenticationManager;
+
+
+
     @Autowired
-    AuthenticationManager authenticationManager;
+    public AuthenticationResource( AuthenticationManager authenticationManager ) {
+        this.authenticationManager = authenticationManager;
+    }
+
+
 
     @RequestMapping(method = RequestMethod.POST)
     public User login(@RequestBody Credentials credentials, HttpSession httpSession) {

@@ -1,4 +1,4 @@
-package de.blogspot.mszalbach.iss.config;
+package de.blogspot.mszalbach.iss.statemachine;
 
 import de.blogspot.mszalbach.iss.domain.SecurityStateConfig;
 import org.springframework.context.annotation.Bean;

@@ -15,8 +15,15 @@ import org.springframework.stereotype.Component;
 @RepositoryEventHandler(Security.class)
 public class InitializeStateMachineHandler {
 
-    @Autowired
     private SecurityStateMachineAdapter securityStateMachineAdapter;
+
+
+
+    @Autowired
+    public InitializeStateMachineHandler( SecurityStateMachineAdapter securityStateMachineAdapter ) {
+        this.securityStateMachineAdapter = securityStateMachineAdapter;
+    }
+
 
 
     @HandleBeforeCreate

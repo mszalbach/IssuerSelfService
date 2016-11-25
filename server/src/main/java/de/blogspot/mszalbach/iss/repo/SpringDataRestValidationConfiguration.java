@@ -1,4 +1,4 @@
-package de.blogspot.mszalbach.iss.config;
+package de.blogspot.mszalbach.iss.repo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -12,8 +12,16 @@ import org.springframework.validation.Validator;
 @Configuration
 public class SpringDataRestValidationConfiguration extends RepositoryRestConfigurerAdapter {
 
-    @Autowired
     private Validator validator;
+
+
+
+    @Autowired
+    public SpringDataRestValidationConfiguration( Validator validator ) {
+        this.validator = validator;
+    }
+
+
 
     @Override
     public void configureValidatingRepositoryEventListener(ValidatingRepositoryEventListener validatingListener) {

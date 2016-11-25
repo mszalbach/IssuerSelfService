@@ -20,14 +20,20 @@ import org.squirrelframework.foundation.fsm.StateMachine;
 public class SecurityLinkProcessor
         implements ResourceProcessor<Resource<Security>> {
 
-    @Autowired
-    RepositoryEntityLinks entityLinks;
+    private RepositoryEntityLinks entityLinks;
+
+    private SecurityRepository repository;
+
+    private SecurityStateMachineAdapter persister;
+
+
 
     @Autowired
-    SecurityRepository repository;
-
-    @Autowired
-    SecurityStateMachineAdapter persister;
+    public SecurityLinkProcessor( RepositoryEntityLinks entityLinks, SecurityRepository repository, SecurityStateMachineAdapter persister ) {
+        this.entityLinks = entityLinks;
+        this.repository = repository;
+        this.persister = persister;
+    }
 
 
 

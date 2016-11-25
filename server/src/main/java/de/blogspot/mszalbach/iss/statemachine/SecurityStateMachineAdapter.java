@@ -1,6 +1,5 @@
 package de.blogspot.mszalbach.iss.statemachine;
 
-import de.blogspot.mszalbach.iss.config.SecurityStateMachineFactory;
 import de.blogspot.mszalbach.iss.domain.Security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,15 +11,24 @@ import org.squirrelframework.foundation.fsm.UntypedStateMachine;
 @Component
 public class SecurityStateMachineAdapter {
 
+
+    private SecurityStateMachineFactory factory;
+
+
+
     @Autowired
-    SecurityStateMachineFactory factory;
+    public SecurityStateMachineAdapter( SecurityStateMachineFactory factory ) {
+        this.factory = factory;
+    }
 
 
 
     public UntypedStateMachine restore( Security contextObject )
             throws Exception {
         UntypedStateMachine stateMachine = create();
-        stateMachine.loadSavedData( contextObject.getStateMachine() );
+        if ( contextObject.getStateMachine() != null ) {
+            stateMachine.loadSavedData( contextObject.getStateMachine() );
+        }
         return stateMachine;
     }
 
