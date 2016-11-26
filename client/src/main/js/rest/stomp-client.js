@@ -2,7 +2,7 @@ var SockJS = require( 'sockjs-client' );
 require( 'stompjs' );
 
 function register( registrations ) {
-    var socket = SockJS( 'http://Localhost:8081/sockjs' );
+    var socket = SockJS('/sockjs');
     var stompClient = Stomp.over( socket );
     stompClient.connect( {}, function ( frame ) {
         registrations.forEach( function ( registration ) {

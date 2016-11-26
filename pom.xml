@@ -130,12 +130,12 @@
                 <groupId>org.squirrelframework</groupId>
                 <artifactId>squirrel-foundation</artifactId>
                 <version>0.3.8</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.statemachine</groupId>
-                <artifactId>spring-statemachine-test</artifactId>
-                <version>${spring-statemachine.version}</version>
-                <scope>test</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>
