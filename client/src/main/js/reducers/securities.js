@@ -1,4 +1,4 @@
-import {toastr} from 'react-redux-toastr';
+import {toastr} from "react-redux-toastr";
 import {createClient} from "../rest/client";
 
 const FETCH_SUCCESS = 'securities/FETCH_SUCCESS';
@@ -70,7 +70,6 @@ export function deleteSecurity(security) {
             path: security._links.self.href
         }).then(response => {
                 dispatch(securityDeleted(security));
-                dispatch(fetchSecurities());
             }
         )
     };
@@ -91,7 +90,6 @@ export function addSecurity(security) {
             headers: {'Content-Type': 'application/json'}
         }).then(response => {
             dispatch(securityAdded(response));
-            dispatch(fetchSecurities());
         })
     };
 }

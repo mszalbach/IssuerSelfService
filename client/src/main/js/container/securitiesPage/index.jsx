@@ -1,10 +1,10 @@
 import React from "react";
 import {connect} from "react-redux";
 import SecuritiesPage from "../../components/securitiesPage";
-import {fetchSecurities, fetchAttributes} from "../../reducers/securities";
+import {connectWebsocket} from "../../reducers/securityWebsocket";
 
 
 export default connect(
     state => ({}),
-    {fetchSecurities, fetchAttributes}
+    {connectWebsocket}
 )(SecuritiesPage);
