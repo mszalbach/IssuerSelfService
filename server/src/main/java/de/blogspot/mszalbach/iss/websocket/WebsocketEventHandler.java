@@ -42,7 +42,7 @@ public class WebsocketEventHandler {
 
 
     @HandleAfterDelete
-    public void deleteEmployee( Security security ) {
+    public void deleteSecurity(Security security) {
         this.websocket.convertAndSend(
                 MESSAGE_PREFIX + "/deleteSecurity", getPath( security ) );
     }
@@ -50,7 +50,7 @@ public class WebsocketEventHandler {
 
 
     @HandleAfterSave
-    public void updateEmployee( Security security ) {
+    public void updateSecurity(Security security) {
         this.websocket.convertAndSend(
                 MESSAGE_PREFIX + "/updateSecurity", getPath( security ) );
     }

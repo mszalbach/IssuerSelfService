@@ -115,7 +115,6 @@ export function postSecurityLink(security, link) {
             path: security._links[link].href
         }).then(response => {
                 toastr.success("Security " + link, "Security " + security.isin + " " + link);
-                dispatch(fetchSecurities());
             }
         )
     };
