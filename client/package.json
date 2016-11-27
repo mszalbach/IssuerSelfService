@@ -28,6 +28,7 @@
     "karma-webpack": "1.8.0",
     "phantomjs-polyfill": "0.0.2",
     "phantomjs-prebuilt": "2.1.13",
+    "promise-polyfill": "6.0.2",
     "react-addons-perf": "15.3.2",
     "react-addons-test-utils": "15.3.2",
     "sockjs-client": "1.1.1",
@@ -54,6 +55,8 @@
     "redux": "3.6.0",
     "redux-localstorage": "0.4.1",
     "redux-thunk": "2.1.0",
-    "rest": "2.0.0"
+    "rest": "2.0.0",
+    "sockjs-client": "1.1.1",
+    "stompjs": "2.3.3"
   }
 }

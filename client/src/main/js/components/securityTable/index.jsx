@@ -1,16 +1,18 @@
 import React from "react";
 import {Table} from "react-bootstrap";
-import SecurityRow from "../../container/securityRow";
+import SecurityRow from "./SecurityRow";
 
 export default class SecurityTable extends React.Component {
 
     static propTypes = {
         securities: React.PropTypes.array.isRequired,
         attributes: React.PropTypes.array.isRequired,
+        deleteSecurity: React.PropTypes.func.isRequired,
+        postSecurityLink: React.PropTypes.func.isRequired,
     };
 
     render() {
-        let {securities, attributes} = this.props;
+        let {securities, attributes, deleteSecurity, postSecurityLink} = this.props;
         return (
             <Table id="securities" striped bordered condensed hover responsive>
                 <thead>
@@ -23,7 +25,9 @@ export default class SecurityTable extends React.Component {
                 </thead>
                 <tbody>
                 {securities.map(security => <SecurityRow key={security._links.self.href}
-                                                         security={security}/>)}
+                                                         security={security} attributes={attributes}
+                                                         deleteSecurity={deleteSecurity}
+                                                         postSecurityLink={postSecurityLink}/>)}
                 </tbody>
             </Table>
         );

@@ -13,7 +13,9 @@ module.exports = function (config) {
         frameworks: ['jasmine'],
         files: [
             './node_modules/phantomjs-polyfill/bind-polyfill.js',
+            './node_modules/promise-polyfill/promise.js',
             'src/test/**/*\.test.jsx'
+
         ],
         browsers: ['PhantomJS'],
         preprocessors: {
