@@ -107,3 +107,16 @@ export function fetchAttributes() {
         );
     };
 }
+
+export function postSecurityLink(security, link) {
+    return function (dispatch) {
+        return createClient()({
+            method: 'POST',
+            path: security._links[link].href
+        }).then(response => {
+                toastr.success("Security " + link, "Security " + security.isin + " " + link);
+                dispatch(fetchSecurities());
+            }
+        )
+    };
+}
