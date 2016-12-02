@@ -1,68 +1,87 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import {Button, Modal, FormGroup, FormControl, ControlLabel, Form} from "react-bootstrap";
+import Form from "react-jsonschema-form";
+import validator from "validator";
+import {Button, Modal} from "react-bootstrap";
 
 export default class CreateDialog extends React.Component {
 
 
     static propTypes = {
         addSecurity: React.PropTypes.func.isRequired,
-        attributes: React.PropTypes.array.isRequired
+        schema: React.PropTypes.object.isRequired
     };
 
     state = {
         showModal: false,
+        formData: {},
+        error: false
+    };
+
+    uiSchema = {
+        "ui:order": ["isin", "symbol", "*"],
+        "state": {"ui:readonly": true}
     };
 
     close = () => {
-        this.setState({showModal: false});
+        this.setState( {showModal: false} );
     };
 
 
     open = () => {
-        this.setState({showModal: true});
+        this.setState( {showModal: true} );
     };
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        var newSecurity = {};
-        this.props.attributes.forEach(attribute => {
-            newSecurity[attribute] = ReactDOM.findDOMNode(this.refs[attribute]).value.trim();
-        });
-        this.props.addSecurity(newSecurity);
-        this.props.attributes.forEach(attribute => {
-            ReactDOM.findDOMNode(this.refs[attribute]).value = ''; // clear out the dialog's inputs
-        });
+    onChange = ( form ) => {
+        //needed or else the form resets
+        this.setState( {
+                           formData: form.formData,
+                           error: (form.errors.length > 0 )
+                       } );
+    };
+
+    handleSubmit = ( form ) => {
+
+        this.props.addSecurity( form.formData );
+
         this.close();
     };
 
+    validate = ( formData, errors ) => {
+        if ( !validator.isISIN( formData.isin + "" ) ) {
+            errors.isin.addError( "ISIN not valid" );
+        }
+        return errors;
+    };
+
     render() {
-        var inputs = this.props.attributes.map(attribute =>
-            <FormGroup key={attribute}>
-                <ControlLabel>{attribute}</ControlLabel>
-                <FormControl id={attribute} type="text" placeholder={"Enter " + attribute} ref={attribute}/>
-            </FormGroup>
-        );
 
         return (
-            <div>
-                <Button onClick={this.open} id="openCreate">Create Security</Button>
+                <div>
+                    <Button onClick={this.open} id="openCreate">Create Security</Button>
 
-                <Modal show={this.state.showModal} onHide={this.close}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Create Security</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <Form>
-                            {inputs}
-                        </Form>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button id="create" onClick={this.handleSubmit}>Create</Button>
-                        <Button onClick={this.close}>Close</Button>
-                    </Modal.Footer>
-                </Modal>
-            </div>
+                    <Modal show={this.state.showModal} onHide={this.close}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Create Security</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <Form
+                                    formData={this.state.formData}
+                                    schema={this.props.schema}
+                                    uiSchema={this.uiSchema}
+                                    liveValidate={true}
+                                    validate={this.validate}
+                                    showErrorList={false}
+                                    autocomplete="off"
+                                    onChange={this.onChange}
+                                    onSubmit={this.handleSubmit}>
+                                <Modal.Footer>
+                                    <Button id="create" type="submit" disabled={this.state.error}>Create</Button>
+                                    <Button onClick={this.close}>Close</Button>
+                                </Modal.Footer>
+                            </Form>
+                        </Modal.Body>
+                    </Modal>
+                </div>
         );
     }
 

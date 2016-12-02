@@ -3,6 +3,6 @@ import CreateDialog from "../../components/createDialog";
 import {addSecurity} from "../../reducers/securities";
 
 export default connect(
-    state => ({attributes: state.securities.attributes}),
+    state => ({schema: state.securities.schema}),
     {addSecurity}
 )(CreateDialog);

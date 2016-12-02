@@ -10,7 +10,8 @@ const FETCH_ATTRIBUTES_SUCCESS = 'security/FETCH_ATTRIBUTES_SUCCESS';
 
 const initialState = {
     securities: [],
-    attributes: []
+    attributes: [],
+    schema: null
 };
 
 export default function securitiesReducer(state = initialState, action) {
@@ -29,6 +30,7 @@ export default function securitiesReducer(state = initialState, action) {
             return {
                 ...state,
                 attributes: action.attributes,
+                schema: action.schema
             };
         default:
             return state;
@@ -102,7 +104,7 @@ export function fetchAttributes() {
             headers: {'Content-Type': 'application/schema+json'}
         }).then(
             response => {
-                dispatch({type: FETCH_ATTRIBUTES_SUCCESS, attributes: Object.keys(response.entity.properties)});
+                dispatch({type: FETCH_ATTRIBUTES_SUCCESS, schema:response.entity ,attributes: Object.keys(response.entity.properties)});
             }
         );
     };

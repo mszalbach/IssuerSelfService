@@ -13,8 +13,8 @@ import org.openqa.selenium.WebElement;
 public class SecurityEnterPage extends PageObject {
 
     public SecurityEnterPage insertSecurity(Security security) {
-        typeIntoField("isin", security.getIsin());
-        typeIntoField("symbol", security.getSymbol());
+        typeIntoField("root_isin", security.getIsin());
+        typeIntoField("root_symbol", security.getSymbol());
         return this;
     }
 
