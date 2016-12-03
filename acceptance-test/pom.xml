@@ -131,7 +131,7 @@
                                     <http>
                                         <url>http://localhost:9090/api</url>
                                     </http>
-                                    <time>50000</time>
+                                    <time>200000</time>
                                 </wait>
                             </run>
                         </image>
