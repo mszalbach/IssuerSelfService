@@ -32,7 +32,7 @@ Funktionalität: Online Kotierung
 
   Szenario: Ungültiges Wertpapier anlegen
     Angenommen Ralf ist angemeldet
-    Wenn er ein Wertpapier mit folgenden Daten anlegt
+    Wenn er ein Wertpapier mit folgenden Daten anlegen will
       | isin   | symbol | nominalValue |
       | FALSCH | MSFT   | -2           |
     Dann sollte das Anlegen fehlschlagen mit folgenden Fehlern:

@@ -135,6 +135,13 @@
                                 </wait>
                             </run>
                         </image>
+                        <image>
+                            <alias>selenium-firefox</alias>
+                            <name>%g/iss-selenium-firefox:%v</name>
+                            <build>
+                                <from>selenium/standalone-firefox-debug:${selenium.version}</from>
+                            </build>
+                        </image>
                     </images>
                 </configuration>
                 <executions>
@@ -170,6 +177,8 @@
                 <configuration>
                     <systemPropertyVariables>
                         <webdriver.base.url>http://${docker.container.proxy.ip}</webdriver.base.url>
+                        <webdriver.remote.url>http://${docker.container.selenium-firefox.ip}:4444/wd/hub
+                        </webdriver.remote.url>
                         <api.url>http://${docker.container.proxy.ip}/api</api.url>
                     </systemPropertyVariables>
                     <testFailureIgnore>true</testFailureIgnore>
@@ -227,7 +236,8 @@
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-firefox-driver</artifactId>
+            <artifactId><selenium class="/my"></selenium>-firefox-driver
+            </artifactId>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>

@@ -6,6 +6,7 @@ import cucumber.api.java.de.Dann;
 import cucumber.api.java.de.Wenn;
 import de.blogspot.mszalbach.iss.domain.Security;
 import de.blogspot.mszalbach.iss.pageobjects.LoginPage;
+import de.blogspot.mszalbach.iss.pageobjects.SecurityEnterPage;
 import de.blogspot.mszalbach.iss.pageobjects.SecurityListPage;
 import net.thucydides.core.annotations.Steps;
 
@@ -46,8 +47,7 @@ public class OnlineListingSteps {
 
     @Wenn("^er ein Wertpapier mit folgenden Daten anlegt$")
     public void enterSecurityViaWebsite(List<Security> security) throws Throwable {
-        securityPage.open();
-        securityPage.openCreateSecurityDialog().insertSecurity(security.get(0)).submitForm();
+        fillSecurityViaWebsite(security).submitForm();
     }
 
     @Dann("^sollte es folgendes Wertpapier existieren$")
@@ -76,5 +76,11 @@ public class OnlineListingSteps {
     @Dann("^sollte das Anlegen fehlschlagen mit folgenden Fehlern:$")
     public void sollteDasAnlegenFehlschlagenMitFolgendenFehlern(List<String> errors) throws Throwable {
         throw new PendingException();
+    }
+
+    @Wenn("^er ein Wertpapier mit folgenden Daten anlegen will$")
+    public SecurityEnterPage fillSecurityViaWebsite(List<Security> security) throws Throwable {
+        securityPage.open();
+        return securityPage.openCreateSecurityDialog().insertSecurity(security.get(0));
     }
 }
