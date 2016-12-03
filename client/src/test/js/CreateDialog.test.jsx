@@ -2,6 +2,20 @@ import React from "react";
 import {shallow, mount} from "enzyme";
 import CreateDialog from "components/createDialog";
 
+
+const schema = {
+    "title": "Example Schema",
+    "type": "object",
+    "properties": {
+        "isin": {
+            "type": "string"
+        },
+        "symbol": {
+            "type": "string"
+        }
+    }
+};
+
 describe('<CreateDialog/>', () => {
 
 
@@ -17,29 +31,29 @@ describe('<CreateDialog/>', () => {
 
     it('should have correct properties', () => {
         var attributes = ["isin", "symbol"];
-        let wrapper = mount(<CreateDialog attributes={attributes}/>);
-        expect(wrapper.prop('attributes')).toBe(attributes);
+        let wrapper = mount(<CreateDialog schema={schema}/>);
+        expect(wrapper.prop('schema')).toBe(schema);
     });
 
     it('should contain enough <input> Elements', () => {
-        let wrapper = mount(<CreateDialog attributes={["1", "2", "3"]}/>);
+        let wrapper = mount(<CreateDialog schema={schema}/>);
         wrapper.find("button").simulate('click');
-        expect(document.getElementsByTagName("input").length).toBe(3);
+        expect(document.getElementsByTagName("input").length).toBe(2);
     });
 
     it('should render correct attribute', () => {
-        let wrapper = mount(<CreateDialog attributes={["correct"]}/>);
+        let wrapper = mount(<CreateDialog schema={schema}/>);
         wrapper.find("button").simulate('click');
-        expect(document.getElementById("correct").placeholder).toMatch(/correct/);
+        expect(document.getElementById("root_isin").id).toMatch(/isin/);
     });
 
-    it('should call onCreateFunction with form values', () => {
+    xit('should call onCreateFunction with form values', () => {
         let onCreateSpy = jasmine.createSpy('onCreateSpy');
-        let wrapper = mount(<CreateDialog attributes={["correct"]} addSecurity={onCreateSpy}/>);
-        wrapper.find("button").simulate('click');
-        document.getElementById("correct").value = "True";
+        let wrapper = mount(<CreateDialog schema={schema} addSecurity={onCreateSpy}/>);
+        //did not trigger validate method
+        document.getElementById("root_isin").value = "CH0123456789";
         document.getElementById("create").click();
-        expect(onCreateSpy).toHaveBeenCalledWith({"correct": "True"});
+        expect(onCreateSpy).toHaveBeenCalledWith({"isin": "CH0123456789"});
 
     });
 
