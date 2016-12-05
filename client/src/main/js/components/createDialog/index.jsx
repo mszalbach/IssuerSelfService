@@ -19,6 +19,8 @@ export default class CreateDialog extends React.Component {
 
     uiSchema = {
         "ui:order": ["isin", "symbol", "*"],
+        "isin": {"ui:autofocus": true},
+        //currently not used from the schema
         "state": {"ui:readonly": true}
     };
 

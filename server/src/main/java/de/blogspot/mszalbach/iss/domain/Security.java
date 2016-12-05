@@ -3,6 +3,7 @@ package de.blogspot.mszalbach.iss.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.blogspot.mszalbach.iss.validator.ISIN;
 import org.squirrelframework.foundation.fsm.StateMachineData;
 
@@ -24,12 +25,14 @@ public class Security {
     @GeneratedValue
     private Long       id;
     @ISIN
+    @JsonProperty(required = true)
     private String     isin;
     private String     symbol;
     @Column( scale = 2 )
     @DecimalMin( "0" )
     private BigDecimal nominalValue;
     private String     issuer;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String     state;
 
     @JsonIgnore
