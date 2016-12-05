@@ -1,6 +1,5 @@
 package de.blogspot.mszalbach.iss.auth;
 
-import de.blogspot.mszalbach.iss.Application;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -79,11 +79,11 @@ public class AuthenticationTest {
     }
 
     @Test
-    public void should_genearate_a_token_when_logging_in_via_session() throws Exception {
+    public void should_generate_a_token_when_logging_in_via_session() throws Exception {
         mockMvc.perform(post("/api/session").contentType(MediaType.APPLICATION_JSON)
                 .content("{\"username\": \"Ralf\",\"password\":\"ralf\"}"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("token", is("1")))
+                .andExpect(jsonPath("token", is(notNullValue())))
                 .andExpect(jsonPath("userName", is("Ralf")));
     }
 

@@ -2,16 +2,13 @@ package de.blogspot.mszalbach.iss.repo;
 
 import com.google.common.base.CaseFormat;
 import de.blogspot.mszalbach.iss.domain.Security;
-import de.blogspot.mszalbach.iss.repo.SecurityRepository;
-import de.blogspot.mszalbach.iss.statemachine.SecurityStateMachineAdapter;
+import de.blogspot.mszalbach.iss.domain.SecurityWorkflowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.BasePathAwareController;
 import org.springframework.data.rest.webmvc.support.RepositoryEntityLinks;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceProcessor;
-import org.squirrelframework.foundation.fsm.ImmutableTransition;
-import org.squirrelframework.foundation.fsm.StateMachine;
 
 /**
  * Created by foobarkilla on 20.11.16.
@@ -20,19 +17,16 @@ import org.squirrelframework.foundation.fsm.StateMachine;
 public class SecurityLinkProcessor
         implements ResourceProcessor<Resource<Security>> {
 
-    private RepositoryEntityLinks entityLinks;
+    private final RepositoryEntityLinks entityLinks;
 
-    private SecurityRepository repository;
-
-    private SecurityStateMachineAdapter persister;
+    private final SecurityWorkflowService workflowService;
 
 
 
     @Autowired
-    public SecurityLinkProcessor( RepositoryEntityLinks entityLinks, SecurityRepository repository, SecurityStateMachineAdapter persister ) {
+    public SecurityLinkProcessor( RepositoryEntityLinks entityLinks, SecurityWorkflowService workflowService ) {
         this.entityLinks = entityLinks;
-        this.repository = repository;
-        this.persister = persister;
+        this.workflowService = workflowService;
     }
 
 
@@ -40,16 +34,13 @@ public class SecurityLinkProcessor
     @Override
     public Resource<Security> process( Resource<Security> securityResource ) {
         try {
-            StateMachine machine = persister.restore( securityResource.getContent() );
 
-            for ( Object transition : machine.getCurrentRawState().getAllTransitions() ) {
-                ImmutableTransition t = ( ImmutableTransition )transition;
-                securityResource.add( createLink( securityResource.getContent().getId(), t.getEvent() ) );
+            for ( String transition : workflowService.getEvents( securityResource.getContent() ) ) {
+                securityResource.add( createLink( securityResource.getContent().getId(), transition ) );
             }
         } catch ( Exception e ) {
             e.printStackTrace();
         }
-
 
         return securityResource;
     }
