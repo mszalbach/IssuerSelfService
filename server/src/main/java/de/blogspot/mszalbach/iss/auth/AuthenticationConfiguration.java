@@ -22,7 +22,7 @@ public class AuthenticationConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/api/session").permitAll()
-                .antMatchers("/api/securities").authenticated()
+                .antMatchers("/api/securities/**").authenticated()
                 .and()
                 .httpBasic()
                 .and()

@@ -29,6 +29,7 @@ public class SecurityEventController {
 
 
     @PostMapping( path = "/securities/{id}/{event}" )
+    //TODO remove switch statement
     public ResponseEntity<Void> receiveEvent( @PathVariable( "id" ) Security security, @PathVariable( "event" ) String event )
             throws Exception {
         switch ( event ) {

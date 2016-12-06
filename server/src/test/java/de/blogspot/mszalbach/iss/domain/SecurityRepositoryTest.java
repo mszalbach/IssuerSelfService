@@ -8,14 +8,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -36,13 +39,19 @@ public class SecurityRepositoryTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
+    @Autowired
+    private FilterChainProxy filterChainProxy;
+
     private MockMvc mockMvc;
+
+    private RequestPostProcessor asEmittent = httpBasic( "Ralf", "ralf" );
 
 
 
     @Before
     public void setUp() {
-        this.mockMvc = webAppContextSetup( webApplicationContext ).build();
+        this.mockMvc = webAppContextSetup( webApplicationContext ).dispatchOptions( true )
+                                                                  .addFilters( filterChainProxy ).build();
     }
 
 
@@ -62,7 +71,7 @@ public class SecurityRepositoryTest {
 
         assertThat( securityRepository.count(), is( 2L ) );
 
-        mockMvc.perform( get( "/api/securities" ) )
+        mockMvc.perform( get( "/api/securities" ).with( asEmittent ) )
                .andExpect( status().isOk() )
                .andExpect( jsonPath( "_embedded.securities[0].isin", is( "US02079K1079" ) ) )
                .andExpect( jsonPath( "_embedded.securities[1].isin", is( "US5949181045" ) ) );
@@ -76,7 +85,7 @@ public class SecurityRepositoryTest {
         securityRepository.save( new Security( "US02079K1079", "Alphabet Inc" ) );
 
 
-        mockMvc.perform( get( "/api/securities/search/findByIsin" ).param( "isin", "US02079K1079" ) )
+        mockMvc.perform( get( "/api/securities/search/findByIsin" ).param( "isin", "US02079K1079" ).with( asEmittent ) )
                .andExpect( status().isOk() )
                .andExpect( jsonPath( "_embedded.securities[0].isin", is( "US02079K1079" ) ) )
                .andExpect( jsonPath( "_embedded.securities[0].symbol", is( "Alphabet Inc" ) ) );
@@ -89,7 +98,8 @@ public class SecurityRepositoryTest {
             throws Exception {
         assertThat( securityRepository.count(), is( 0L ) );
         mockMvc.perform( post( "/api/securities" )
-                                 .content( "{\"isin\": \"US02079K1079\",\"symbol\":\"Alphabet Inc\"}" ) )
+                                 .content( "{\"isin\": \"US02079K1079\",\"symbol\":\"Alphabet Inc\"}" )
+                                 .with( asEmittent ) )
                .andExpect( status().isCreated() );
         assertThat( securityRepository.count(), is( 1L ) );
     }
@@ -111,7 +121,7 @@ public class SecurityRepositoryTest {
     public void should_not_allow_security_without_isin()
             throws Exception {
         mockMvc.perform( post( "/api/securities" )
-                                 .content( "{\"symbol\":\"Alphabet Inc\"}" ) )
+                                 .content( "{\"symbol\":\"Alphabet Inc\"}" ).with( asEmittent ) )
                .andExpect( status().isBadRequest() );
     }
 
@@ -121,7 +131,8 @@ public class SecurityRepositoryTest {
     public void should_not_allow_security_without_conform_isin()
             throws Exception {
         mockMvc.perform( post( "/api/securities" )
-                                 .content( "{\"isin\": \"US02079K1079000\",\"symbol\":\"To many digits\"}" ) )
+                                 .content( "{\"isin\": \"US02079K1079000\",\"symbol\":\"To many digits\"}" )
+                                 .with( asEmittent ) )
                .andExpect( status().isBadRequest() )
                .andExpect( jsonPath( "errors[0].message", is( "ISIN not Valid." ) ) );
     }
@@ -133,7 +144,8 @@ public class SecurityRepositoryTest {
             throws Exception {
         mockMvc.perform( post( "/api/securities" )
                                  .content(
-                                         "{\"isin\": \"US02079K1079\",\"symbol\":\"Alphabet Inc\",\"nominalValue\": -1}" ) )
+                                         "{\"isin\": \"US02079K1079\",\"symbol\":\"Alphabet Inc\",\"nominalValue\": -1}" )
+                                 .with( asEmittent ) )
                .andExpect( status().isBadRequest() )
                .andExpect( jsonPath( "errors[0].message", is( "must be greater than or equal to 0" ) ) );
     }
@@ -144,7 +156,8 @@ public class SecurityRepositoryTest {
     public void should_create_securities_with_state_open()
             throws Exception {
         mockMvc.perform( post( "/api/securities" )
-                                 .content( "{\"isin\": \"US02079K1079\",\"symbol\":\"Alphabet Inc\"}" ) )
+                                 .content( "{\"isin\": \"US02079K1079\",\"symbol\":\"Alphabet Inc\"}" )
+                                 .with( asEmittent ) )
                .andExpect( status().isCreated() );
         Security security = securityRepository.findByIsin( "US02079K1079" ).get( 0 );
         assertThat( security.getState(), is( "Open" ) );
@@ -156,10 +169,11 @@ public class SecurityRepositoryTest {
     public void should_provide_links_to_events()
             throws Exception {
         mockMvc.perform( post( "/api/securities" )
-                                 .content( "{\"isin\": \"US02079K1079\",\"symbol\":\"Alphabet Inc\"}" ) )
+                                 .content( "{\"isin\": \"US02079K1079\",\"symbol\":\"Alphabet Inc\"}" )
+                                 .with( asEmittent ) )
                .andExpect( status().isCreated() );
 
-        mockMvc.perform( get( "/api/securities/search/findByIsin" ).param( "isin", "US02079K1079" ) )
+        mockMvc.perform( get( "/api/securities/search/findByIsin" ).param( "isin", "US02079K1079" ).with( asEmittent ) )
                .andExpect( status().isOk() )
                .andExpect( jsonPath( "_embedded.securities[0].isin", is( "US02079K1079" ) ) )
                .andExpect( jsonPath( "_embedded.securities[0]._links.request.href", containsString( "/request" ) ) );
@@ -171,15 +185,17 @@ public class SecurityRepositoryTest {
     public void should_switch_state_to_requested_on_request_event()
             throws Exception {
         mockMvc.perform( post( "/api/securities" )
-                                 .content( "{\"isin\": \"US02079K1079\",\"symbol\":\"Alphabet Inc\"}" ) )
+                                 .content( "{\"isin\": \"US02079K1079\",\"symbol\":\"Alphabet Inc\"}" )
+                                 .with( asEmittent ) )
                .andExpect( status().isCreated() );
 
-        String result = mockMvc.perform( get( "/api/securities/search/findByIsin" ).param( "isin", "US02079K1079" ) )
+        String result = mockMvc.perform(
+                get( "/api/securities/search/findByIsin" ).param( "isin", "US02079K1079" ).with( asEmittent ) )
                                .andExpect( status().isOk() ).andReturn().getResponse().getContentAsString();
 
         Object requestUrl = JsonPath.read( result, "_embedded.securities[0]._links.request.href" );
 
-        mockMvc.perform( post( requestUrl.toString() ) ).andExpect( status().isAccepted() );
+        mockMvc.perform( post( requestUrl.toString() ).with( asEmittent ) ).andExpect( status().isAccepted() );
 
         Security requestedSecurity = securityRepository.findByIsin( "US02079K1079" ).get( 0 );
 
