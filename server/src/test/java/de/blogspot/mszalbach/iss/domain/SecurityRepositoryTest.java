@@ -45,6 +45,7 @@ public class SecurityRepositoryTest {
     private MockMvc mockMvc;
 
     private RequestPostProcessor asEmittent = httpBasic( "Ralf", "ralf" );
+    private RequestPostProcessor asAdmin    = httpBasic( "Marcel", "marcel" );
 
 
 
@@ -200,6 +201,49 @@ public class SecurityRepositoryTest {
         Security requestedSecurity = securityRepository.findByIsin( "US02079K1079" ).get( 0 );
 
         assertThat( requestedSecurity.getState(), is( "Requested" ) );
+    }
+
+
+
+    @Test
+    public void should_not_allow_accept_for_emittent()
+            throws Exception {
+        mockMvc.perform( post( "/api/securities" )
+                                 .content( "{\"isin\": \"US02079K1079\",\"symbol\":\"Alphabet Inc\"}" )
+                                 .with( asEmittent ) )
+               .andExpect( status().isCreated() );
+
+        Security security = securityRepository.findByIsin( "US02079K1079" ).get( 0 );
+        mockMvc.perform( post( "/api/securities/" + security.getId() + "/request" )
+                                 .with( asEmittent ) )
+               .andExpect( status().isAccepted() );
+
+        mockMvc.perform( post( "/api/securities/" + security.getId() + "/accept" )
+                                 .with( asEmittent ) )
+               .andExpect( status().isForbidden() );
+    }
+
+
+
+    @Test
+    public void should_allow_accept_for_admin()
+            throws Exception {
+        mockMvc.perform( post( "/api/securities" )
+                                 .content( "{\"isin\": \"US02079K1079\",\"symbol\":\"Alphabet Inc\"}" )
+                                 .with( asEmittent ) )
+               .andExpect( status().isCreated() );
+
+        Security security = securityRepository.findByIsin( "US02079K1079" ).get( 0 );
+        mockMvc.perform( post( "/api/securities/" + security.getId() + "/request" )
+                                 .with( asEmittent ) )
+               .andExpect( status().isAccepted() );
+
+        mockMvc.perform( post( "/api/securities/" + security.getId() + "/accept" )
+                                 .with( asAdmin ) )
+               .andExpect( status().isAccepted() );
+
+        security = securityRepository.findOne( security.getId() );
+        assertThat( security.getState(), is( "Accepted" ) );
     }
 
 }
