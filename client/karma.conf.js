@@ -25,11 +25,9 @@ module.exports = function ( config ) {
                         'src/**/*.jsx': ['webpack']
                     },
                     coverageReporter: {
-                        includeAllSources: true,
                         dir: 'target/coverage',
                         reporters: [
                             {
-                                includeAllSources: true,
                                 type: 'html'
                             }]
                     },
