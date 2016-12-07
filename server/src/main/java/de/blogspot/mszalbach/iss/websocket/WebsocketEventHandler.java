@@ -19,6 +19,9 @@ import static de.blogspot.mszalbach.iss.websocket.WebSocketConfiguration.MESSAGE
 @RepositoryEventHandler( Security.class )
 public class WebsocketEventHandler {
 
+    public static final String NEW_SECURITY_TOPIC    = MESSAGE_PREFIX+ "/newSecurity";
+    public static final String DELETE_SECURITY_TOPIC = MESSAGE_PREFIX + "/deleteSecurity";
+    public static final String UPDATE_SECURITY_TOPIC = MESSAGE_PREFIX +"/updateSecurity";
     private final SimpMessagingTemplate websocket;
 
     private final EntityLinks entityLinks;
@@ -36,23 +39,23 @@ public class WebsocketEventHandler {
     @HandleAfterCreate
     public void newSecurity( Security security ) {
         this.websocket.convertAndSend(
-                MESSAGE_PREFIX + "/newSecurity", getPath( security ) );
+                NEW_SECURITY_TOPIC, getPath( security ) );
     }
 
 
 
     @HandleAfterDelete
-    public void deleteSecurity(Security security) {
+    public void deleteSecurity( Security security ) {
         this.websocket.convertAndSend(
-                MESSAGE_PREFIX + "/deleteSecurity", getPath( security ) );
+                DELETE_SECURITY_TOPIC, getPath( security ) );
     }
 
 
 
     @HandleAfterSave
-    public void updateSecurity(Security security) {
+    public void updateSecurity( Security security ) {
         this.websocket.convertAndSend(
-                MESSAGE_PREFIX + "/updateSecurity", getPath( security ) );
+                UPDATE_SECURITY_TOPIC, getPath( security ) );
     }
 
 

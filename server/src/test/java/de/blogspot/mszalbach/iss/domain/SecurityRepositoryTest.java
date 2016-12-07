@@ -1,68 +1,22 @@
 package de.blogspot.mszalbach.iss.domain;
 
 import com.jayway.jsonpath.JsonPath;
-import de.blogspot.mszalbach.iss.repo.SecurityRepository;
-import org.junit.After;
-import org.junit.Before;
+import de.blogspot.mszalbach.iss.RestRepositoryTestBase;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.web.FilterChainProxy;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.RequestPostProcessor;
-import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 /**
  * Created by foobarkilla on 29.10.16.
  */
-@RunWith( SpringJUnit4ClassRunner.class )
-@SpringBootTest
-@WebAppConfiguration
-public class SecurityRepositoryTest {
-
-    @Autowired
-    private SecurityRepository securityRepository;
-
-    @Autowired
-    private WebApplicationContext webApplicationContext;
-
-    @Autowired
-    private FilterChainProxy filterChainProxy;
-
-    private MockMvc mockMvc;
-
-    private RequestPostProcessor asEmittent = httpBasic( "Ralf", "ralf" );
-    private RequestPostProcessor asAdmin    = httpBasic( "Marcel", "marcel" );
-
-
-
-    @Before
-    public void setUp() {
-        this.mockMvc = webAppContextSetup( webApplicationContext ).dispatchOptions( true )
-                                                                  .addFilters( filterChainProxy ).build();
-    }
-
-
-
-    @After
-    public void cleanUp() {
-        this.securityRepository.deleteAll();
-    }
-
-
+public class SecurityRepositoryTest
+        extends RestRepositoryTestBase {
 
     @Test
     public void should_return_securities()
