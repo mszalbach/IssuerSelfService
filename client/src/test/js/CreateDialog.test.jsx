@@ -30,7 +30,6 @@ describe( '<CreateDialog/>', () => {
     } );
 
     it( 'should have correct properties', () => {
-        var attributes = ["isin", "symbol"];
         let wrapper = mount( <CreateDialog schema={schema}/> );
         expect( wrapper.prop( 'schema' ) ).toBe( schema );
     } );
