@@ -15,8 +15,8 @@ public class SecurityEnterPage
 
     public SecurityEnterPage insertSecurity( Security security ) {
 
-        enter( security.getIsin() ).intoField( find( By.id( "root_isin" ) ) );
-        enter( security.getIsin() ).intoField( find( By.id( "root_symbol" ) ) );
+        enter( security.getIsin() ).intoField( By.id( "root_isin" ) );
+        enter( security.getSymbol() ).intoField( By.id( "root_symbol" ) );
         return this;
     }
 
