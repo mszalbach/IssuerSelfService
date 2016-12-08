@@ -11,30 +11,24 @@ import org.openqa.selenium.WebElement;
 @DefaultUrl("http://localhost:8080/#/login")
 public class LoginPage extends PageObject {
 
-    public void login(String username, String password) {
-        typeIntoField("user", username);
-        typeIntoField("password", password);
+    public void login( String username, String password ) {
+
+        enter( username ).intoField( By.id( "user" ) );
+        enter( password ).intoField( By.id( "password" ) );
     }
+
 
 
     public void submitForm() {
-        submitForm("login");
+        findBy( "#login" ).click();
 
     }
 
-    private void typeIntoField(String id, String value) {
-        WebElement element = find(By.id(id));
-        element.clear();
-        element.sendKeys(value);
-    }
 
-    private void submitForm(String id) {
-        find(By.id(id)).click();
-    }
 
     public String getLoginError() {
-        WebElement loginError = find(By.id("loginError"));
-        element(loginError).waitUntilPresent();
+        WebElement loginError = findBy( "#loginError"  );
+        element( loginError ).waitUntilPresent();
         return loginError.getText().trim();
     }
 }

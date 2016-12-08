@@ -4,33 +4,27 @@ import de.blogspot.mszalbach.iss.domain.Security;
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.pages.PageObject;
 import net.thucydides.core.annotations.DefaultUrl;
-import org.openqa.selenium.WebElement;
 
 /**
  * Created by foobarkilla on 29.10.16.
  */
-@DefaultUrl("http://localhost:8080/#/securities")
-public class SecurityEnterPage extends PageObject {
+@DefaultUrl( "http://localhost:8080/#/securities" )
+public class SecurityEnterPage
+        extends PageObject {
 
-    public SecurityEnterPage insertSecurity(Security security) {
-        typeIntoField("root_isin", security.getIsin());
-        typeIntoField("root_symbol", security.getSymbol());
+
+    public SecurityEnterPage insertSecurity( Security security ) {
+
+        enter( security.getIsin() ).intoField( find( By.id( "root_isin" ) ) );
+        enter( security.getIsin() ).intoField( find( By.id( "root_symbol" ) ) );
         return this;
     }
 
 
+
     public void submitForm() {
-        submitForm("create");
+        find( By.id( "create" ) ).click();
 
     }
 
-    private void typeIntoField(String id, String value) {
-        WebElement element = find(By.id(id));
-        element.clear();
-        element.sendKeys(value);
-    }
-
-    private void submitForm(String id) {
-        find(By.id(id)).click();
-    }
 }

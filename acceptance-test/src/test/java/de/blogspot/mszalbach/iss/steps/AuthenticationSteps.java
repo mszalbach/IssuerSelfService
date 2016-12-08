@@ -1,9 +1,10 @@
 package de.blogspot.mszalbach.iss.steps;
 
 import cucumber.api.java.de.Dann;
+import cucumber.api.java.de.Gegebensei;
 import cucumber.api.java.de.Wenn;
+import de.blogspot.mszalbach.iss.pageobjects.IssPage;
 import de.blogspot.mszalbach.iss.pageobjects.LoginPage;
-import de.blogspot.mszalbach.iss.pageobjects.SecurityListPage;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -14,23 +15,39 @@ import static org.junit.Assert.assertThat;
 public class AuthenticationSteps {
 
     LoginPage loginPage;
-    SecurityListPage securityListPage;
+    IssPage   issPage;
 
 
-    @Wenn("^(\\w+) sich einloggt mit Passwort \"([^\"]*)\"$")
-    public void loginAsUserWithPassword(String user, String password) throws Throwable {
-        loginPage.open();
-        loginPage.login(user, password);
+
+    @Wenn( "^(\\w+) sich einloggt mit Passwort \"([^\"]*)\"$" )
+    public void loginAsUserWithPassword( String user, String password )
+            throws Throwable {
+        loginPage.login( user, password );
         loginPage.submitForm();
     }
 
-    @Dann("^sollte er informiert werden das der Login fehlgeschlagen ist$")
-    public void checkForErrorMessage() throws Throwable {
-        assertThat(loginPage.getLoginError(), is("401:Bad credentials"));
+
+
+    @Dann( "^sollte er informiert werden das der Login fehlgeschlagen ist$" )
+    public void checkForErrorMessage()
+            throws Throwable {
+        assertThat( loginPage.getLoginError(), is( "401:Bad credentials" ) );
     }
 
-    @Dann("^sollte er eingelogt sein als (\\w+)$")
-    public void shouldBeLoggedInAs(String username) throws Throwable {
-        assertThat(securityListPage.loggedInAs(), is(username));
+
+
+    @Dann( "^sollte er eingelogt sein als (\\w+)$" )
+    public void shouldBeLoggedInAs( String username )
+            throws Throwable {
+        assertThat( issPage.loggedInAs(), is( username ) );
+    }
+
+
+
+    @Gegebensei( "^(\\w+) will sich anmelden$" )
+    public void userWantsToLogin( String user )
+            throws Throwable {
+        issPage.openApplication();
+        issPage.goToLogin();
     }
 }
