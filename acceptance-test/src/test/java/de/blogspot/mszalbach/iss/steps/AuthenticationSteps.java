@@ -1,37 +1,47 @@
 package de.blogspot.mszalbach.iss.steps;
 
+import cucumber.api.java.Before;
 import cucumber.api.java.de.Dann;
 import cucumber.api.java.de.Gegebensei;
 import cucumber.api.java.de.Wenn;
-import de.blogspot.mszalbach.iss.pageobjects.IssPage;
-import de.blogspot.mszalbach.iss.pageobjects.LoginPage;
+import de.blogspot.mszalbach.iss.screenplay.abilities.Authenticate;
+import de.blogspot.mszalbach.iss.screenplay.questions.LoggedInAs;
+import de.blogspot.mszalbach.iss.screenplay.questions.LoginError;
+import de.blogspot.mszalbach.iss.screenplay.tasks.LogIn;
+import de.blogspot.mszalbach.iss.screenplay.tasks.Start;
+import net.serenitybdd.screenplay.actors.OnStage;
+import net.serenitybdd.screenplay.actors.OnlineCast;
 
+import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
+import static net.serenitybdd.screenplay.actors.OnStage.theActorCalled;
+import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 
 /**
  * Created by foobarkilla on 09.11.16.
  */
 public class AuthenticationSteps {
 
-    LoginPage loginPage;
-    IssPage   issPage;
+
+    @Before
+    public void set_the_stage() {
+        OnStage.setTheStage( new OnlineCast() );
+    }
 
 
 
     @Wenn( "^(\\w+) sich einloggt mit Passwort \"([^\"]*)\"$" )
     public void loginAsUserWithPassword( String user, String password )
             throws Throwable {
-        loginPage.login( user, password );
-        loginPage.submitForm();
+        theActorInTheSpotlight().can( Authenticate.with( user, password ) ).attemptsTo( LogIn.withCredentials() );
     }
 
 
 
-    @Dann( "^sollte er informiert werden das der Login fehlgeschlagen ist$" )
-    public void checkForErrorMessage()
+    @Dann( "^sollte der Login fehlschlagen mit \"([^\"]*)\"$" )
+    public void checkForErrorMessage( String errorMessage )
             throws Throwable {
-        assertThat( loginPage.getLoginError(), is( "401:Bad credentials" ) );
+        theActorInTheSpotlight().should( seeThat( LoginError.text(), is( errorMessage ) ) );
     }
 
 
@@ -39,7 +49,7 @@ public class AuthenticationSteps {
     @Dann( "^sollte er eingelogt sein als (\\w+)$" )
     public void shouldBeLoggedInAs( String username )
             throws Throwable {
-        assertThat( issPage.loggedInAs(), is( username ) );
+        theActorInTheSpotlight().should( seeThat( LoggedInAs.username(), is( username ) ) );
     }
 
 
@@ -47,7 +57,6 @@ public class AuthenticationSteps {
     @Gegebensei( "^(\\w+) will sich anmelden$" )
     public void userWantsToLogin( String user )
             throws Throwable {
-        issPage.openApplication();
-        issPage.goToLogin();
+        theActorCalled( user ).wasAbleTo( Start.onLoginPage() );
     }
 }

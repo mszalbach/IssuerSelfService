@@ -1,6 +1,7 @@
 package de.blogspot.mszalbach.iss.pageobjects;
 
 import net.serenitybdd.core.pages.PageObject;
+import net.serenitybdd.screenplay.targets.Target;
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.WebElement;
 
@@ -15,7 +16,7 @@ public class IssPage
 
 
     private static final String HOME_LINK     = "//a[contains(text(), 'Issuer Self Service')]";
-    private static final String USER_DROPDOWN = "#userdropdown";
+    public static        Target USER_DROPDOWN = Target.the( "Logged in User" ).locatedBy( "#userdropdown" );
 
 
 
@@ -33,7 +34,7 @@ public class IssPage
 
 
     public String loggedInAs() {
-        WebElement userdropdown = findBy( USER_DROPDOWN );
+        WebElement userdropdown = findBy( "#userdropdown" );
         clickOn( userdropdown );
         return userdropdown.getText();
     }
@@ -49,7 +50,6 @@ public class IssPage
     public void goToLogin() {
         this.switchToPage( LoginPage.class ).open();
     }
-
 
 
 }

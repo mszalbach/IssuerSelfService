@@ -14,4 +14,4 @@ Funktionalität: Authentifizierung
   Szenario: anmelden mit falschen Passwort
     Gegeben sei Ralf will sich anmelden
     Wenn Ralf sich einloggt mit Passwort "falsch"
-    Dann sollte er informiert werden das der Login fehlgeschlagen ist
+    Dann sollte der Login fehlschlagen mit "401:Bad credentials"
