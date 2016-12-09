@@ -27,8 +27,10 @@ public class LogIn
         actor.attemptsTo(
                 Enter.theValue( authenticated( actor ).username() )
                      .into( LoginPage.USER_FIELD ),
+
                 Enter.theValue( authenticated( actor ).password() )
                      .into( LoginPage.PASSWORD_FIELD ),
+
                 Click.on( LoginPage.LOGIN_BUTTON )
         );
     }

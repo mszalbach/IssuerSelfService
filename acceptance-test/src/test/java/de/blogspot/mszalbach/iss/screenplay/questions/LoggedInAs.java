@@ -4,6 +4,7 @@ import de.blogspot.mszalbach.iss.pageobjects.IssPage;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
 import net.serenitybdd.screenplay.annotations.Subject;
+import net.serenitybdd.screenplay.questions.Presence;
 import net.serenitybdd.screenplay.questions.Text;
 
 import static net.serenitybdd.screenplay.questions.ValueOf.the;
@@ -17,7 +18,12 @@ public class LoggedInAs
 
     @Override
     public String answeredBy( Actor actor ) {
-        return the( Text.of( IssPage.USER_DROPDOWN ).viewedBy( actor ) );
+        if ( Presence.of( IssPage.USER_DROPDOWN ).viewedBy( actor ).resolve() ) {
+            return the( Text.of( IssPage.USER_DROPDOWN ).viewedBy( actor ) );
+        } else {
+            return null;
+        }
+
     }
 
 

@@ -1,7 +1,6 @@
 package de.blogspot.mszalbach.iss.screenplay.tasks;
 
 import de.blogspot.mszalbach.iss.pageobjects.LoginPage;
-import de.blogspot.mszalbach.iss.screenplay.actions.Refresh;
 import net.serenitybdd.core.steps.Instrumented;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
@@ -14,16 +13,15 @@ import net.thucydides.core.annotations.Step;
 public class Start
         implements Task {
 
-    private LoginPage issPage;
+    private LoginPage loginPage;
 
 
 
     @Override
-    @Step( "{0} starts ISS" )
+    @Step( "{0} goes to Login Page" )
     public <T extends Actor> void performAs( T actor ) {
         actor.attemptsTo(
-                Open.browserOn().the( issPage ),
-                Refresh.theBrowserSession()
+                Open.browserOn().the( loginPage )
         );
     }
 
