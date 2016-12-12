@@ -4,7 +4,6 @@ import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.screenplay.targets.Target;
 import net.thucydides.core.annotations.DefaultUrl;
-import org.openqa.selenium.WebElement;
 
 /**
  * Created by foobarkilla on 08.11.16.
@@ -31,13 +30,5 @@ public class LoginPage
     public void submitForm() {
         findBy( "#login" ).click();
 
-    }
-
-
-
-    public String getLoginError() {
-        WebElement loginError = findBy( "#loginError" );
-        element( loginError ).waitUntilPresent();
-        return loginError.getText().trim();
     }
 }

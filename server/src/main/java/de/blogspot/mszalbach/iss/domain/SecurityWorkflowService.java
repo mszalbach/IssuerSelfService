@@ -34,6 +34,8 @@ public class SecurityWorkflowService {
 
 
 
+
+
     @Autowired
     public SecurityWorkflowService( SecurityStateMachineAdapter persister, SecurityRepository repository, WebsocketEventHandler websocketEventHandler ) {
         this.persister = persister;
@@ -50,11 +52,13 @@ public class SecurityWorkflowService {
     }
 
 
+
     @PreAuthorize( "hasRole('ADMIN')" )
     public void accept( Security security )
             throws Exception {
         fireEvent( security, "accept" );
     }
+
 
 
     @PreAuthorize( "hasRole('ADMIN')" )
@@ -79,6 +83,9 @@ public class SecurityWorkflowService {
         }
         return events;
     }
+
+
+
 
 
 

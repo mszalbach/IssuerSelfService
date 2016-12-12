@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import de.blogspot.mszalbach.iss.validator.ISIN;
+import org.hibernate.envers.Audited;
 import org.squirrelframework.foundation.fsm.StateMachineData;
 
 import javax.persistence.Column;
@@ -18,6 +19,7 @@ import java.math.BigDecimal;
  * Created by foobarkilla on 22.10.16.
  */
 @Entity
+@Audited
 @JsonIgnoreProperties( ignoreUnknown = true )
 public class Security {
 
