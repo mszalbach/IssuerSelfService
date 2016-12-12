@@ -17,7 +17,8 @@ public class SecurityHistoryEntry {
 
     public SecurityHistoryEntry( Object[] history ) {
         this.security = ( Security )history[ 0 ];
-        this.revisionEntity = ( DefaultRevisionEntity )history[ 1 ];
+        //can not be serialized via json
+       // this.revisionEntity = ( DefaultRevisionEntity )history[ 1 ];
         this.revisionType = ( RevisionType )history[ 2 ];
     }
 

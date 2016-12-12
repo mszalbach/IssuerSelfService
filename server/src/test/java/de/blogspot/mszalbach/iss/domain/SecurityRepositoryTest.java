@@ -200,4 +200,21 @@ public class SecurityRepositoryTest
         assertThat( security.getState(), is( "Accepted" ) );
     }
 
+
+
+    @Test
+    public void should_return_history_for_created_security()
+            throws Exception {
+        mockMvc.perform( post( "/api/securities" )
+                                 .content( "{\"isin\": \"US02079K1079\",\"symbol\":\"Alphabet Inc\"}" )
+                                 .with( asEmittent ) )
+               .andExpect( status().isCreated() );
+
+        Security createdSecurity = securityRepository.findByIsin( "US02079K1079" ).get( 0 );
+        mockMvc.perform( get( "/api/securities/" + createdSecurity.getId() + "/history" )
+                                 .with( asEmittent ) )
+               .andExpect( status().isOk() ).andExpect( jsonPath( "$[0].revisionType", is( "ADD" ) ) );
+
+    }
+
 }

@@ -6,7 +6,10 @@ import org.hibernate.envers.RevisionType;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
+
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -31,5 +34,22 @@ public class SecurityHistoryServiceTest
         assertThat( history.getRevisionType(), is( RevisionType.DEL ) );
 
     }
+
+
+
+    @Test
+    public void should_provide_access_to_old_values() {
+        securityRepository.save( new Security( "CH0123456789", "Symbol" ) );
+        Security storedSecurity = securityRepository.findByIsin( "CH0123456789" ).get( 0 );
+        storedSecurity.setNominalValue( BigDecimal.ZERO );
+        securityRepository.save( storedSecurity );
+
+        assertThat( historyService.getHistory( storedSecurity ).size(), is( 2 ) );
+        SecurityHistoryEntry lastHistory = historyService.getHistory( storedSecurity ).get( 1 );
+        assertThat( lastHistory.getSecurity().getNominalValue(), is( BigDecimal.ZERO.setScale( 2 ) ) );
+        SecurityHistoryEntry firstHistory = historyService.getHistory( storedSecurity ).get( 0 );
+        assertThat( firstHistory.getSecurity().getNominalValue(), is( nullValue() ) );
+    }
+
 
 }
