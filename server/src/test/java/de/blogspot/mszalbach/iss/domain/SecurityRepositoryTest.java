@@ -211,9 +211,11 @@ public class SecurityRepositoryTest
                .andExpect( status().isCreated() );
 
         Security createdSecurity = securityRepository.findByIsin( "US02079K1079" ).get( 0 );
-        mockMvc.perform( get( "/api/securities/" + createdSecurity.getId() + "/history" )
+        String a = mockMvc.perform( get( "/api/securities/" + createdSecurity.getId() + "/history" )
                                  .with( asEmittent ) )
-               .andExpect( status().isOk() ).andExpect( jsonPath( "$[0].revisionType", is( "ADD" ) ) );
+               .andExpect( status().isOk() ).andExpect( jsonPath( "$[0].revisionType", is( "ADD" ) ) ).andReturn().getResponse().getContentAsString();
+
+        System.out.println(a);
 
     }
 

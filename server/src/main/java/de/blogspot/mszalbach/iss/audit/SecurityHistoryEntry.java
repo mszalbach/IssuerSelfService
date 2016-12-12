@@ -1,25 +1,44 @@
 package de.blogspot.mszalbach.iss.audit;
 
 import de.blogspot.mszalbach.iss.domain.Security;
-import org.hibernate.envers.DefaultRevisionEntity;
 import org.hibernate.envers.RevisionType;
+
+import java.util.Date;
 
 /**
  * Created by ms on 12.12.16.
  */
 public class SecurityHistoryEntry {
 
-    private Security              security;
-    private DefaultRevisionEntity revisionEntity;
-    private RevisionType          revisionType;
+    private long         id;
+    private Security     security;
+    private Date         revisionDate;
+    private RevisionType revisionType;
+    private String       username;
+    private String       roles;
 
 
 
     public SecurityHistoryEntry( Object[] history ) {
         this.security = ( Security )history[ 0 ];
-        //can not be serialized via json
-       // this.revisionEntity = ( DefaultRevisionEntity )history[ 1 ];
+        SecurityRevisionEntity revisionEntity = ( SecurityRevisionEntity )history[ 1 ];
+        this.id = revisionEntity.getId();
+        this.username = revisionEntity.getUsername();
+        this.roles = revisionEntity.getRoles();
+        this.revisionDate = new Date( revisionEntity.getTimestamp() );
         this.revisionType = ( RevisionType )history[ 2 ];
+    }
+
+
+
+    public long getId() {
+        return id;
+    }
+
+
+
+    public void setId( long id ) {
+        this.id = id;
     }
 
 
@@ -36,14 +55,14 @@ public class SecurityHistoryEntry {
 
 
 
-    public DefaultRevisionEntity getRevisionEntity() {
-        return revisionEntity;
+    public Date getRevisionDate() {
+        return revisionDate;
     }
 
 
 
-    public void setRevisionEntity( DefaultRevisionEntity revisionEntity ) {
-        this.revisionEntity = revisionEntity;
+    public void setRevisionDate( Date revisionEntity ) {
+        this.revisionDate = revisionDate;
     }
 
 
@@ -56,5 +75,29 @@ public class SecurityHistoryEntry {
 
     public void setRevisionType( RevisionType revisionType ) {
         this.revisionType = revisionType;
+    }
+
+
+
+    public String getUsername() {
+        return username;
+    }
+
+
+
+    public void setUsername( String username ) {
+        this.username = username;
+    }
+
+
+
+    public String getRoles() {
+        return roles;
+    }
+
+
+
+    public void setRoles( String roles ) {
+        this.roles = roles;
     }
 }
