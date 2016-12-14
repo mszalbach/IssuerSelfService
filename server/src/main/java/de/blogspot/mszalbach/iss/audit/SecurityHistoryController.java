@@ -16,13 +16,20 @@ import java.util.List;
 @BasePathAwareController
 public class SecurityHistoryController {
 
-    @Autowired
     private final SecurityHistoryService historyService;
 
 
 
+    @Autowired
     public SecurityHistoryController( SecurityHistoryService historyService ) {
         this.historyService = historyService;
+    }
+
+
+
+    @GetMapping( path = "/securities/history" )
+    public ResponseEntity<List> getHistory() {
+        return ResponseEntity.ok( historyService.getHistory() );
     }
 
 

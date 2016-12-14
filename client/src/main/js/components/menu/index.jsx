@@ -30,6 +30,9 @@ export default class Menu extends React.Component {
                     <LinkContainer to="securities">
                         <NavItem>Securities</NavItem>
                     </LinkContainer>
+                    <LinkContainer to="securitieshistory">
+                        <NavItem>Securities History</NavItem>
+                    </LinkContainer>
                 </Nav>
                 <Nav pullRight>
                     { isAuthenticated ? (

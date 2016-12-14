@@ -34,6 +34,7 @@ public class SecurityHistoryServiceTest
         assertThat( historyService.getHistory( storedSecurity ).size(), is( 2 ) );
         SecurityHistoryEntry history = historyService.getHistory( storedSecurity ).get( 1 );
         assertThat( history.getRevisionType(), is( RevisionType.DEL ) );
+        assertThat( history.getSecurity().getIsin(), is( "CH0123456789" ) );
     }
 
 

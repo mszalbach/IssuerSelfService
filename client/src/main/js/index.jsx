@@ -10,6 +10,7 @@ import Landing from "./components/landingPage";
 import LoginPage from "./container/loginPage";
 import NoMatch from "./components/noMatch";
 import SecuritiesPage from "container/securitiesPage";
+import SecuritiesHistoryPage from "container/securitiesHistoryPage";
 import {requireAuthentication} from "container/auth";
 import history from "config/history";
 import "react-redux-toastr/lib/css/react-redux-toastr.css";
@@ -31,6 +32,8 @@ export default class App extends React.Component {
                                    component={Landing}/>
                             <Route path="securities"
                                    component={requireAuthentication(SecuritiesPage)}/>
+                            <Route path="securitieshistory"
+                                   component={requireAuthentication(SecuritiesHistoryPage)}/>
                             <Route path="login"
                                    component={LoginPage}/>
                             <Route path="*" component={NoMatch}/>

@@ -32,16 +32,35 @@ public class SecurityHistoryService {
 
     @Transactional
     public List<SecurityHistoryEntry> getHistory( Security security ) {
-        AuditReader reader = AuditReaderFactory.get( entityManager );
-        AuditQuery query = reader.createQuery()
-                                 .forRevisionsOfEntity( Security.class, false, true );
+        AuditQuery query = getAuditQuery();
         query.add( AuditEntity.id().eq( security.getId() ) );
 
+        return mapAuditResultIntoHistoryEntryList( query );
+    }
+
+
+
+    @Transactional
+    public List<SecurityHistoryEntry> getHistory() {
+        AuditQuery query = getAuditQuery();
+        return mapAuditResultIntoHistoryEntryList( query );
+    }
+
+
+
+    private AuditQuery getAuditQuery() {
+        AuditReader reader = AuditReaderFactory.get( entityManager );
+        return reader.createQuery()
+                     .forRevisionsOfEntity( Security.class, false, true );
+    }
+
+
+
+    private List<SecurityHistoryEntry> mapAuditResultIntoHistoryEntryList( AuditQuery query ) {
         List<SecurityHistoryEntry> historyList = new ArrayList<>();
         for ( Object result : query.getResultList() ) {
             historyList.add( new SecurityHistoryEntry( ( Object[] )result ) );
         }
-
         return historyList;
     }
 
