@@ -3,35 +3,7 @@ import {createClient} from "../rest/client";
 const FETCH_SUCCESS = 'securityHistory/FETCH_SUCCESS';
 
 const initialState = {
-    history: [{
-        "security": {
-            "id": 1,
-            "isin": "CH0123456789",
-            "symbol": null,
-            "nominalValue": null,
-            "issuer": null,
-            "state": "Open"
-        },
-        "revisionDate": "2016-12-12T13:05:23.025+0000",
-        "revisionType": "ADD",
-        "id": 1,
-        "username": "Ralf",
-        "roles": "[ROLE_ADMIN]"
-    }, {
-        "security": {
-            "id": 1,
-            "isin": "CH0123456789",
-            "symbol": null,
-            "nominalValue": null,
-            "issuer": null,
-            "state": "Requested"
-        },
-        "revisionDate": "2016-12-12T13:05:25.528+0000",
-        "revisionType": "MOD",
-        "id": 2,
-        "username": "Ralf",
-        "roles": "[ROLE_EMITTENT]"
-    }]
+    history: []
 };
 
 export default function reducer( state = initialState, action ) {
