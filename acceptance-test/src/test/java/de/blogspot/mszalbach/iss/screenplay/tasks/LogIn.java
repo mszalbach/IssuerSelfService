@@ -22,7 +22,7 @@ public class LogIn
 
 
     @Override
-    @Step( "Logs in as: {0}" )
+    @Step( "Anmelden als {0}" )
     public <T extends Actor> void performAs( T actor ) {
         actor.attemptsTo(
                 Enter.theValue( authenticated( actor ).username() )

@@ -18,7 +18,7 @@ public class Start
 
 
     @Override
-    @Step( "{0} goes to Login Page" )
+    @Step( "{0} öffnet die Login Seite" )
     public <T extends Actor> void performAs( T actor ) {
         actor.attemptsTo(
                 Open.browserOn().the( loginPage )
