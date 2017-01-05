@@ -24,6 +24,8 @@
         <selenium.version>2.53.1</selenium.version>
         <spring-boot.version>1.4.3.RELEASE</spring-boot.version>
         <java.version>1.8</java.version>
+        <node.version>v6.9.3</node.version>
+        <yarn.version>v0.18.1</yarn.version>
     </properties>
 
     <build>
@@ -56,7 +58,7 @@
                 <plugin>
                     <groupId>io.fabric8</groupId>
                     <artifactId>docker-maven-plugin</artifactId>
-                    <version>0.18.1</version>
+                    <version>0.19.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -81,7 +83,7 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-simple</artifactId>
-                <version>1.7.21</version>
+                <version>1.7.22</version>
             </dependency>
             <dependency>
                 <groupId>net.serenity-bdd</groupId>
