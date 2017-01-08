@@ -14,31 +14,27 @@ import static net.thucydides.core.pages.components.HtmlTable.rowsFrom;
 /**
  * Created by foobarkilla on 22.10.16.
  */
-@DefaultUrl( "http://localhost:8080/#/securities" )
+@DefaultUrl("http://localhost:8080/#/securities")
 public class SecurityListPage
-        extends PageObject {
+    extends PageObject {
 
     public int getCount() {
-        List<Map<Object, String>> rows = rowsFrom( find( By.id( "securities" ) ) );
+        List<Map<Object, String>> rows = rowsFrom(find(By.id("securities")));
         return rows.size();
     }
 
 
-
-    public void deleteSecurity( Security security ) {
-        WebElement deleteButton = find( By.id( "delete_" + security.getIsin() ) );
+    public void deleteSecurity(Security security) {
+        WebElement deleteButton = find(By.id("delete_" + security.getIsin()));
         deleteButton.click();
     }
 
 
-
     public SecurityEnterPage openCreateSecurityDialog() {
-        WebElement openCreateButton = find( By.id( "openCreate" ) );
+        WebElement openCreateButton = find(By.id("openCreate"));
         openCreateButton.click();
-        return this.switchToPage( SecurityEnterPage.class );
+        return this.switchToPage(SecurityEnterPage.class);
     }
-
-
 
 
 }

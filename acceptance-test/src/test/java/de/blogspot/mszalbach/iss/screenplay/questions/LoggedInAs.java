@@ -12,23 +12,21 @@ import static net.serenitybdd.screenplay.questions.ValueOf.the;
 /**
  * Created by ms on 09.12.16.
  */
-@Subject( "Username" )
+@Subject("Username")
 public class LoggedInAs
-        implements Question<String> {
+    implements Question<String> {
+
+    public static LoggedInAs username() {
+        return new LoggedInAs();
+    }
 
     @Override
-    public String answeredBy( Actor actor ) {
-        if ( Presence.of( IssPage.USER_DROPDOWN ).viewedBy( actor ).resolve() ) {
-            return the( Text.of( IssPage.USER_DROPDOWN ).viewedBy( actor ) );
+    public String answeredBy(Actor actor) {
+        if (Presence.of(IssPage.USER_DROPDOWN).viewedBy(actor).resolve()) {
+            return the(Text.of(IssPage.USER_DROPDOWN).viewedBy(actor));
         } else {
             return null;
         }
 
-    }
-
-
-
-    public static LoggedInAs username() {
-        return new LoggedInAs();
     }
 }

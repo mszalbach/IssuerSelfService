@@ -20,39 +20,36 @@ import java.math.BigDecimal;
  */
 @Entity
 @Audited
-@JsonIgnoreProperties( ignoreUnknown = true )
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Security {
 
     @Id
     @GeneratedValue
-    private Long       id;
+    private Long id;
     @ISIN
     @JsonProperty(required = true)
-    private String     isin;
-    private String     symbol;
-    @Column( scale = 2 )
-    @DecimalMin( "0" )
+    private String isin;
+    private String symbol;
+    @Column(scale = 2)
+    @DecimalMin("0")
     private BigDecimal nominalValue;
-    private String     issuer;
+    private String issuer;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private String     state;
+    private String state;
 
     @JsonIgnore
-    @Column( columnDefinition = "TEXT" )
+    @Column(columnDefinition = "TEXT")
     private StateMachineData.Reader stateMachine;
-
 
 
     public Security() {
     }
 
 
-
-    public Security( String isin, String symbol ) {
+    public Security(String isin, String symbol) {
         this.isin = isin;
         this.symbol = symbol;
     }
-
 
 
     public String getState() {
@@ -60,11 +57,9 @@ public class Security {
     }
 
 
-
     public Long getId() {
         return id;
     }
-
 
 
     public String getIsin() {
@@ -72,11 +67,9 @@ public class Security {
     }
 
 
-
-    public void setIsin( String isin ) {
+    public void setIsin(String isin) {
         this.isin = isin;
     }
-
 
 
     public String getSymbol() {
@@ -84,11 +77,9 @@ public class Security {
     }
 
 
-
-    public void setSymbol( String symbol ) {
+    public void setSymbol(String symbol) {
         this.symbol = symbol;
     }
-
 
 
     public BigDecimal getNominalValue() {
@@ -96,11 +87,9 @@ public class Security {
     }
 
 
-
-    public void setNominalValue( BigDecimal nominalValue ) {
+    public void setNominalValue(BigDecimal nominalValue) {
         this.nominalValue = nominalValue;
     }
-
 
 
     public String getIssuer() {
@@ -108,11 +97,9 @@ public class Security {
     }
 
 
-
-    public void setIssuer( String issuer ) {
+    public void setIssuer(String issuer) {
         this.issuer = issuer;
     }
-
 
 
     public StateMachineData.Reader getStateMachine() {
@@ -120,8 +107,7 @@ public class Security {
     }
 
 
-
-    public void setStateMachine( StateMachineData.Reader stateMachine ) {
+    public void setStateMachine(StateMachineData.Reader stateMachine) {
         this.state = stateMachine.currentState().toString();
         this.stateMachine = stateMachine;
     }

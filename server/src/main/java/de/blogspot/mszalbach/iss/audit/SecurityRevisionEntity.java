@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
-@RevisionEntity( SecurityRevisionListener.class )
+@RevisionEntity(SecurityRevisionListener.class)
 public class SecurityRevisionEntity {
 
     @Id
@@ -25,17 +25,14 @@ public class SecurityRevisionEntity {
     private String roles;
 
 
-
     public long getId() {
         return id;
     }
 
 
-
-    public void setId( long id ) {
+    public void setId(long id) {
         this.id = id;
     }
-
 
 
     public long getTimestamp() {
@@ -43,11 +40,9 @@ public class SecurityRevisionEntity {
     }
 
 
-
-    public void setTimestamp( long timestamp ) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
-
 
 
     public String getUsername() {
@@ -55,11 +50,9 @@ public class SecurityRevisionEntity {
     }
 
 
-
-    public void setUsername( String username ) {
+    public void setUsername(String username) {
         this.username = username;
     }
-
 
 
     public String getRoles() {
@@ -67,32 +60,29 @@ public class SecurityRevisionEntity {
     }
 
 
-
-    public void setRoles( String roles ) {
+    public void setRoles(String roles) {
         this.roles = roles;
     }
 
 
-
     @Override
-    public boolean equals( Object o ) {
-        if ( this == o ) {
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
         }
-        if ( o == null || getClass() != o.getClass() ) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        SecurityRevisionEntity that = ( SecurityRevisionEntity )o;
+        SecurityRevisionEntity that = (SecurityRevisionEntity) o;
         return id == that.id &&
-               timestamp == that.timestamp &&
-               Objects.equals( username, that.username ) &&
-               Objects.equals( roles, that.roles );
+            timestamp == that.timestamp &&
+            Objects.equals(username, that.username) &&
+            Objects.equals(roles, that.roles);
     }
-
 
 
     @Override
     public int hashCode() {
-        return Objects.hash( id, timestamp, username, roles );
+        return Objects.hash(id, timestamp, username, roles);
     }
 }

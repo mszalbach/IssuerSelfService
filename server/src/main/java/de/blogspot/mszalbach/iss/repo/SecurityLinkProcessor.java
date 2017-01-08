@@ -15,30 +15,28 @@ import org.springframework.hateoas.ResourceProcessor;
  */
 @BasePathAwareController
 public class SecurityLinkProcessor
-        implements ResourceProcessor<Resource<Security>> {
+    implements ResourceProcessor<Resource<Security>> {
 
     private final RepositoryEntityLinks entityLinks;
 
     private final SecurityWorkflowService workflowService;
 
 
-
     @Autowired
-    public SecurityLinkProcessor( RepositoryEntityLinks entityLinks, SecurityWorkflowService workflowService ) {
+    public SecurityLinkProcessor(RepositoryEntityLinks entityLinks, SecurityWorkflowService workflowService) {
         this.entityLinks = entityLinks;
         this.workflowService = workflowService;
     }
 
 
-
     @Override
-    public Resource<Security> process( Resource<Security> securityResource ) {
+    public Resource<Security> process(Resource<Security> securityResource) {
         try {
 
-            for ( String transition : workflowService.getEvents( securityResource.getContent() ) ) {
-                securityResource.add( createLink( securityResource.getContent().getId(), transition ) );
+            for (String transition : workflowService.getEvents(securityResource.getContent())) {
+                securityResource.add(createLink(securityResource.getContent().getId(), transition));
             }
-        } catch ( Exception e ) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -46,9 +44,8 @@ public class SecurityLinkProcessor
     }
 
 
-
-    private Link createLink( Object id, Object event ) {
-        String rel = CaseFormat.UPPER_CAMEL.to( CaseFormat.LOWER_HYPHEN, event.toString() );
-        return entityLinks.linkForSingleResource( Security.class, id ).slash( event ).withRel( rel );
+    private Link createLink(Object id, Object event) {
+        String rel = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, event.toString());
+        return entityLinks.linkForSingleResource(Security.class, id).slash(event).withRel(rel);
     }
 }

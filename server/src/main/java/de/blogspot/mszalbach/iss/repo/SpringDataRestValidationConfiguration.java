@@ -15,12 +15,10 @@ public class SpringDataRestValidationConfiguration extends RepositoryRestConfigu
     private Validator validator;
 
 
-
     @Autowired
-    public SpringDataRestValidationConfiguration( Validator validator ) {
+    public SpringDataRestValidationConfiguration(Validator validator) {
         this.validator = validator;
     }
-
 
 
     @Override

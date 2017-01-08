@@ -10,25 +10,23 @@ import java.util.Date;
  */
 public class SecurityHistoryEntry {
 
-    private long         id;
-    private Security     security;
-    private Date         revisionDate;
+    private long id;
+    private Security security;
+    private Date revisionDate;
     private RevisionType revisionType;
-    private String       username;
-    private String       roles;
+    private String username;
+    private String roles;
 
 
-
-    public SecurityHistoryEntry( Object[] history ) {
-        this.security = ( Security )history[ 0 ];
-        SecurityRevisionEntity revisionEntity = ( SecurityRevisionEntity )history[ 1 ];
+    public SecurityHistoryEntry(Object[] history) {
+        this.security = (Security) history[0];
+        SecurityRevisionEntity revisionEntity = (SecurityRevisionEntity) history[1];
         this.id = revisionEntity.getId();
         this.username = revisionEntity.getUsername();
         this.roles = revisionEntity.getRoles();
-        this.revisionDate = new Date( revisionEntity.getTimestamp() );
-        this.revisionType = ( RevisionType )history[ 2 ];
+        this.revisionDate = new Date(revisionEntity.getTimestamp());
+        this.revisionType = (RevisionType) history[2];
     }
-
 
 
     public long getId() {
@@ -36,11 +34,9 @@ public class SecurityHistoryEntry {
     }
 
 
-
-    public void setId( long id ) {
+    public void setId(long id) {
         this.id = id;
     }
-
 
 
     public Security getSecurity() {
@@ -48,11 +44,9 @@ public class SecurityHistoryEntry {
     }
 
 
-
-    public void setSecurity( Security security ) {
+    public void setSecurity(Security security) {
         this.security = security;
     }
-
 
 
     public Date getRevisionDate() {
@@ -60,11 +54,9 @@ public class SecurityHistoryEntry {
     }
 
 
-
-    public void setRevisionDate( Date revisionEntity ) {
+    public void setRevisionDate(Date revisionEntity) {
         this.revisionDate = revisionDate;
     }
-
 
 
     public RevisionType getRevisionType() {
@@ -72,11 +64,9 @@ public class SecurityHistoryEntry {
     }
 
 
-
-    public void setRevisionType( RevisionType revisionType ) {
+    public void setRevisionType(RevisionType revisionType) {
         this.revisionType = revisionType;
     }
-
 
 
     public String getUsername() {
@@ -84,11 +74,9 @@ public class SecurityHistoryEntry {
     }
 
 
-
-    public void setUsername( String username ) {
+    public void setUsername(String username) {
         this.username = username;
     }
-
 
 
     public String getRoles() {
@@ -96,8 +84,7 @@ public class SecurityHistoryEntry {
     }
 
 
-
-    public void setRoles( String roles ) {
+    public void setRoles(String roles) {
         this.roles = roles;
     }
 }

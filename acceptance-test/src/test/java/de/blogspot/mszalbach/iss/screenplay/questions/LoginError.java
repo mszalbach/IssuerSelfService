@@ -11,18 +11,16 @@ import static net.serenitybdd.screenplay.questions.ValueOf.the;
 /**
  * Created by ms on 09.12.16.
  */
-@Subject( "Login Error" )
+@Subject("Login Error")
 public class LoginError
-        implements Question<String> {
-
-    @Override
-    public String answeredBy( Actor actor ) {
-        return the( Text.of( LoginPage.ERROR_TEXT ).viewedBy( actor ) );
-    }
-
-
+    implements Question<String> {
 
     public static LoginError text() {
         return new LoginError();
+    }
+
+    @Override
+    public String answeredBy(Actor actor) {
+        return the(Text.of(LoginPage.ERROR_TEXT).viewedBy(actor));
     }
 }

@@ -18,38 +18,37 @@ import java.lang.reflect.Method;
 @Service
 public class SecurityChecker {
 
-    @Autowired
-    MethodSecurityExpressionHandler expressionHandler;
-
-    static Logger logger = Logger.getLogger( SecurityChecker.class );
-
-    private static class SecurityObject {
-
-        public void triggerCheck() { /*NOP*/ }
-    }
-
-    private static Method               triggerCheckMethod;
+    static Logger logger = Logger.getLogger(SecurityChecker.class);
+    private static Method triggerCheckMethod;
     private static SpelExpressionParser parser;
 
     static {
         try {
-            triggerCheckMethod = SecurityObject.class.getMethod( "triggerCheck" );
-        } catch ( NoSuchMethodException e ) {
-            logger.error( e );
+            triggerCheckMethod = SecurityObject.class.getMethod("triggerCheck");
+        } catch (NoSuchMethodException e) {
+            logger.error(e);
         }
         parser = new SpelExpressionParser();
     }
 
-    public boolean check( String securityExpression ) {
+    @Autowired
+    MethodSecurityExpressionHandler expressionHandler;
+
+    public boolean check(String securityExpression) {
 
         SecurityObject securityObject = new SecurityObject();
         EvaluationContext evaluationContext = expressionHandler
-                .createEvaluationContext( SecurityContextHolder.getContext().getAuthentication(),
-                                          new SimpleMethodInvocation( securityObject, triggerCheckMethod ) );
+            .createEvaluationContext(SecurityContextHolder.getContext().getAuthentication(),
+                new SimpleMethodInvocation(securityObject, triggerCheckMethod));
         boolean checkResult = ExpressionUtils
-                .evaluateAsBoolean( parser.parseExpression( securityExpression ), evaluationContext );
+            .evaluateAsBoolean(parser.parseExpression(securityExpression), evaluationContext);
 
         return checkResult;
+    }
+
+    private static class SecurityObject {
+
+        public void triggerCheck() { /*NOP*/ }
     }
 
 }

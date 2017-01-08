@@ -12,23 +12,21 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 @Component
 @EnableWebSocketMessageBroker
 public class WebSocketConfiguration
-        extends AbstractWebSocketMessageBrokerConfigurer {
+    extends AbstractWebSocketMessageBrokerConfigurer {
 
     public static final String MESSAGE_PREFIX = "/topic";
 
 
-
     @Override
-    public void registerStompEndpoints( StompEndpointRegistry registry ) {
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
         //cors problem without setAllowedOrigins
-        registry.addEndpoint( "/sockjs" ).setAllowedOrigins( "*" ).withSockJS();
+        registry.addEndpoint("/sockjs").setAllowedOrigins("*").withSockJS();
     }
 
 
-
     @Override
-    public void configureMessageBroker( MessageBrokerRegistry registry ) {
-        registry.enableSimpleBroker( MESSAGE_PREFIX );
-        registry.setApplicationDestinationPrefixes( "/app" );
+    public void configureMessageBroker(MessageBrokerRegistry registry) {
+        registry.enableSimpleBroker(MESSAGE_PREFIX);
+        registry.setApplicationDestinationPrefixes("/app");
     }
 }

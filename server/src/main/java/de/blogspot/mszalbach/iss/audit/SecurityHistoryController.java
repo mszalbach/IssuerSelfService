@@ -19,24 +19,21 @@ public class SecurityHistoryController {
     private final SecurityHistoryService historyService;
 
 
-
     @Autowired
-    public SecurityHistoryController( SecurityHistoryService historyService ) {
+    public SecurityHistoryController(SecurityHistoryService historyService) {
         this.historyService = historyService;
     }
 
 
-
-    @GetMapping( path = "/securities/history" )
+    @GetMapping(path = "/securities/history")
     public ResponseEntity<List> getHistory() {
-        return ResponseEntity.ok( historyService.getHistory() );
+        return ResponseEntity.ok(historyService.getHistory());
     }
 
 
-
-    @GetMapping( path = "/securities/{id}/history" )
-    public ResponseEntity<List> getHistory( @PathVariable( "id" ) Security security ) {
-        return ResponseEntity.ok( historyService.getHistory( security ) );
+    @GetMapping(path = "/securities/{id}/history")
+    public ResponseEntity<List> getHistory(@PathVariable("id") Security security) {
+        return ResponseEntity.ok(historyService.getHistory(security));
     }
 
 }

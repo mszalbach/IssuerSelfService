@@ -25,32 +25,32 @@ export default class CreateDialog extends React.Component {
     };
 
     close = () => {
-        this.setState( {showModal: false} );
+        this.setState({showModal: false});
     };
 
 
     open = () => {
-        this.setState( {showModal: true} );
+        this.setState({showModal: true});
     };
 
-    onChange = ( form ) => {
+    onChange = (form) => {
         //needed or else the form resets
-        this.setState( {
-                           formData: form.formData,
-                           error: (form.errors.length > 0 )
-                       } );
+        this.setState({
+            formData: form.formData,
+            error: (form.errors.length > 0 )
+        });
     };
 
-    handleSubmit = ( form ) => {
+    handleSubmit = (form) => {
 
-        this.props.addSecurity( form.formData );
+        this.props.addSecurity(form.formData);
 
         this.close();
     };
 
-    validate = ( formData, errors ) => {
-        if ( !validator.isISIN( formData.isin + "" ) ) {
-            errors.isin.addError( "ISIN not valid" );
+    validate = (formData, errors) => {
+        if (!validator.isISIN(formData.isin + "")) {
+            errors.isin.addError("ISIN not valid");
         }
         return errors;
     };
@@ -58,32 +58,32 @@ export default class CreateDialog extends React.Component {
     render() {
 
         return (
-                <div>
-                    <Button onClick={this.open} id="openCreate">Create Security</Button>
+            <div>
+                <Button onClick={this.open} id="openCreate">Create Security</Button>
 
-                    <Modal show={this.state.showModal} onHide={this.close}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Create Security</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <Form
-                                    formData={this.state.formData}
-                                    schema={this.props.schema}
-                                    uiSchema={this.uiSchema}
-                                    liveValidate={true}
-                                    validate={this.validate}
-                                    showErrorList={false}
-                                    autocomplete="off"
-                                    onChange={this.onChange}
-                                    onSubmit={this.handleSubmit}>
-                                <Modal.Footer>
-                                    <Button id="create" type="submit" disabled={this.state.error}>Create</Button>
-                                    <Button onClick={this.close}>Close</Button>
-                                </Modal.Footer>
-                            </Form>
-                        </Modal.Body>
-                    </Modal>
-                </div>
+                <Modal show={this.state.showModal} onHide={this.close}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Create Security</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form
+                            formData={this.state.formData}
+                            schema={this.props.schema}
+                            uiSchema={this.uiSchema}
+                            liveValidate={true}
+                            validate={this.validate}
+                            showErrorList={false}
+                            autocomplete="off"
+                            onChange={this.onChange}
+                            onSubmit={this.handleSubmit}>
+                            <Modal.Footer>
+                                <Button id="create" type="submit" disabled={this.state.error}>Create</Button>
+                                <Button onClick={this.close}>Close</Button>
+                            </Modal.Footer>
+                        </Form>
+                    </Modal.Body>
+                </Modal>
+            </div>
         );
     }
 

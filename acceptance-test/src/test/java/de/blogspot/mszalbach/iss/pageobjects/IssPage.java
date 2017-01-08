@@ -10,14 +10,13 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by ms on 08.12.16.
  */
-@DefaultUrl( "http://localhost:8080/" )
+@DefaultUrl("http://localhost:8080/")
 public class IssPage
-        extends PageObject {
+    extends PageObject {
 
 
-    private static final String HOME_LINK     = "//a[contains(text(), 'Issuer Self Service')]";
-    public static        Target USER_DROPDOWN = Target.the( "Logged in User" ).locatedBy( "#userdropdown" );
-
+    private static final String HOME_LINK = "//a[contains(text(), 'Issuer Self Service')]";
+    public static Target USER_DROPDOWN = Target.the("Logged in User").locatedBy("#userdropdown");
 
 
     public void openApplication() {
@@ -26,19 +25,16 @@ public class IssPage
     }
 
 
-
     private void waitForTheApplicationToLoad() {
-        withTimeoutOf( 60, TimeUnit.SECONDS ).waitFor( HOME_LINK );
+        withTimeoutOf(60, TimeUnit.SECONDS).waitFor(HOME_LINK);
     }
-
 
 
     public String loggedInAs() {
-        WebElement userdropdown = findBy( "#userdropdown" );
-        clickOn( userdropdown );
+        WebElement userdropdown = findBy("#userdropdown");
+        clickOn(userdropdown);
         return userdropdown.getText();
     }
-
 
 
     public void logout() {
@@ -46,9 +42,8 @@ public class IssPage
     }
 
 
-
     public void goToLogin() {
-        this.switchToPage( LoginPage.class ).open();
+        this.switchToPage(LoginPage.class).open();
     }
 
 

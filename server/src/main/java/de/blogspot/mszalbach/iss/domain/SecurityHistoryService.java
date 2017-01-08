@@ -22,44 +22,39 @@ public class SecurityHistoryService {
     private EntityManager entityManager;
 
 
-
     @Autowired
-    public SecurityHistoryService( EntityManager entityManager ) {
+    public SecurityHistoryService(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
 
-
     @Transactional
-    public List<SecurityHistoryEntry> getHistory( Security security ) {
+    public List<SecurityHistoryEntry> getHistory(Security security) {
         AuditQuery query = getAuditQuery();
-        query.add( AuditEntity.id().eq( security.getId() ) );
+        query.add(AuditEntity.id().eq(security.getId()));
 
-        return mapAuditResultIntoHistoryEntryList( query );
+        return mapAuditResultIntoHistoryEntryList(query);
     }
-
 
 
     @Transactional
     public List<SecurityHistoryEntry> getHistory() {
         AuditQuery query = getAuditQuery();
-        return mapAuditResultIntoHistoryEntryList( query );
+        return mapAuditResultIntoHistoryEntryList(query);
     }
-
 
 
     private AuditQuery getAuditQuery() {
-        AuditReader reader = AuditReaderFactory.get( entityManager );
+        AuditReader reader = AuditReaderFactory.get(entityManager);
         return reader.createQuery()
-                     .forRevisionsOfEntity( Security.class, false, true );
+            .forRevisionsOfEntity(Security.class, false, true);
     }
 
 
-
-    private List<SecurityHistoryEntry> mapAuditResultIntoHistoryEntryList( AuditQuery query ) {
+    private List<SecurityHistoryEntry> mapAuditResultIntoHistoryEntryList(AuditQuery query) {
         List<SecurityHistoryEntry> historyList = new ArrayList<>();
-        for ( Object result : query.getResultList() ) {
-            historyList.add( new SecurityHistoryEntry( ( Object[] )result ) );
+        for (Object result : query.getResultList()) {
+            historyList.add(new SecurityHistoryEntry((Object[]) result));
         }
         return historyList;
     }

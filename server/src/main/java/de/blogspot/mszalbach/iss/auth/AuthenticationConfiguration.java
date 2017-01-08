@@ -20,29 +20,29 @@ public class AuthenticationConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .antMatchers("/api/session").permitAll()
-                .antMatchers("/api/securities/**").authenticated()
-                .and()
-                .httpBasic()
-                .and()
-                .logout()
-                .permitAll()
-                .and()
-                .sessionManagement().and()
-                .csrf().disable();
+            .authorizeRequests()
+            .antMatchers("/api/session").permitAll()
+            .antMatchers("/api/securities/**").authenticated()
+            .and()
+            .httpBasic()
+            .and()
+            .logout()
+            .permitAll()
+            .and()
+            .sessionManagement().and()
+            .csrf().disable();
     }
 
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .inMemoryAuthentication()
-                .withUser("Ralf").password("ralf").roles("EMITTENT")
-                .and()
-                .withUser("Daniel").password("daniel").roles("REVISION")
-                .and()
-                .withUser("Marcel").password("marcel").roles("ADMIN");
+            .inMemoryAuthentication()
+            .withUser("Ralf").password("ralf").roles("EMITTENT")
+            .and()
+            .withUser("Daniel").password("daniel").roles("REVISION")
+            .and()
+            .withUser("Marcel").password("marcel").roles("ADMIN");
     }
 
 }

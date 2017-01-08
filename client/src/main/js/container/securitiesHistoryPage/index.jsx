@@ -5,6 +5,6 @@ import {connectWebsocket} from "../../reducers/securityWebsocket";
 
 
 export default connect(
-        state => ({history: state.securityHistory.history}),
-        {connectWebsocket}
-)( SecuritiesHistoryPage );
+    state => ({history: state.securityHistory.history}),
+    {connectWebsocket}
+)(SecuritiesHistoryPage);

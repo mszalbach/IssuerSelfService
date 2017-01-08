@@ -7,7 +7,6 @@ import org.springframework.messaging.support.ChannelInterceptorAdapter;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class TestChannelInterceptor extends ChannelInterceptorAdapter {
 
-    private final BlockingQueue<Message<?>> messages = new ArrayBlockingQueue<>( 100);
+    private final BlockingQueue<Message<?>> messages = new ArrayBlockingQueue<>(100);
 
     private final List<String> destinationPatterns = new ArrayList<>();
 
@@ -28,23 +27,22 @@ public class TestChannelInterceptor extends ChannelInterceptorAdapter {
 
 
     public void setIncludedDestinations(String... patterns) {
-        this.destinationPatterns.addAll( Arrays.asList( patterns));
+        this.destinationPatterns.addAll(Arrays.asList(patterns));
     }
 
     /**
      * @return the next received message or {@code null} if the specified time elapses
      */
     public Message<?> awaitMessage(long timeoutInSeconds) throws InterruptedException {
-        return this.messages.poll( timeoutInSeconds, TimeUnit.SECONDS);
+        return this.messages.poll(timeoutInSeconds, TimeUnit.SECONDS);
     }
 
     @Override
     public Message<?> preSend(Message<?> message, MessageChannel channel) {
         if (this.destinationPatterns.isEmpty()) {
             this.messages.add(message);
-        }
-        else {
-            StompHeaderAccessor headers = StompHeaderAccessor.wrap( message);
+        } else {
+            StompHeaderAccessor headers = StompHeaderAccessor.wrap(message);
             if (headers.getDestination() != null) {
                 for (String pattern : this.destinationPatterns) {
                     if (this.matcher.match(pattern, headers.getDestination())) {

@@ -15,32 +15,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class SecurityEventController {
 
 
-
     private final SecurityWorkflowService service;
 
 
-
-
     @Autowired
-    public SecurityEventController( SecurityWorkflowService service ) {
+    public SecurityEventController(SecurityWorkflowService service) {
         this.service = service;
     }
 
 
-
-    @PostMapping( path = "/securities/{id}/{event}" )
+    @PostMapping(path = "/securities/{id}/{event}")
     //TODO remove switch statement
-    public ResponseEntity<Void> receiveEvent( @PathVariable( "id" ) Security security, @PathVariable( "event" ) String event )
-            throws Exception {
-        switch ( event ) {
+    public ResponseEntity<Void> receiveEvent(@PathVariable("id") Security security, @PathVariable("event") String event)
+        throws Exception {
+        switch (event) {
             case "request":
-                service.request( security );
+                service.request(security);
                 break;
             case "accept":
-                service.accept( security );
+                service.accept(security);
                 break;
             case "cancel":
-                service.cancel( security );
+                service.cancel(security);
             default:
                 return ResponseEntity.unprocessableEntity().build();
         }

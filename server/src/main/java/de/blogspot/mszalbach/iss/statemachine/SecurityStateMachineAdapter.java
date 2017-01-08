@@ -15,34 +15,30 @@ public class SecurityStateMachineAdapter {
     private SecurityStateMachineFactory factory;
 
 
-
     @Autowired
-    public SecurityStateMachineAdapter( SecurityStateMachineFactory factory ) {
+    public SecurityStateMachineAdapter(SecurityStateMachineFactory factory) {
         this.factory = factory;
     }
 
 
-
-    public UntypedStateMachine restore( Security contextObject )
-            throws Exception {
+    public UntypedStateMachine restore(Security contextObject)
+        throws Exception {
         UntypedStateMachine stateMachine = create();
-        if ( contextObject.getStateMachine() != null ) {
-            stateMachine.loadSavedData( contextObject.getStateMachine() );
+        if (contextObject.getStateMachine() != null) {
+            stateMachine.loadSavedData(contextObject.getStateMachine());
         }
         return stateMachine;
     }
 
 
-
-    public void persist( UntypedStateMachine stateMachine, Security contextObject )
-            throws Exception {
-        contextObject.setStateMachine( stateMachine.dumpSavedData() );
+    public void persist(UntypedStateMachine stateMachine, Security contextObject)
+        throws Exception {
+        contextObject.setStateMachine(stateMachine.dumpSavedData());
     }
 
 
-
     public UntypedStateMachine create() {
-        UntypedStateMachine machine = factory.create().newUntypedStateMachine( "Open" );
+        UntypedStateMachine machine = factory.create().newUntypedStateMachine("Open");
         machine.start();
         return machine;
     }

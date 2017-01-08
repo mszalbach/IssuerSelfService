@@ -14,7 +14,7 @@ public class SecurityStateMachineFactory {
 
     @Bean
     public UntypedStateMachineBuilder create() {
-        UntypedStateMachineBuilder builder = StateMachineBuilderFactory.create( SecurityStateConfig.class );
+        UntypedStateMachineBuilder builder = StateMachineBuilderFactory.create(SecurityStateConfig.class);
         return builder;
     }
 

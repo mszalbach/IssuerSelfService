@@ -23,8 +23,8 @@ import java.util.List;
 public class SecurityWorkflowService {
 
     private final SecurityStateMachineAdapter persister;
-    private final SecurityRepository          repository;
-    private final WebsocketEventHandler       websocketEventHandler;
+    private final SecurityRepository repository;
+    private final WebsocketEventHandler websocketEventHandler;
 
     @Autowired
     WebApplicationContext context;
@@ -33,83 +33,71 @@ public class SecurityWorkflowService {
     SecurityChecker checker;
 
 
-
-
-
     @Autowired
-    public SecurityWorkflowService( SecurityStateMachineAdapter persister, SecurityRepository repository, WebsocketEventHandler websocketEventHandler ) {
+    public SecurityWorkflowService(SecurityStateMachineAdapter persister, SecurityRepository repository, WebsocketEventHandler websocketEventHandler) {
         this.persister = persister;
         this.repository = repository;
         this.websocketEventHandler = websocketEventHandler;
     }
 
 
-
-    @PreAuthorize( "hasRole('EMITTENT') or hasRole('ADMIN')" )
-    public void request( Security security )
-            throws Exception {
-        fireEvent( security, "request" );
+    @PreAuthorize("hasRole('EMITTENT') or hasRole('ADMIN')")
+    public void request(Security security)
+        throws Exception {
+        fireEvent(security, "request");
     }
 
 
-
-    @PreAuthorize( "hasRole('ADMIN')" )
-    public void accept( Security security )
-            throws Exception {
-        fireEvent( security, "accept" );
+    @PreAuthorize("hasRole('ADMIN')")
+    public void accept(Security security)
+        throws Exception {
+        fireEvent(security, "accept");
     }
 
 
-
-    @PreAuthorize( "hasRole('ADMIN')" )
-    public void cancel( Security security )
-            throws Exception {
-        fireEvent( security, "cancel" );
+    @PreAuthorize("hasRole('ADMIN')")
+    public void cancel(Security security)
+        throws Exception {
+        fireEvent(security, "cancel");
     }
 
 
-
-    public List<String> getEvents( Security security )
-            throws Exception {
+    public List<String> getEvents(Security security)
+        throws Exception {
 
         List<String> events = new ArrayList<>();
-        StateMachine machine = persister.restore( security );
+        StateMachine machine = persister.restore(security);
 
-        for ( Object transition : machine.getCurrentRawState().getAllTransitions() ) {
-            ImmutableTransition t = ( ImmutableTransition )transition;
-            if ( canAccessMethod( t.getEvent().toString() ) ) {
-                events.add( ( String )t.getEvent() );
+        for (Object transition : machine.getCurrentRawState().getAllTransitions()) {
+            ImmutableTransition t = (ImmutableTransition) transition;
+            if (canAccessMethod(t.getEvent().toString())) {
+                events.add((String) t.getEvent());
             }
         }
         return events;
     }
 
 
+    private void fireEvent(Security security, String event)
+        throws Exception {
+        UntypedStateMachine stateMachine = persister.restore(security);
 
-
-
-
-    private void fireEvent( Security security, String event )
-            throws Exception {
-        UntypedStateMachine stateMachine = persister.restore( security );
-
-        if ( stateMachine.canAccept( event ) ) {
-            stateMachine.fire( event );
-            persister.persist( stateMachine, security );
-            repository.save( security );
-            websocketEventHandler.updateSecurity( security );
+        if (stateMachine.canAccept(event)) {
+            stateMachine.fire(event);
+            persister.persist(stateMachine, security);
+            repository.save(security);
+            websocketEventHandler.updateSecurity(security);
         } else {
             throw new IllegalStateException();
         }
     }
 
 
-
-    private boolean canAccessMethod( String method )
-            throws NoSuchMethodException {
-        Method me = this.getClass().getMethod( method, Security.class );
-        PreAuthorize preAuthorize = me.getAnnotation( PreAuthorize.class );
-        return preAuthorize == null || checker.check( preAuthorize.value() );
+    private boolean canAccessMethod(String method)
+        throws NoSuchMethodException {
+        Method me = this.getClass().getMethod(method, Security.class);
+        PreAuthorize preAuthorize = me.getAnnotation(PreAuthorize.class);
+        return preAuthorize == null || checker.check(preAuthorize.value());
 
     }
 }

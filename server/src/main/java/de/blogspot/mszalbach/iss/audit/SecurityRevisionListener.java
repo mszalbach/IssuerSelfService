@@ -8,23 +8,22 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * Created by ms on 12.12.16.
  */
 public class SecurityRevisionListener
-        implements RevisionListener {
+    implements RevisionListener {
 
     public static final String NO_USER_DETAILS = "UNKOWN";
 
 
-
     @Override
-    public void newRevision( Object revisionEntity ) {
+    public void newRevision(Object revisionEntity) {
 
-        SecurityRevisionEntity securityRevisionEntity = ( SecurityRevisionEntity )revisionEntity;
+        SecurityRevisionEntity securityRevisionEntity = (SecurityRevisionEntity) revisionEntity;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if ( authentication != null ) {
-            securityRevisionEntity.setUsername( authentication.getName() );
-            securityRevisionEntity.setRoles( authentication.getAuthorities().toString() );
+        if (authentication != null) {
+            securityRevisionEntity.setUsername(authentication.getName());
+            securityRevisionEntity.setRoles(authentication.getAuthorities().toString());
         } else {
-            securityRevisionEntity.setUsername( NO_USER_DETAILS );
-            securityRevisionEntity.setRoles( NO_USER_DETAILS );
+            securityRevisionEntity.setUsername(NO_USER_DETAILS);
+            securityRevisionEntity.setRoles(NO_USER_DETAILS);
         }
     }
 }

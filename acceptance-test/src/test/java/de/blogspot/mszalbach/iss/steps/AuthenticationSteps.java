@@ -25,38 +25,34 @@ public class AuthenticationSteps {
 
     @Before
     public void set_the_stage() {
-        OnStage.setTheStage( new OnlineCast() );
+        OnStage.setTheStage(new OnlineCast());
     }
 
 
-
-    @Wenn( "^(\\w+) sich einloggt mit Passwort \"([^\"]*)\"$" )
-    public void loginAsUserWithPassword( String user, String password )
-            throws Throwable {
-        theActorInTheSpotlight().can( Authenticate.with( user, password ) ).attemptsTo( LogIn.withCredentials() );
+    @Wenn("^(\\w+) sich einloggt mit Passwort \"([^\"]*)\"$")
+    public void loginAsUserWithPassword(String user, String password)
+        throws Throwable {
+        theActorInTheSpotlight().can(Authenticate.with(user, password)).attemptsTo(LogIn.withCredentials());
     }
 
 
-
-    @Dann( "^sollte der Login fehlschlagen mit \"([^\"]*)\"$" )
-    public void checkForErrorMessage( String errorMessage )
-            throws Throwable {
-        theActorInTheSpotlight().should( seeThat( LoginError.text(), is( errorMessage ) ) );
+    @Dann("^sollte der Login fehlschlagen mit \"([^\"]*)\"$")
+    public void checkForErrorMessage(String errorMessage)
+        throws Throwable {
+        theActorInTheSpotlight().should(seeThat(LoginError.text(), is(errorMessage)));
     }
 
 
-
-    @Dann( "^sollte er eingelogt sein als (\\w+)$" )
-    public void shouldBeLoggedInAs( String username )
-            throws Throwable {
-        theActorInTheSpotlight().should( seeThat( LoggedInAs.username(), is( username ) ) );
+    @Dann("^sollte er eingelogt sein als (\\w+)$")
+    public void shouldBeLoggedInAs(String username)
+        throws Throwable {
+        theActorInTheSpotlight().should(seeThat(LoggedInAs.username(), is(username)));
     }
 
 
-
-    @Gegebensei( "^(\\w+) will sich anmelden$" )
-    public void userWantsToLogin( String user )
-            throws Throwable {
-        theActorCalled( user ).wasAbleTo( Start.onLoginPage() );
+    @Gegebensei("^(\\w+) will sich anmelden$")
+    public void userWantsToLogin(String user)
+        throws Throwable {
+        theActorCalled(user).wasAbleTo(Start.onLoginPage());
     }
 }

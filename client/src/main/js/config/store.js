@@ -1,4 +1,3 @@
-import React from "react";
 import reducer from "../reducers";
 import middleware from "./middlewares";
 import {createStore} from "redux";

@@ -16,52 +16,47 @@ import static de.blogspot.mszalbach.iss.websocket.WebSocketConfiguration.MESSAGE
  * Created by ms on 25.11.16.
  */
 @Component
-@RepositoryEventHandler( Security.class )
+@RepositoryEventHandler(Security.class)
 public class WebsocketEventHandler {
 
-    public static final String NEW_SECURITY_TOPIC    = MESSAGE_PREFIX+ "/newSecurity";
+    public static final String NEW_SECURITY_TOPIC = MESSAGE_PREFIX + "/newSecurity";
     public static final String DELETE_SECURITY_TOPIC = MESSAGE_PREFIX + "/deleteSecurity";
-    public static final String UPDATE_SECURITY_TOPIC = MESSAGE_PREFIX +"/updateSecurity";
+    public static final String UPDATE_SECURITY_TOPIC = MESSAGE_PREFIX + "/updateSecurity";
     private final SimpMessagingTemplate websocket;
 
     private final EntityLinks entityLinks;
 
 
-
     @Autowired
-    public WebsocketEventHandler( SimpMessagingTemplate websocket, EntityLinks entityLinks ) {
+    public WebsocketEventHandler(SimpMessagingTemplate websocket, EntityLinks entityLinks) {
         this.websocket = websocket;
         this.entityLinks = entityLinks;
     }
 
 
-
     @HandleAfterCreate
-    public void newSecurity( Security security ) {
+    public void newSecurity(Security security) {
         this.websocket.convertAndSend(
-                NEW_SECURITY_TOPIC, getPath( security ) );
+            NEW_SECURITY_TOPIC, getPath(security));
     }
-
 
 
     @HandleAfterDelete
-    public void deleteSecurity( Security security ) {
+    public void deleteSecurity(Security security) {
         this.websocket.convertAndSend(
-                DELETE_SECURITY_TOPIC, getPath( security ) );
+            DELETE_SECURITY_TOPIC, getPath(security));
     }
-
 
 
     @HandleAfterSave
-    public void updateSecurity( Security security ) {
+    public void updateSecurity(Security security) {
         this.websocket.convertAndSend(
-                UPDATE_SECURITY_TOPIC, getPath( security ) );
+            UPDATE_SECURITY_TOPIC, getPath(security));
     }
 
 
-
-    private String getPath( Security security ) {
-        return this.entityLinks.linkForSingleResource( security.getClass(),
-                                                       security.getId() ).toUri().getPath();
+    private String getPath(Security security) {
+        return this.entityLinks.linkForSingleResource(security.getClass(),
+            security.getId()).toUri().getPath();
     }
 }

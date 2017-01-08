@@ -36,10 +36,10 @@ export default class Menu extends React.Component {
                 </Nav>
                 <Nav pullRight>
                     { isAuthenticated ? (
-                        <UserDropdown username={username} logout={logout}/>
-                    ) : (
-                        <SignInButton />
-                    )}
+                            <UserDropdown username={username} logout={logout}/>
+                        ) : (
+                            <SignInButton />
+                        )}
                 </Nav>
             </Navbar>
         )

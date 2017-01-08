@@ -13,8 +13,8 @@ const initialState = {
 };
 
 
-export default function reducer( state = initialState, action ) {
-    switch ( action.type ) {
+export default function reducer(state = initialState, action) {
+    switch (action.type) {
         case CONNECT_SUCCESS:
             return {
                 ...state,
@@ -27,30 +27,30 @@ export default function reducer( state = initialState, action ) {
 
 
 export function connectWebsocket() {
-    return function ( dispatch, getState ) {
-        if ( !getState().securityWebsocket.connected ) {
-            const socket = SockJS( '/sockjs' );
-            const stompClient = Stomp.over( socket );
-            return stompClient.connect( {}, function ( frame ) {
-                subscribe( '/topic/newSecurity', dispatch, stompClient );
-                subscribe( '/topic/updateSecurity', dispatch, stompClient );
-                subscribe( '/topic/deleteSecurity', dispatch, stompClient );
-                dispatch( fetchSecurities() );
-                dispatch( fetchAttributes() );
-                dispatch( fetchHistory() );
-                toastr.info( "Connected to Server" );
-                dispatch( {type: CONNECT_SUCCESS, connected: true} )
-            } );
+    return function (dispatch, getState) {
+        if (!getState().securityWebsocket.connected) {
+            const socket = SockJS('/sockjs');
+            const stompClient = Stomp.over(socket);
+            return stompClient.connect({}, function (frame) {
+                subscribe('/topic/newSecurity', dispatch, stompClient);
+                subscribe('/topic/updateSecurity', dispatch, stompClient);
+                subscribe('/topic/deleteSecurity', dispatch, stompClient);
+                dispatch(fetchSecurities());
+                dispatch(fetchAttributes());
+                dispatch(fetchHistory());
+                toastr.info("Connected to Server");
+                dispatch({type: CONNECT_SUCCESS, connected: true})
+            });
         } else {
-            dispatch( {type: ALREADY_CONNECTED} )
+            dispatch({type: ALREADY_CONNECTED})
         }
     };
 }
 
 
-function subscribe( route, dispatch, stompClient ) {
-    stompClient.subscribe( route, function ( message ) {
-        dispatch( fetchSecurities() );
-        dispatch( fetchHistory() );
-    } );
+function subscribe(route, dispatch, stompClient) {
+    stompClient.subscribe(route, function (message) {
+        dispatch(fetchSecurities());
+        dispatch(fetchHistory());
+    });
 }

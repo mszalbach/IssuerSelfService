@@ -42,7 +42,7 @@ function setSecurities(data) {
 }
 
 function setSecuritiesError() {
-    toastr.warning("Security Fetch","Could not fetch Securities");
+    toastr.warning("Security Fetch", "Could not fetch Securities");
     return {type: FETCH_FAIL, securities: []};
 }
 
@@ -61,7 +61,7 @@ export function fetchSecurities() {
 }
 
 function securityDeleted(response) {
-    toastr.success("Security Delete","Security " + response.isin + " Deleted");
+    toastr.success("Security Delete", "Security " + response.isin + " Deleted");
     return {type: DELETE_SUCCESS};
 }
 
@@ -78,7 +78,7 @@ export function deleteSecurity(security) {
 }
 
 function securityAdded(response) {
-    toastr.success("Security Add","Security " + response.entity.isin + " Added");
+    toastr.success("Security Add", "Security " + response.entity.isin + " Added");
     return {type: ADD_SUCCESS};
 }
 
@@ -104,7 +104,11 @@ export function fetchAttributes() {
             headers: {'Content-Type': 'application/schema+json'}
         }).then(
             response => {
-                dispatch({type: FETCH_ATTRIBUTES_SUCCESS, schema:response.entity ,attributes: Object.keys(response.entity.properties)});
+                dispatch({
+                    type: FETCH_ATTRIBUTES_SUCCESS,
+                    schema: response.entity,
+                    attributes: Object.keys(response.entity.properties)
+                });
             }
         );
     };

@@ -19,33 +19,26 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 /**
  * Created by ms on 07.12.16.
  */
-@RunWith( SpringJUnit4ClassRunner.class )
+@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @WebAppConfiguration
 public abstract class RestRepositoryTestBase {
 
     @Autowired
     protected SecurityRepository securityRepository;
-
+    protected MockMvc mockMvc;
+    protected RequestPostProcessor asEmittent = httpBasic("Ralf", "ralf");
+    protected RequestPostProcessor asAdmin = httpBasic("Marcel", "marcel");
     @Autowired
     private WebApplicationContext webApplicationContext;
-
     @Autowired
     private FilterChainProxy filterChainProxy;
 
-    protected MockMvc mockMvc;
-
-    protected RequestPostProcessor asEmittent = httpBasic( "Ralf", "ralf" );
-    protected RequestPostProcessor asAdmin    = httpBasic( "Marcel", "marcel" );
-
-
-
     @Before
-    public void setUp() throws Exception{
-        this.mockMvc = webAppContextSetup( webApplicationContext ).dispatchOptions( true )
-                                                                  .addFilters( filterChainProxy ).build();
+    public void setUp() throws Exception {
+        this.mockMvc = webAppContextSetup(webApplicationContext).dispatchOptions(true)
+            .addFilters(filterChainProxy).build();
     }
-
 
 
     @After

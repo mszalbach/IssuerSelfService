@@ -24,12 +24,10 @@ public class AuthenticationResource {
     private AuthenticationManager authenticationManager;
 
 
-
     @Autowired
-    public AuthenticationResource( AuthenticationManager authenticationManager ) {
+    public AuthenticationResource(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
-
 
 
     @RequestMapping(method = RequestMethod.POST)
