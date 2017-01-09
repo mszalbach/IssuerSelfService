@@ -1,11 +1,9 @@
 package de.blogspot.mszalbach.iss.screenplay.tasks;
 
-import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
 import de.blogspot.mszalbach.iss.domain.Security;
 import de.blogspot.mszalbach.iss.screenplay.abilities.Authenticate;
 import net.serenitybdd.screenplay.Actor;
-import net.serenitybdd.screenplay.Task;
 import net.thucydides.core.annotations.Step;
 import org.apache.http.HttpStatus;
 
@@ -17,7 +15,7 @@ import static org.hamcrest.CoreMatchers.is;
  * Created by ms on 09.01.17.
  */
 public class AddASecurityViaRest
-    implements Task {
+    extends RestTask {
 
     private final Security security;
 
@@ -25,7 +23,6 @@ public class AddASecurityViaRest
 
     public AddASecurityViaRest( Security security ) {
         this.security = security;
-        RestAssured.baseURI = System.getProperty( "api.url", "http://localhost:8081/api" );
     }
 
 
