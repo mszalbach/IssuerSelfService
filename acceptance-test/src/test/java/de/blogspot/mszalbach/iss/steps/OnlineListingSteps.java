@@ -1,20 +1,24 @@
 package de.blogspot.mszalbach.iss.steps;
 
-import cucumber.api.PendingException;
-import cucumber.api.java.de.Angenommen;
+import cucumber.api.java.Before;
 import cucumber.api.java.de.Dann;
+import cucumber.api.java.de.Und;
 import cucumber.api.java.de.Wenn;
 import de.blogspot.mszalbach.iss.domain.Security;
 import de.blogspot.mszalbach.iss.pageobjects.LoginPage;
-import de.blogspot.mszalbach.iss.pageobjects.SecurityEnterPage;
 import de.blogspot.mszalbach.iss.pageobjects.SecurityListPage;
+import de.blogspot.mszalbach.iss.screenplay.questions.SecurityList;
+import de.blogspot.mszalbach.iss.screenplay.tasks.AddSecuritiesViaRest;
+import de.blogspot.mszalbach.iss.screenplay.tasks.Opens;
+import net.serenitybdd.screenplay.actors.OnStage;
+import net.serenitybdd.screenplay.actors.OnlineCast;
 import net.thucydides.core.annotations.Steps;
 
 import java.util.List;
 
+import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
+import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 
 /**
@@ -29,58 +33,34 @@ public class OnlineListingSteps {
     @Steps
     SecurityRestSteps securityRest;
 
-    @Angenommen("Ralf hat folgende Wertpapiere$")
-    public void createSecuritiesForUser(List<Security> securities) {
-        securityRest.create_securities(securities);
+
+
+    @Before
+    public void set_the_stage() {
+        OnStage.setTheStage( new OnlineCast() );
     }
 
-    @Dann("^sollte seine Werpapierliste (\\d+) Einträge haben$")
-    public void checkSecurityCount(int count) {
-        securityPage.open();
-        assertThat(securityPage.getCount(), is(count));
+
+
+    @Und( "^er hat folgende Wertpapiere$" )
+    public void create_securities( List<Security> securities )
+        throws Throwable {
+        theActorInTheSpotlight().attemptsTo( AddSecuritiesViaRest.called( securities ) );
     }
 
-    @Angenommen("^Ralf darf Wertpapiere anlegen$")
-    public void goToSecurityEntry() throws Throwable {
-        securityPage.open();
+
+
+    @Wenn( "^er auf die Wertpapierliste geht$" )
+    public void openSecurityListPage()
+        throws Throwable {
+        theActorInTheSpotlight().attemptsTo( Opens.securityListPage() );
     }
 
-    @Wenn("^er ein Wertpapier mit folgenden Daten anlegt$")
-    public void enterSecurityViaWebsite(List<Security> security) throws Throwable {
-        fillSecurityViaWebsite(security).submitForm();
-    }
 
-    @Dann("^sollte es folgendes Wertpapier existieren$")
-    public void checkForExistingSecurity(List<Security> security) throws Throwable {
-        assertThat(securityRest.findSecurity(security.get(0)).size(), greaterThanOrEqualTo(1));
-    }
 
-    @Wenn("^er das Wertpapier \"([^\"]*)\" löscht$")
-    public void deleteSecurityViaWebsite(String isin) throws Throwable {
-        securityPage.open();
-        securityPage.deleteSecurity(new Security(isin, ""));
-    }
-
-    @Dann("^gibt es kein Wertpapier \"([^\"]*)\" mehr$")
-    public void checkSecurityDidNotExist(String isin) throws Throwable {
-        assertThat(securityRest.findSecurity(new Security(isin, "")), empty());
-    }
-
-    @Angenommen("^Ralf ist angemeldet$")
-    public void loginAsRalf() throws Throwable {
-        loginPage.open();
-        loginPage.login("Ralf", "ralf");
-        loginPage.submitForm();
-    }
-
-    @Dann("^sollte das Anlegen fehlschlagen mit folgenden Fehlern:$")
-    public void sollteDasAnlegenFehlschlagenMitFolgendenFehlern(List<String> errors) throws Throwable {
-        throw new PendingException();
-    }
-
-    @Wenn("^er ein Wertpapier mit folgenden Daten anlegen will$")
-    public SecurityEnterPage fillSecurityViaWebsite(List<Security> security) throws Throwable {
-        securityPage.open();
-        return securityPage.openCreateSecurityDialog().insertSecurity(security.get(0));
+    @Dann( "^sollte seine Werpapierliste mindestens (\\d+) Einträge haben$" )
+    public void securityListShouldContainAtLeast( int count )
+        throws Throwable {
+        theActorInTheSpotlight().should( seeThat( SecurityList.count(), is( greaterThanOrEqualTo( count ) ) ) );
     }
 }

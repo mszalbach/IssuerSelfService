@@ -3,6 +3,7 @@ package de.blogspot.mszalbach.iss.pageobjects;
 import de.blogspot.mszalbach.iss.domain.Security;
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.pages.PageObject;
+import net.serenitybdd.screenplay.targets.Target;
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.WebElement;
 
@@ -17,6 +18,8 @@ import static net.thucydides.core.pages.components.HtmlTable.rowsFrom;
 @DefaultUrl("http://localhost:8080/#/securities")
 public class SecurityListPage
     extends PageObject {
+
+    public static Target SECURITY_TABLE_ENTRIES = Target.the( "Einträge der Security Tabelle").locatedBy( "#securities tbody tr");
 
     public int getCount() {
         List<Map<Object, String>> rows = rowsFrom(find(By.id("securities")));

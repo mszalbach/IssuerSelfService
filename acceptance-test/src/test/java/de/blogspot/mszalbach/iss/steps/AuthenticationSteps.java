@@ -8,7 +8,7 @@ import de.blogspot.mszalbach.iss.screenplay.abilities.Authenticate;
 import de.blogspot.mszalbach.iss.screenplay.questions.LoggedInAs;
 import de.blogspot.mszalbach.iss.screenplay.questions.LoginError;
 import de.blogspot.mszalbach.iss.screenplay.tasks.LogIn;
-import de.blogspot.mszalbach.iss.screenplay.tasks.Start;
+import de.blogspot.mszalbach.iss.screenplay.tasks.Opens;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 
@@ -53,6 +53,16 @@ public class AuthenticationSteps {
     @Gegebensei("^(\\w+) will sich anmelden$")
     public void userWantsToLogin(String user)
         throws Throwable {
-        theActorCalled(user).wasAbleTo(Start.onLoginPage());
+        theActorCalled(user).wasAbleTo( Opens.loginPage() );
+    }
+
+
+
+    @Gegebensei( "^(\\w+) ist angemeldet mit Password \"([^\"]*)\"$" )
+    public void loginUserWithPassword( String user, String password )
+        throws Throwable {
+        userWantsToLogin(user);
+        loginAsUserWithPassword(user,password);
+        shouldBeLoggedInAs(user);
     }
 }
