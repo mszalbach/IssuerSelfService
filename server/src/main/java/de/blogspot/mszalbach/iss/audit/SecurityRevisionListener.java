@@ -5,7 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
- * Created by ms on 12.12.16.
+ * Sets Username and Role based on the security context for security changes.
  */
 public class SecurityRevisionListener
     implements RevisionListener {

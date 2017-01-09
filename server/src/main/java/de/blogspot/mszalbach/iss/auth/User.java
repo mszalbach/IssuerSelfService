@@ -3,7 +3,7 @@ package de.blogspot.mszalbach.iss.auth;
 import java.io.Serializable;
 
 /**
- * Created by foobarkilla on 08.11.16.
+ * Used to transfer UserDetails via Rest.
  */
 public class User implements Serializable {
     private String userName;

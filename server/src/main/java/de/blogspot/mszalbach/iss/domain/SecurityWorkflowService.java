@@ -17,7 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by ms on 05.12.16.
+ * Service to control workflow changes on Security. This class is also responsible to ensure which roles can access which
+ * workflow transition.
  */
 @Service
 public class SecurityWorkflowService {
@@ -25,19 +26,15 @@ public class SecurityWorkflowService {
     private final SecurityStateMachineAdapter persister;
     private final SecurityRepository repository;
     private final WebsocketEventHandler websocketEventHandler;
-
-    @Autowired
-    WebApplicationContext context;
-
-    @Autowired
-    SecurityChecker checker;
+    private final SecurityChecker checker;
 
 
     @Autowired
-    public SecurityWorkflowService(SecurityStateMachineAdapter persister, SecurityRepository repository, WebsocketEventHandler websocketEventHandler) {
+    public SecurityWorkflowService( SecurityStateMachineAdapter persister, SecurityRepository repository, WebsocketEventHandler websocketEventHandler, SecurityChecker checker ) {
         this.persister = persister;
         this.repository = repository;
         this.websocketEventHandler = websocketEventHandler;
+        this.checker = checker;
     }
 
 

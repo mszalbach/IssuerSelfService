@@ -7,7 +7,7 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapt
 import org.springframework.validation.Validator;
 
 /**
- * Created by foobarkilla on 19.11.16.
+ * Activates JPA Validators to be used by Spring Data Rest.
  */
 @Configuration
 public class SpringDataRestValidationConfiguration extends RepositoryRestConfigurerAdapter {

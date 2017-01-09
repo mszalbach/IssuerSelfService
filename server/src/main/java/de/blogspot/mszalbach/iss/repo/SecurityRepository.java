@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 /**
- * Created by foobarkilla on 22.10.16.
+ * Extends automatically created Rest Repository with additional finder methods.
  */
 public interface SecurityRepository extends CrudRepository<Security, Long> {
 

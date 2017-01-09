@@ -13,12 +13,12 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Method;
 
 /**
- * Created by ms on 05.12.16.
+ * Can be used to check if a @PreAuthorize annotation is valid for current user.
  */
 @Service
 public class SecurityChecker {
 
-    static Logger logger = Logger.getLogger(SecurityChecker.class);
+    private final static Logger LOGGER = Logger.getLogger(SecurityChecker.class);
     private static Method triggerCheckMethod;
     private static SpelExpressionParser parser;
 
@@ -26,13 +26,21 @@ public class SecurityChecker {
         try {
             triggerCheckMethod = SecurityObject.class.getMethod("triggerCheck");
         } catch (NoSuchMethodException e) {
-            logger.error(e);
+            LOGGER.error(e);
         }
         parser = new SpelExpressionParser();
     }
 
+    private final MethodSecurityExpressionHandler expressionHandler;
+
+
+
     @Autowired
-    MethodSecurityExpressionHandler expressionHandler;
+    public SecurityChecker( MethodSecurityExpressionHandler expressionHandler ) {
+        this.expressionHandler = expressionHandler;
+    }
+
+
 
     public boolean check(String securityExpression) {
 

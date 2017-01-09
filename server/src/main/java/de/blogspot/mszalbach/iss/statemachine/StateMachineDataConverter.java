@@ -7,7 +7,7 @@ import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
 /**
- * Created by ms on 21.11.16.
+ * Converter to store the State of a Statemachiene as String for JPA.
  */
 @Converter(autoApply = true)
 public class StateMachineDataConverter

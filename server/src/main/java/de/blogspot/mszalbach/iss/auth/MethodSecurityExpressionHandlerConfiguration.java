@@ -6,7 +6,7 @@ import org.springframework.security.access.expression.method.DefaultMethodSecuri
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 
 /**
- * Created by ms on 06.12.16.
+ * Needed for SecurityChecker or else there is no MethodSecurityExpressionHandler implementation in the Spring Context.
  */
 @Configuration
 public class MethodSecurityExpressionHandlerConfiguration {

@@ -1,7 +1,7 @@
 package de.blogspot.mszalbach.iss.auth;
 
 /**
- * Created by foobarkilla on 08.11.16.
+ * Used as helper class for login.
  */
 public class Credentials {
     private String username;

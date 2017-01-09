@@ -7,15 +7,14 @@ import org.squirrelframework.foundation.fsm.StateMachineBuilderFactory;
 import org.squirrelframework.foundation.fsm.UntypedStateMachineBuilder;
 
 /**
- * Created by ms on 24.11.16.
+ * Factory to create StateMachines for Securities.
  */
 @Configuration
 public class SecurityStateMachineFactory {
 
     @Bean
     public UntypedStateMachineBuilder create() {
-        UntypedStateMachineBuilder builder = StateMachineBuilderFactory.create(SecurityStateConfig.class);
-        return builder;
+        return StateMachineBuilderFactory.create(SecurityStateConfig.class);
     }
 
 }

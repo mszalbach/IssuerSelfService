@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by ms on 12.12.16.
+ * Service to get change History for Securities.
  */
 @Service
 public class SecurityHistoryService {

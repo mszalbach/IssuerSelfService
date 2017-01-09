@@ -5,7 +5,7 @@ import javax.validation.Payload;
 import java.lang.annotation.*;
 
 /**
- * Created by foobarkilla on 19.11.16.
+ * Annotation to use IsinConstraintValidator.
  */
 @Documented
 @Constraint(validatedBy = IsinConstraintValidator.class)

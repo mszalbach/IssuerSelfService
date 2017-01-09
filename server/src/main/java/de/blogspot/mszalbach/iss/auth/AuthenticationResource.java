@@ -14,7 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 
 /**
- * Created by foobarkilla on 07.11.16.
+ * Resource to login via Rest and get an Token which can be used for authentication.
  */
 @RestController()
 @RequestMapping("/api/session")

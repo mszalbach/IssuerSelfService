@@ -6,9 +6,9 @@ import org.squirrelframework.foundation.fsm.annotation.Transitions;
 import org.squirrelframework.foundation.fsm.impl.AbstractUntypedStateMachine;
 
 /**
- * Created by ms on 24.11.16.
+ * Configuration for the Security Workflow.
  */
-//Can not use Enums because they have different hashCode in StateMachieneContext and current loaded Enum
+//Can not use Enums because they have different hashCode in StateMachineContext and current loaded Enum
 @StateMachineParameters(stateType = String.class, eventType = String.class, contextType = Integer.class)
 @Transitions({
     @Transit(from = "Open", to = "Requested", on = "request"),

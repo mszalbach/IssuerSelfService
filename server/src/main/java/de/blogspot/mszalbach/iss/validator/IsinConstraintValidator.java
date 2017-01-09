@@ -6,7 +6,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
- * Created by foobarkilla on 19.11.16.
+ * Checks if a property is a Valid ISIN
  */
 public class IsinConstraintValidator implements ConstraintValidator<ISIN, String> {
     public void initialize(ISIN constraint) {

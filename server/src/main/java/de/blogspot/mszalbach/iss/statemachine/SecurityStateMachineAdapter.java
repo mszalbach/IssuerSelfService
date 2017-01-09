@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.squirrelframework.foundation.fsm.UntypedStateMachine;
 
 /**
- * Created by ms on 24.11.16.
+ * Helper class to create and persist SecurityStateMachines.
  */
 @Component
 public class SecurityStateMachineAdapter {

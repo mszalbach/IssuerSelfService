@@ -5,9 +5,6 @@ import org.hibernate.envers.RevisionType;
 
 import java.util.Date;
 
-/**
- * Created by ms on 12.12.16.
- */
 public class SecurityHistoryEntry {
 
     private long id;

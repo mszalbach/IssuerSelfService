@@ -16,7 +16,7 @@ import javax.validation.constraints.DecimalMin;
 import java.math.BigDecimal;
 
 /**
- * Created by foobarkilla on 22.10.16.
+ * Security Entity.
  */
 @Entity
 @Audited

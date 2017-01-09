@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 /**
- * Created by foobarkilla on 07.11.16.
+ * Configuration who can access which resource.
  */
 @Configuration
 @EnableWebSecurity

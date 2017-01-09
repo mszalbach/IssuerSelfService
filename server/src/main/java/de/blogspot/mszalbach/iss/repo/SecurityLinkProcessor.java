@@ -1,8 +1,10 @@
 package de.blogspot.mszalbach.iss.repo;
 
 import com.google.common.base.CaseFormat;
+import de.blogspot.mszalbach.iss.auth.SecurityChecker;
 import de.blogspot.mszalbach.iss.domain.Security;
 import de.blogspot.mszalbach.iss.domain.SecurityWorkflowService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.BasePathAwareController;
 import org.springframework.data.rest.webmvc.support.RepositoryEntityLinks;
@@ -11,11 +13,14 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceProcessor;
 
 /**
- * Created by foobarkilla on 20.11.16.
+ * Adds links to Rest Securities based on the current workflow state.
  */
 @BasePathAwareController
 public class SecurityLinkProcessor
     implements ResourceProcessor<Resource<Security>> {
+
+
+    private final static Logger LOGGER = Logger.getLogger(SecurityLinkProcessor.class);
 
     private final RepositoryEntityLinks entityLinks;
 
@@ -37,7 +42,7 @@ public class SecurityLinkProcessor
                 securityResource.add(createLink(securityResource.getContent().getId(), transition));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error( e.getMessage(), e );
         }
 
         return securityResource;

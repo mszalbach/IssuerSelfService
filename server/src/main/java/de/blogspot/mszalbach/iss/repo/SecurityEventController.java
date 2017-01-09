@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 /**
- * Created by ms on 24.11.16.
+ * Will listen to rest methods which should switch the workflow and propagate them to the corresponding service class.
  */
 @BasePathAwareController
 public class SecurityEventController {
