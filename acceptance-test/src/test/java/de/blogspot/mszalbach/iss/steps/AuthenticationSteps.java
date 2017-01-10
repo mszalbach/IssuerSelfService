@@ -8,7 +8,9 @@ import de.blogspot.mszalbach.iss.screenplay.abilities.AccessRest;
 import de.blogspot.mszalbach.iss.screenplay.abilities.Authenticate;
 import de.blogspot.mszalbach.iss.screenplay.questions.LoggedInAs;
 import de.blogspot.mszalbach.iss.screenplay.questions.LoginError;
+import de.blogspot.mszalbach.iss.screenplay.questions.SignInButton;
 import de.blogspot.mszalbach.iss.screenplay.tasks.LogIn;
+import de.blogspot.mszalbach.iss.screenplay.tasks.LogOut;
 import de.blogspot.mszalbach.iss.screenplay.tasks.Open;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
@@ -31,11 +33,37 @@ public class AuthenticationSteps {
 
 
 
+    @Angenommen( "^(\\w+) will sich anmelden$" )
+    public void userWantsToLogin( String user )
+        throws Throwable {
+        theActorCalled( user ).wasAbleTo( Open.loginPage() );
+    }
+
+
+
+    @Angenommen( "^(\\w+) ist angemeldet mit Password \"([^\"]*)\"$" )
+    public void loginUserWithPassword( String user, String password )
+        throws Throwable {
+        userWantsToLogin( user );
+        loginAsUserWithPassword( user, password );
+        shouldBeLoggedInAs( user );
+    }
+
+
+
     @Wenn( "^(\\w+) sich einloggt mit Passwort \"([^\"]*)\"$" )
     public void loginAsUserWithPassword( String user, String password )
         throws Throwable {
         theActorInTheSpotlight().can( Authenticate.with( user, password ) ).attemptsTo( LogIn.withCredentials() );
         theActorInTheSpotlight().can( AccessRest.viaApiProperty() );
+    }
+
+
+
+    @Wenn( "^er sich ausloggt$" )
+    public void logout()
+        throws Throwable {
+        theActorInTheSpotlight().attemptsTo( LogOut.now() );
     }
 
 
@@ -56,19 +84,9 @@ public class AuthenticationSteps {
 
 
 
-    @Angenommen( "^(\\w+) will sich anmelden$" )
-    public void userWantsToLogin( String user )
+    @Dann( "^sollte er den \"([^\"]*)\" Knopf sehen$" )
+    public void checkForSignInButton( String buttonText )
         throws Throwable {
-        theActorCalled( user ).wasAbleTo( Open.loginPage() );
-    }
-
-
-
-    @Angenommen( "^(\\w+) ist angemeldet mit Password \"([^\"]*)\"$" )
-    public void loginUserWithPassword( String user, String password )
-        throws Throwable {
-        userWantsToLogin( user );
-        loginAsUserWithPassword( user, password );
-        shouldBeLoggedInAs( user );
+        theActorInTheSpotlight().should( seeThat( SignInButton.text(), is( buttonText ) ) );
     }
 }

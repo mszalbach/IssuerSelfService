@@ -11,5 +11,7 @@ import net.thucydides.core.annotations.DefaultUrl;
 public class IssPage
     extends PageObject {
 
-    public static Target USER_DROPDOWN = Target.the( "Logged in User" ).locatedBy( "#userdropdown" );
+    public static final Target LOGOUT_BUTTON = Target.the( "Logout Button" ).locatedBy( "#logout" );
+    public static final Target USER_DROPDOWN = Target.the( "Logged in User" ).locatedBy( "#userdropdown" );
+    public static final Target SIGNIN_BUTTON = Target.the( "Sign In Button" ).locatedBy( "#signin" );
 }

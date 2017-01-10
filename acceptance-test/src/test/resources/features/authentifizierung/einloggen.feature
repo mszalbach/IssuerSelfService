@@ -15,3 +15,8 @@ Funktionalität: Authentifizierung
     Angenommen Ralf will sich anmelden
     Wenn Ralf sich einloggt mit Passwort "falsch"
     Dann sollte der Login fehlschlagen mit "401:Bad credentials"
+
+  Szenario: Ausloggen
+    Angenommen Ralf ist angemeldet mit Password "ralf"
+    Wenn er sich ausloggt
+    Dann sollte er den "Sign In" Knopf sehen

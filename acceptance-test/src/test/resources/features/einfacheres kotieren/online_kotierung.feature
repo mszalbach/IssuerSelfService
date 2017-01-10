@@ -37,7 +37,7 @@ Funktionalität: Online Kotierung
     Angenommen Ralf ist angemeldet mit Password "ralf"
     Und er auf die Wertpapierliste geht
     Wenn er ein Wertpapier mit folgenden Daten anlegt
-      | isin   | symbol | nominalValue |
-      | FALSCH | MSFT   | -2           |
+      | isin   | symbol |
+      | FALSCH | MSFT   |
     Dann sollte das Anlegen fehlschlagen mit folgenden Fehlern:
       | ISIN not valid |

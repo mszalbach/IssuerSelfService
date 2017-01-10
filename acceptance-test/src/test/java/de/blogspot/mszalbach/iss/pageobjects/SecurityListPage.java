@@ -11,8 +11,8 @@ import net.thucydides.core.annotations.DefaultUrl;
 public class SecurityListPage
     extends PageObject {
 
-    public static Target SECURITY_TABLE_ENTRIES    = Target.the( "Einträge der Security Tabelle" )
+    public static Target SECURITY_TABLE_ENTRIES    = Target.the( "Security Table Entries" )
                                                            .locatedBy( "#securities tbody tr" );
-    public static Target OPEN_CREATE_DIALOG_BUTTON = Target.the( "Einträge der Security Tabelle" )
+    public static Target OPEN_CREATE_DIALOG_BUTTON = Target.the( "Create Security Button" )
                                                            .locatedBy( "#openCreate" );
 }

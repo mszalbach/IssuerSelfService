@@ -1,8 +1,8 @@
 package de.blogspot.mszalbach.iss.steps;
 
 import cucumber.api.java.Before;
+import cucumber.api.java.de.Angenommen;
 import cucumber.api.java.de.Dann;
-import cucumber.api.java.de.Und;
 import cucumber.api.java.de.Wenn;
 import de.blogspot.mszalbach.iss.domain.Security;
 import de.blogspot.mszalbach.iss.screenplay.questions.CountSecuritiesViaRest;
@@ -36,7 +36,7 @@ public class OnlineListingSteps {
 
 
 
-    @Und( "^er hat folgende Wertpapiere$" )
+    @Angenommen( "^er hat folgende Wertpapiere$" )
     public void create_securities( List<Security> securities )
         throws Throwable {
         theActorInTheSpotlight().attemptsTo( AddSecuritiesViaRest.called( securities ) );
@@ -52,18 +52,26 @@ public class OnlineListingSteps {
 
 
 
-    @Dann( "^sollte seine Werpapierliste mindestens (\\d+) Einträge haben$" )
-    public void securityListShouldContainAtLeast( int count )
-        throws Throwable {
-        theActorInTheSpotlight().should( seeThat( SecurityList.count(), is( greaterThanOrEqualTo( count ) ) ) );
-    }
-
-
-
     @Wenn( "^er ein Wertpapier mit folgenden Daten anlegt$" )
     public void createSecurity( List<Security> securities )
         throws Throwable {
         theActorInTheSpotlight().attemptsTo( AddASecurity.called( securities.get( 0 ) ) );
+    }
+
+
+
+    @Wenn( "^er das Wertpapier \"([^\"]*)\" löscht$" )
+    public void deleteSecurityWithIsin( String isin )
+        throws Throwable {
+        theActorInTheSpotlight().attemptsTo( DeleteASecurity.called( isin ) );
+    }
+
+
+
+    @Dann( "^sollte seine Werpapierliste mindestens (\\d+) Einträge haben$" )
+    public void securityListShouldContainAtLeast( int count )
+        throws Throwable {
+        theActorInTheSpotlight().should( seeThat( SecurityList.count(), is( greaterThanOrEqualTo( count ) ) ) );
     }
 
 
@@ -84,14 +92,6 @@ public class OnlineListingSteps {
         theActorInTheSpotlight().should( seeThat( SecurityCreateButton.isEnabled(), is( false ) ) );
         theActorInTheSpotlight()
             .should( seeThat( FormErrors.displayed(), is( errors ) ) );
-    }
-
-
-
-    @Und( "^er das Wertpapier \"([^\"]*)\" löscht$" )
-    public void deleteSecurityWithIsin( String isin )
-        throws Throwable {
-        theActorInTheSpotlight().attemptsTo( DeleteASecurity.called( isin ) );
     }
 
 
