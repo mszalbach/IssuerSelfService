@@ -21,8 +21,6 @@ public class FormErrors
 
     @Override
     public List<String> answeredBy( Actor actor ) {
-        System.out.println( Text.of( SecurityEnterForm.FORM_ERRORS ).viewedBy( actor ) );
-        System.out.println( Text.of( SecurityEnterForm.FORM_ERRORS ).viewedBy( actor ).asList() );
         return Text.of( SecurityEnterForm.FORM_ERRORS ).viewedBy( actor ).asList();
     }
 }

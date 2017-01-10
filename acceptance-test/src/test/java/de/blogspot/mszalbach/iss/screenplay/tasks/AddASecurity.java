@@ -42,10 +42,8 @@ public class AddASecurity
             Click.on( SecurityListPage.OPEN_CREATE_DIALOG_BUTTON ),
             Enter.theValue( security.getIsin() )
                  .into( SecurityEnterForm.ISIN_FIELD ),
-
             Enter.theValue( security.getSymbol() )
                  .into( SecurityEnterForm.SYMBOL_FIELD ),
-
             Check.whether( SecurityCreateButton.isEnabled() ).andIfSo( Click.on( SecurityEnterForm.CREATE_BUTTON ) )
         );
     }
