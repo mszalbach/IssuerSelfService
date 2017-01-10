@@ -60,7 +60,7 @@ public class AuthenticationSteps {
 
 
 
-    @Wenn( "^er sich ausloggt$" )
+    @Wenn( "^(?:er|sie) sich ausloggt$" )
     public void logout()
         throws Throwable {
         theActorInTheSpotlight().attemptsTo( LogOut.now() );
@@ -76,7 +76,7 @@ public class AuthenticationSteps {
 
 
 
-    @Dann( "^sollte er eingelogt sein als (\\w+)$" )
+    @Dann( "^sollte (?:er|sie) eingelogt sein als (\\w+)$" )
     public void shouldBeLoggedInAs( String username )
         throws Throwable {
         theActorInTheSpotlight().should( seeThat( LoggedInAs.username(), is( username ) ) );
@@ -84,7 +84,7 @@ public class AuthenticationSteps {
 
 
 
-    @Dann( "^sollte er den \"([^\"]*)\" Knopf sehen$" )
+    @Dann( "^sollte (?:er|sie) den \"([^\"]*)\" Knopf sehen$" )
     public void checkForSignInButton( String buttonText )
         throws Throwable {
         theActorInTheSpotlight().should( seeThat( SignInButton.text(), is( buttonText ) ) );
