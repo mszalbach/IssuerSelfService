@@ -5,7 +5,7 @@ import net.serenitybdd.core.steps.Instrumented;
 /**
  * Created by ms on 09.01.17.
  */
-public class Opens {
+public class Open {
 
     public static OpenSecurityListPage securityListPage() {
         return Instrumented.instanceOf( OpenSecurityListPage.class).newInstance();

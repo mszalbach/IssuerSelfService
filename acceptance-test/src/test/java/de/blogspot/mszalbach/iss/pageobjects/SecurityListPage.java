@@ -7,11 +7,6 @@ import net.serenitybdd.screenplay.targets.Target;
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.WebElement;
 
-import java.util.List;
-import java.util.Map;
-
-import static net.thucydides.core.pages.components.HtmlTable.rowsFrom;
-
 /**
  * Created by foobarkilla on 22.10.16.
  */
@@ -19,25 +14,14 @@ import static net.thucydides.core.pages.components.HtmlTable.rowsFrom;
 public class SecurityListPage
     extends PageObject {
 
-    public static Target SECURITY_TABLE_ENTRIES = Target.the( "Einträge der Security Tabelle").locatedBy( "#securities tbody tr");
-
-    public int getCount() {
-        List<Map<Object, String>> rows = rowsFrom(find(By.id("securities")));
-        return rows.size();
-    }
-
+    public static Target SECURITY_TABLE_ENTRIES    = Target.the( "Einträge der Security Tabelle" )
+                                                           .locatedBy( "#securities tbody tr" );
+    public static Target OPEN_CREATE_DIALOG_BUTTON = Target.the( "Einträge der Security Tabelle" )
+                                                           .locatedBy( "#openCreate" );
 
     public void deleteSecurity(Security security) {
         WebElement deleteButton = find(By.id("delete_" + security.getIsin()));
         deleteButton.click();
     }
-
-
-    public SecurityEnterPage openCreateSecurityDialog() {
-        WebElement openCreateButton = find(By.id("openCreate"));
-        openCreateButton.click();
-        return this.switchToPage(SecurityEnterPage.class);
-    }
-
 
 }

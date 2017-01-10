@@ -20,7 +20,7 @@ Funktionalität: Online Kotierung
     Wenn er ein Wertpapier mit folgenden Daten anlegt
       | isin         | symbol |
       | US5949181045 | MSFT   |
-    Dann sollte es ein Wertpapier mit folgenden Daten exisitieren
+    Dann sollte ein Wertpapier mit folgenden Daten exisitieren
       | isin         | symbol |
       | US5949181045 | MSFT   |
 
@@ -34,8 +34,9 @@ Funktionalität: Online Kotierung
 
   Szenario: Ungültiges Wertpapier anlegen
     Angenommen Ralf ist angemeldet mit Password "ralf"
-    Wenn er ein Wertpapier mit folgenden Daten anlegen will
+    Und er auf die Wertpapierliste geht
+    Wenn er ein Wertpapier mit folgenden Daten anlegt
       | isin   | symbol | nominalValue |
       | FALSCH | MSFT   | -2           |
     Dann sollte das Anlegen fehlschlagen mit folgenden Fehlern:
-      | ISIN not Valid. |
+      | ISIN not valid |
