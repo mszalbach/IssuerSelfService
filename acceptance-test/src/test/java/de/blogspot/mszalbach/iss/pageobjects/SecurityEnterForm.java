@@ -12,7 +12,7 @@ public class SecurityEnterForm
     extends PageObject {
 
     public static final Target ISIN_FIELD    = Target.the( "ISIN Field" ).locatedBy( "#root_isin" );
-    public static final Target SYMBOL_FIELD  = Target.the( "ISIN Field" ).locatedBy( "#root_symbol" );
+    public static final Target SYMBOL_FIELD  = Target.the( "Symbol Field" ).locatedBy( "#root_symbol" );
     public static final Target CREATE_BUTTON = Target.the( "Create Button" ).locatedBy( "#create" );
     public static final Target FORM_ERRORS   = Target.the( "Form Errors" ).locatedBy( ".text-danger" );
 

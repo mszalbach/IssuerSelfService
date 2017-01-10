@@ -11,6 +11,7 @@ import de.blogspot.mszalbach.iss.screenplay.questions.SecurityCreateButton;
 import de.blogspot.mszalbach.iss.screenplay.questions.SecurityList;
 import de.blogspot.mszalbach.iss.screenplay.tasks.AddASecurity;
 import de.blogspot.mszalbach.iss.screenplay.tasks.AddSecuritiesViaRest;
+import de.blogspot.mszalbach.iss.screenplay.tasks.DeleteASecurity;
 import de.blogspot.mszalbach.iss.screenplay.tasks.Open;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
@@ -83,5 +84,22 @@ public class OnlineListingSteps {
         theActorInTheSpotlight().should( seeThat( SecurityCreateButton.isEnabled(), is( false ) ) );
         theActorInTheSpotlight()
             .should( seeThat( FormErrors.displayed(), is( errors ) ) );
+    }
+
+
+
+    @Und( "^er das Wertpapier \"([^\"]*)\" löscht$" )
+    public void deleteSecurityWithIsin( String isin )
+        throws Throwable {
+        theActorInTheSpotlight().attemptsTo( DeleteASecurity.called( isin ) );
+    }
+
+
+
+    @Dann( "^gibt es kein Wertpapier \"([^\"]*)\" mehr$" )
+    public void checkIfIsinDidNotExistOnServer( String isin )
+        throws Throwable {
+        seeThat( CountSecuritiesViaRest.byIsin( isin ),
+                 is( 0 ) );
     }
 }

@@ -6,7 +6,7 @@ Funktionalität: Online Kotierung
   damit ich einfacher kotieren kann
 
   Szenario: alle meine Wertpapiere anzeigen
-    Gegeben sei Ralf ist angemeldet mit Password "ralf"
+    Angenommen Ralf ist angemeldet mit Password "ralf"
     Und er hat folgende Wertpapiere
       | isin         | symbol |
       | US02079K1079 | GOOG   |
@@ -15,7 +15,7 @@ Funktionalität: Online Kotierung
     Dann sollte seine Werpapierliste mindestens 2 Einträge haben
 
   Szenario: Neues Wertpapier anlegen
-    Gegeben sei Ralf ist angemeldet mit Password "ralf"
+    Angenommen Ralf ist angemeldet mit Password "ralf"
     Und er auf die Wertpapierliste geht
     Wenn er ein Wertpapier mit folgenden Daten anlegt
       | isin         | symbol |
@@ -29,7 +29,8 @@ Funktionalität: Online Kotierung
     Und er hat folgende Wertpapiere
       | isin         | symbol |
       | US9843321061 | YHOO   |
-    Wenn er das Wertpapier "US9843321061" löscht
+    Wenn er auf die Wertpapierliste geht
+    Und er das Wertpapier "US9843321061" löscht
     Dann gibt es kein Wertpapier "US9843321061" mehr
 
   Szenario: Ungültiges Wertpapier anlegen

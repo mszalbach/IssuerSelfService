@@ -1,8 +1,8 @@
 package de.blogspot.mszalbach.iss.steps;
 
 import cucumber.api.java.Before;
+import cucumber.api.java.de.Angenommen;
 import cucumber.api.java.de.Dann;
-import cucumber.api.java.de.Gegebensei;
 import cucumber.api.java.de.Wenn;
 import de.blogspot.mszalbach.iss.screenplay.abilities.AccessRest;
 import de.blogspot.mszalbach.iss.screenplay.abilities.Authenticate;
@@ -56,7 +56,7 @@ public class AuthenticationSteps {
 
 
 
-    @Gegebensei( "^(\\w+) will sich anmelden$" )
+    @Angenommen( "^(\\w+) will sich anmelden$" )
     public void userWantsToLogin( String user )
         throws Throwable {
         theActorCalled( user ).wasAbleTo( Open.loginPage() );
@@ -64,7 +64,7 @@ public class AuthenticationSteps {
 
 
 
-    @Gegebensei( "^(\\w+) ist angemeldet mit Password \"([^\"]*)\"$" )
+    @Angenommen( "^(\\w+) ist angemeldet mit Password \"([^\"]*)\"$" )
     public void loginUserWithPassword( String user, String password )
         throws Throwable {
         userWantsToLogin( user );
