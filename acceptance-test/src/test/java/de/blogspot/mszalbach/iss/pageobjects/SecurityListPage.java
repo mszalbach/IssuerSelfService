@@ -15,4 +15,15 @@ public class SecurityListPage
                                                            .locatedBy( "#securities tbody tr" );
     public static Target OPEN_CREATE_DIALOG_BUTTON = Target.the( "Create Security Button" )
                                                            .locatedBy( "#openCreate" );
+
+
+
+    /**
+     * @param isin to search actions for.
+     * @return button texts from the first row with the specific isin.
+     */
+    public static Target actionsForSecurity( String isin ) {
+        //TODO since test did not correctly ensure state only return first value found, because there will be multiple rows with same isin.
+        return Target.the( "Actions for " + isin ).locatedBy( "(//*[@id='actions_" + isin + "'])[1]/button" );
+    }
 }

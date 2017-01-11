@@ -38,7 +38,7 @@ export default class SecurityRow extends React.Component {
                 {attributes.map(attribute =>
                     <td key={attribute}>{security[attribute]}</td>)
                 }
-                <td>
+                <td id={"actions_" + security.isin}>
                     {actions}
                     <Button id={"delete_" + security.isin} onClick={this.handleDelete}>X</Button>
                 </td>

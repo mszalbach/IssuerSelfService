@@ -19,6 +19,7 @@ import net.serenitybdd.screenplay.actors.OnlineCast;
 import java.util.List;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
+import static net.serenitybdd.screenplay.actors.OnStage.theActorCalled;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
@@ -36,8 +37,16 @@ public class OnlineListingSteps {
 
 
 
+    @Angenommen( "(\\w+) hat folgende[s]* Wertpapier[e]*$" )
+    public void createSecurities( String actor, List<Security> securities )
+        throws Throwable {
+        theActorCalled( actor ).attemptsTo( AddSecuritiesViaRest.called( securities ) );
+    }
+
+
+
     @Angenommen( "(?:er|sie) hat folgende Wertpapiere$" )
-    public void create_securities( List<Security> securities )
+    public void createSecuritiesForActiveActor( List<Security> securities )
         throws Throwable {
         theActorInTheSpotlight().attemptsTo( AddSecuritiesViaRest.called( securities ) );
     }

@@ -26,7 +26,7 @@ Funktionalität: Online Kotierung
 
   Szenario: Wertpapiere löschen
     Angenommen Ralf ist angemeldet mit Password "ralf"
-    Und er hat folgende Wertpapiere
+    Und er hat folgendes Wertpapier
       | isin         | symbol |
       | US9843321061 | YHOO   |
     Wenn er auf die Wertpapierliste geht

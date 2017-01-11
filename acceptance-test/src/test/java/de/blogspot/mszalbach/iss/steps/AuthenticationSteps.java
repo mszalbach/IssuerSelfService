@@ -54,8 +54,8 @@ public class AuthenticationSteps {
     @Wenn( "^(\\w+) sich einloggt mit Passwort \"([^\"]*)\"$" )
     public void loginAsUserWithPassword( String user, String password )
         throws Throwable {
-        theActorInTheSpotlight().can( Authenticate.with( user, password ) ).attemptsTo( LogIn.withCredentials() );
-        theActorInTheSpotlight().can( AccessRest.viaApiProperty() );
+        theActorCalled( user ).can( Authenticate.with( user, password ) ).attemptsTo( LogIn.withCredentials() );
+        theActorCalled( user ).can( AccessRest.viaApiProperty() );
     }
 
 
