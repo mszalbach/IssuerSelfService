@@ -17,26 +17,27 @@ export default class SecurityRow extends React.Component {
 
 
     handleDelete = () => {
-        this.props.deleteSecurity(this.props.security);
+        this.props.deleteSecurity( this.props.security );
     };
 
-    handleEvent = (action) => {
-        this.props.postSecurityLink(this.props.security, action);
+    handleEvent = ( action ) => {
+        this.props.postSecurityLink( this.props.security, action );
     };
 
     render() {
         let {security, attributes} = this.props;
 
-        let actions = Object.keys(security._links)
-            .filter(link => !this.state.ignoredLinks.includes(link))
-            .map(link => <Button key={link + "_" + security.isin}
-                                 id={link + "_" + security.isin}
-                                 onClick={() => this.handleEvent(link)}>{link}</Button>);
+        let actions = Object.keys( security._links )
+            .filter( link => !this.state.ignoredLinks.includes( link ) )
+            .map( link => <Button key={link + "_" + security.isin}
+                                  id={link + "_" + security.isin}
+                                  onClick={() => this.handleEvent( link )}>{link}</Button> );
 
         return (
             <tr>
-                {attributes.map(attribute =>
-                    <td key={attribute}>{security[attribute]}</td>)
+                {attributes.map( attribute =>
+                                     <td key={attribute}
+                                         id={attribute + "_" + security.isin}>{security[attribute]}</td> )
                 }
                 <td id={"actions_" + security.isin}>
                     {actions}

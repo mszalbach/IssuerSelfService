@@ -21,9 +21,10 @@ Funktionalität: einfacher Accept/Reject Workflow
   Szenario: Ein neues Wertpapier beantragen
     Angenommen Ralf hat folgendes Wertpapier
       | isin         | symbol |
-      | DE000BAY0017 | BAYN   |
+      | DE0005190003 | BMW    |
     Wenn er auf die Wertpapierliste geht
-    Und das Wertpapier "DE000BAY0017" beantragt
-    Dann sollte "DE000BAY0017" den Status "Requested" haben
-
+    Und das Wertpapier "DE0005190003" beantragt
+    Dann sollte "DE0005190003" den Status "Requested" haben
+    Und er kann folgende Aktionen auf "DE0005190003" ausführen
+      | X |
 

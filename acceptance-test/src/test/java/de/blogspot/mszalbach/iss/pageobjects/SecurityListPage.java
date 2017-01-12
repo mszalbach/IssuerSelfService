@@ -26,4 +26,16 @@ public class SecurityListPage
         //TODO since test did not correctly ensure state only return first value found, because there will be multiple rows with same isin.
         return Target.the( "Actions for " + isin ).locatedBy( "(//*[@id='actions_" + isin + "'])[1]/button" );
     }
+
+
+
+    public static Target requestActionForSecurity( String isin ) {
+        return Target.the( "Request Action for " + isin ).locatedBy( "(//button[@id='request_" + isin + "'])[1]" );
+    }
+
+
+
+    public static Target stateForSecurity( String isin ) {
+        return Target.the( "State of " + isin ).locatedBy( "(//td[@id='state_" + isin + "'])[1]" );
+    }
 }

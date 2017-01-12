@@ -37,7 +37,7 @@ public class OnlineListingSteps {
 
 
 
-    @Angenommen( "(\\w+) hat folgende[s]* Wertpapier[e]*$" )
+    @Angenommen( "^(\\w+) hat folgende[s]* Wertpapier[e]*$" )
     public void createSecurities( String actor, List<Security> securities )
         throws Throwable {
         theActorCalled( actor ).attemptsTo( AddSecuritiesViaRest.called( securities ) );
@@ -45,15 +45,7 @@ public class OnlineListingSteps {
 
 
 
-    @Angenommen( "(?:er|sie) hat folgende Wertpapiere$" )
-    public void createSecuritiesForActiveActor( List<Security> securities )
-        throws Throwable {
-        theActorInTheSpotlight().attemptsTo( AddSecuritiesViaRest.called( securities ) );
-    }
-
-
-
-    @Wenn( "(?:er|sie) auf die Wertpapierliste geht$" )
+    @Wenn( "^(?:er|sie) auf die Wertpapierliste geht$" )
     public void openSecurityListPage()
         throws Throwable {
         theActorInTheSpotlight().attemptsTo( Open.securityListPage() );
@@ -61,7 +53,7 @@ public class OnlineListingSteps {
 
 
 
-    @Wenn( "(?:er|sie) ein Wertpapier mit folgenden Daten anlegt$" )
+    @Wenn( "^(?:er|sie) ein Wertpapier mit folgenden Daten anlegt$" )
     public void createSecurity( List<Security> securities )
         throws Throwable {
         theActorInTheSpotlight().attemptsTo( AddASecurity.called( securities.get( 0 ) ) );
@@ -69,7 +61,7 @@ public class OnlineListingSteps {
 
 
 
-    @Wenn( "(?:er|sie) das Wertpapier \"([^\"]*)\" löscht$" )
+    @Wenn( "^(?:er|sie) das Wertpapier \"([^\"]*)\" löscht$" )
     public void deleteSecurityWithIsin( String isin )
         throws Throwable {
         theActorInTheSpotlight().attemptsTo( DeleteASecurity.called( isin ) );
