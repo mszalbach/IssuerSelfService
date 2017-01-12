@@ -2812,9 +2812,9 @@ karma-phantomjs-launcher@1.0.2:
     lodash "^4.0.1"
     phantomjs-prebuilt "^2.1.7"
 
-karma-webpack@1.8.1:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/karma-webpack/-/karma-webpack-1.8.1.tgz#39d5fd2edeea3cc3ef5b405989b37d5b0e6a3b4e"
+karma-webpack@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/karma-webpack/-/karma-webpack-2.0.1.tgz#271ac955685b9bd99365ef010ffc5655eac28ef6"
   dependencies:
     async "~0.9.0"
     loader-utils "^0.2.5"
@@ -4021,9 +4021,9 @@ react-redux-toastr@4.4.4:
     fbjs "^0.8.0-alpha.3"
     uuid "^2.0.1"
 
-react-redux@5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.0.1.tgz#84a41bd4cdd180452bb6922bc79ad25bd5abb7c4"
+react-redux@5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.0.2.tgz#3d9878f5f71c6fafcd45de1fbb162ea31f389814"
   dependencies:
     hoist-non-react-statics "^1.0.3"
     invariant "^2.0.0"
