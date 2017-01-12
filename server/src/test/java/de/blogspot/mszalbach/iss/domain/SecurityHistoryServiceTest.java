@@ -62,12 +62,12 @@ public class SecurityHistoryServiceTest
 
 
     @Test
-    @WithMockUser(username = "Ralf")
+    @WithMockUser( username = "Emil" )
     public void should_set_user_when_auth_object_is_set() {
         securityRepository.save(new Security("CH0123456789", "Symbol"));
         Security storedSecurity = securityRepository.findByIsin("CH0123456789").get(0);
         SecurityHistoryEntry history = historyService.getHistory(storedSecurity).get(0);
-        assertThat(history.getUsername(), is("Ralf"));
+        assertThat( history.getUsername(), is( "Emil" ) );
     }
 
 

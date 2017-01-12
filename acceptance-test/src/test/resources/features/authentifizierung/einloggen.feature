@@ -7,16 +7,16 @@ Funktionalität: Authentifizierung
   und jeder nur die für ihn erlaubten Sachen tun darf
 
   Szenario: Erfolgreich anmelden
-    Angenommen Ralf will sich anmelden
-    Wenn Ralf sich einloggt mit Passwort "ralf"
-    Dann sollte er eingelogt sein als Ralf
+    Angenommen Emil will sich anmelden
+    Wenn Emil sich einloggt mit Passwort "emil"
+    Dann sollte er eingelogt sein als Emil
 
   Szenario: anmelden mit falschen Passwort
-    Angenommen Ralf will sich anmelden
-    Wenn Ralf sich einloggt mit Passwort "falsch"
+    Angenommen Emil will sich anmelden
+    Wenn Emil sich einloggt mit Passwort "falsch"
     Dann sollte der Login fehlschlagen mit "401:Bad credentials"
 
   Szenario: Ausloggen
-    Angenommen Ralf ist angemeldet mit Password "ralf"
+    Angenommen Emil ist angemeldet mit Password "emil"
     Wenn er sich ausloggt
     Dann sollte er den "Sign In" Knopf sehen

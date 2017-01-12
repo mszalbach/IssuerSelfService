@@ -29,11 +29,11 @@ public class AuthenticationTest
 
 
     @Test
-    public void should_allow_access_to_resources_for_ralf()
+    public void should_allow_access_to_resources_for_emil()
         throws Exception {
 
-        mockMvc.perform(get("/api/securities").with(httpBasic("Ralf", "ralf")))
-            .andExpect(status().isOk()).andExpect(authenticated().withUsername("Ralf"));
+        mockMvc.perform( get( "/api/securities" ).with( httpBasic( "Emil", "emil" ) ) )
+               .andExpect( status().isOk() ).andExpect( authenticated().withUsername( "Emil" ) );
     }
 
 
@@ -41,8 +41,8 @@ public class AuthenticationTest
     public void should_not_allow_access_to_resources_for_wrong_password()
         throws Exception {
 
-        mockMvc.perform(get("/api/securities").with(httpBasic("Ralf", "wrong")))
-            .andExpect(status().isUnauthorized());
+        mockMvc.perform( get( "/api/securities" ).with( httpBasic( "Emil", "wrong" ) ) )
+               .andExpect(status().isUnauthorized());
     }
 
 
@@ -50,8 +50,8 @@ public class AuthenticationTest
     public void should_not_allow_access_to_resources_for_wrong_user()
         throws Exception {
 
-        mockMvc.perform(get("/api/securities").with(httpBasic("Ralf.Wrong", "ralf")))
-            .andExpect(status().isUnauthorized());
+        mockMvc.perform( get( "/api/securities" ).with( httpBasic( "Emil.Wrong", "emil" ) ) )
+               .andExpect(status().isUnauthorized());
     }
 
 
@@ -67,10 +67,10 @@ public class AuthenticationTest
     public void should_generate_a_token_when_logging_in_via_session()
         throws Exception {
         mockMvc.perform(post("/api/session").contentType(MediaType.APPLICATION_JSON)
-            .content("{\"username\": \"Ralf\",\"password\":\"ralf\"}"))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("token", is(notNullValue())))
-            .andExpect(jsonPath("userName", is("Ralf")));
+                                            .content( "{\"username\": \"Emil\",\"password\":\"emil\"}" ) )
+               .andExpect(status().isOk())
+               .andExpect(jsonPath("token", is(notNullValue())))
+               .andExpect( jsonPath( "userName", is( "Emil" ) ) );
     }
 
 }

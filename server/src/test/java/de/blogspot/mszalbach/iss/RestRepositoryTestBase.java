@@ -27,8 +27,8 @@ public abstract class RestRepositoryTestBase {
     @Autowired
     protected SecurityRepository securityRepository;
     protected MockMvc mockMvc;
-    protected RequestPostProcessor asEmittent = httpBasic("Ralf", "ralf");
-    protected RequestPostProcessor asAdmin = httpBasic("Marcel", "marcel");
+    protected RequestPostProcessor asEmittent = httpBasic( "Emil", "emil" );
+    protected RequestPostProcessor asAdmin    = httpBasic( "Adam", "adam" );
     @Autowired
     private WebApplicationContext webApplicationContext;
     @Autowired

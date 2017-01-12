@@ -7,10 +7,10 @@ Funktionalität: einfacher Accept/Reject Workflow
 
 
   Grundlage:
-    Angenommen Ralf ist angemeldet mit Password "ralf"
+    Angenommen Emil ist angemeldet mit Password "emil"
 
   Szenario: Ein neues Wertpapier sollte erwartete Aktionen erlauben
-    Angenommen Ralf hat folgendes Wertpapier
+    Angenommen Emil hat folgendes Wertpapier
       | isin         | symbol |
       | DE000BAY0017 | BAYN   |
     Wenn er auf die Wertpapierliste geht
@@ -19,7 +19,7 @@ Funktionalität: einfacher Accept/Reject Workflow
       | X       |
 
   Szenario: Ein neues Wertpapier beantragen
-    Angenommen Ralf hat folgendes Wertpapier
+    Angenommen Emil hat folgendes Wertpapier
       | isin         | symbol |
       | DE0005190003 | BMW    |
     Wenn er auf die Wertpapierliste geht

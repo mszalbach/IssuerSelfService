@@ -38,11 +38,11 @@ public class AuthenticationConfiguration extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
             .inMemoryAuthentication()
-            .withUser("Ralf").password("ralf").roles("EMITTENT")
+            .withUser( "Emil" ).password( "emil" ).roles( "EMITTENT" )
             .and()
-            .withUser("Daniel").password("daniel").roles("REVISION")
+            .withUser( "Rey" ).password( "rey" ).roles( "REVISION" )
             .and()
-            .withUser("Marcel").password("marcel").roles("ADMIN");
+            .withUser( "Adam" ).password( "adam" ).roles( "ADMIN" );
     }
 
 }

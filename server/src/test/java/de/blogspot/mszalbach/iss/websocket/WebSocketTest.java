@@ -7,15 +7,15 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.AbstractSubscribableChannel;
-import org.springframework.test.web.servlet.request.RequestPostProcessor;
 
 import java.nio.charset.Charset;
 
-import static de.blogspot.mszalbach.iss.websocket.WebsocketEventHandler.*;
+import static de.blogspot.mszalbach.iss.websocket.WebsocketEventHandler.DELETE_SECURITY_TOPIC;
+import static de.blogspot.mszalbach.iss.websocket.WebsocketEventHandler.NEW_SECURITY_TOPIC;
+import static de.blogspot.mszalbach.iss.websocket.WebsocketEventHandler.UPDATE_SECURITY_TOPIC;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -29,11 +29,6 @@ public class WebSocketTest extends RestRepositoryTestBase {
     private AbstractSubscribableChannel brokerChannel;
 
     private TestChannelInterceptor brokerChannelInterceptor;
-
-
-    private RequestPostProcessor asEmittent = httpBasic("Ralf", "ralf");
-    private RequestPostProcessor asAdmin = httpBasic("Marcel", "marcel");
-
 
     @Before
     public void setUp()

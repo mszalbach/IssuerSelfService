@@ -10,8 +10,8 @@ describe('<Menu/>', () => {
     });
 
     it('should have correct properties', () => {
-        let wrapper = mount(<Menu username="Marcel"/>);
-        expect(wrapper.prop('username')).toBe("Marcel");
+        let wrapper = mount( <Menu username="Adam"/> );
+        expect( wrapper.prop( 'username' ) ).toBe( "Adam" );
     });
 
     it('should render sign in button if not logged it', () => {
@@ -22,8 +22,8 @@ describe('<Menu/>', () => {
     });
 
     it('should render info when logged in', () => {
-        let wrapper = shallow(<Menu username="Marcel" isAuthenticated={true}/>);
-        expect(wrapper.html()).toMatch(/Marcel/);
+        let wrapper = shallow( <Menu username="Adam" isAuthenticated={true}/> );
+        expect( wrapper.html() ).toMatch( /Adam/ );
         expect(wrapper.find(UserDropdown).length).toBe(1);
 
     });
