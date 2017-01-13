@@ -35,6 +35,12 @@ public class SecurityListPage
 
 
 
+    public static Target deleteActionForSecurity( String isin ) {
+        return Target.the( "Request Action for " + isin ).locatedBy( "(//button[@id='delete_" + isin + "'])[1]" );
+    }
+
+
+
     public static Target stateForSecurity( String isin ) {
         return Target.the( "State of " + isin ).locatedBy( "(//td[@id='state_" + isin + "'])[1]" );
     }

@@ -1,6 +1,6 @@
 package de.blogspot.mszalbach.iss.screenplay.tasks;
 
-import net.serenitybdd.core.annotations.findby.By;
+import de.blogspot.mszalbach.iss.pageobjects.SecurityListPage;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.actions.Click;
@@ -34,7 +34,7 @@ public class DeleteASecurity
     @Step( "{0} löscht ein Wertpapier" )
     public <T extends Actor> void performAs( T actor ) {
         actor.attemptsTo(
-            Click.on( By.id( "delete_" + security ) )
+            Click.on( SecurityListPage.deleteActionForSecurity( security ) )
         );
     }
 }
