@@ -1,7 +1,6 @@
 package de.blogspot.mszalbach.iss.repo;
 
 import com.google.common.base.CaseFormat;
-import de.blogspot.mszalbach.iss.auth.SecurityChecker;
 import de.blogspot.mszalbach.iss.domain.Security;
 import de.blogspot.mszalbach.iss.domain.SecurityWorkflowService;
 import org.apache.log4j.Logger;

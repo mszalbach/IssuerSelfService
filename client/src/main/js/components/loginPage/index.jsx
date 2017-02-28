@@ -17,15 +17,15 @@ export default class LoginPage extends React.Component {
     handleSubmit = () => {
         let {login} = this.props;
         login(this.state.user, this.state.password);
-    }
+    };
 
     handleUserChange = (e) => {
         this.setState({user: e.target.value});
-    }
+    };
 
     handlePasswordChange = (e) => {
         this.setState({password: e.target.value});
-    }
+    };
 
     render() {
         let {errorMessage} = this.props;

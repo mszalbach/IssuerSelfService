@@ -7,7 +7,6 @@ import de.blogspot.mszalbach.iss.websocket.WebsocketEventHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.WebApplicationContext;
 import org.squirrelframework.foundation.fsm.ImmutableTransition;
 import org.squirrelframework.foundation.fsm.StateMachine;
 import org.squirrelframework.foundation.fsm.UntypedStateMachine;
