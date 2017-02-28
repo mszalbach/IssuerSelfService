@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.Matchers.comparesEqualTo;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -46,7 +47,7 @@ public class SecurityHistoryServiceTest
 
         assertThat(historyService.getHistory(storedSecurity).size(), is(2));
         SecurityHistoryEntry lastHistory = historyService.getHistory(storedSecurity).get(1);
-        assertThat(lastHistory.getSecurity().getNominalValue(), is(BigDecimal.ZERO.setScale(2)));
+        assertThat( lastHistory.getSecurity().getNominalValue(), comparesEqualTo( BigDecimal.ZERO ) );
         SecurityHistoryEntry firstHistory = historyService.getHistory(storedSecurity).get(0);
         assertThat(firstHistory.getSecurity().getNominalValue(), is(nullValue()));
     }
