@@ -12,7 +12,7 @@ Funktionalität: Online Kotierung
       | US02079K1079 | GOOG   |
       | US0378331005 | AAPL   |
     Wenn er auf die Wertpapierliste geht
-    Dann sollte seine Werpapierliste mindestens 2 Einträge haben
+    Dann sollte seine Wertpapierliste mindestens 2 Einträge haben
 
   Szenario: Neues Wertpapier anlegen
     Angenommen Emil ist angemeldet mit Password "emil"
