@@ -69,7 +69,7 @@ public class OnlineListingSteps {
 
 
 
-    @Dann( "^sollte seine Werpapierliste mindestens (\\d+) Einträge haben$" )
+    @Dann( "^sollte seine Wertpapierliste mindestens (\\d+) Einträge haben$" )
     public void securityListShouldContainAtLeast( int count )
         throws Throwable {
         theActorInTheSpotlight().should( seeThat( SecurityList.count(), is( greaterThanOrEqualTo( count ) ) ) );
