@@ -29,7 +29,7 @@
         <spring-boot.version>1.5.1.RELEASE</spring-boot.version>
         <java.version>1.8</java.version>
         <node.version>v6.9.5</node.version>
-        <yarn.version>v0.20.3</yarn.version>
+        <yarn.version>v0.21.3</yarn.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -124,7 +124,7 @@
                 <plugin>
                     <groupId>io.fabric8</groupId>
                     <artifactId>docker-maven-plugin</artifactId>
-                    <version>0.19.1</version>
+                    <version>0.20.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
