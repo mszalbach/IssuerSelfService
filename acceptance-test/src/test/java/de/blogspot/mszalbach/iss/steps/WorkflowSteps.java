@@ -41,7 +41,7 @@ public class WorkflowSteps {
 
 
     @Dann( "^sollte \"([^\"]*)\" den Status \"([^\"]*)\" haben$" )
-    public void sollteDenStatusHaben( String isin, String state )
+    public void checkCorrectStateForSecurity( String isin, String state )
         throws Throwable {
         theActorInTheSpotlight().should( seeThat( State.forSecurity( isin ), is( state ) ) );
     }
