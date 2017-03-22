@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, FormGroup, FormControl, ControlLabel, Form, Alert} from "react-bootstrap";
+import {Alert, Button, ControlLabel, Form, FormControl, FormGroup} from "react-bootstrap";
 
 export default class LoginPage extends React.Component {
 

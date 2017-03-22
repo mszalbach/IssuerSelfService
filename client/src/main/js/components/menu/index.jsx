@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router";
-import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from "react-bootstrap";
+import {MenuItem, Nav, Navbar, NavDropdown, NavItem} from "react-bootstrap";
 import {LinkContainer} from "react-router-bootstrap";
 
 export default class Menu extends React.Component {

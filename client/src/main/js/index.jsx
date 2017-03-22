@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {Route, Router, IndexRedirect} from "react-router";
+import {IndexRedirect, Route, Router} from "react-router";
 import {syncHistoryWithStore} from "react-router-redux";
 import ReduxToastr from "react-redux-toastr";
 import {Provider} from "react-redux";

@@ -1,7 +1,7 @@
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import {toastr} from "react-redux-toastr";
-import {fetchSecurities, fetchAttributes} from "./securities";
+import {fetchAttributes, fetchSecurities} from "./securities";
 import {fetchHistory} from "./securityHistory";
 
 
