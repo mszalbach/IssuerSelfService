@@ -6,7 +6,6 @@ machine:
 
 dependencies:
   override:
-    - sudo apt-get update && sudo apt-get install firefox
     - mvn --fail-never dependency:go-offline || true
 
 test:
