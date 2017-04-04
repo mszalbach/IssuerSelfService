@@ -17,4 +17,4 @@ test:
       
 general:
   artifacts:
-      - "acceptance-test/target/site/serenity"
+      - "~/IssuerSelfService/acceptance-test/target/site/serenity"
