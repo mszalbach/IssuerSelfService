@@ -11,7 +11,7 @@ const FETCH_ATTRIBUTES_SUCCESS = 'security/FETCH_ATTRIBUTES_SUCCESS';
 const initialState = {
     securities: [],
     attributes: [],
-    schema: null
+    schema: {}
 };
 
 export default function securitiesReducer(state = initialState, action) {

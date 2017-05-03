@@ -7,7 +7,8 @@ export default class CreateDialog extends React.Component {
 
 
     static propTypes = {
-        addSecurity: React.PropTypes.func.isRequired
+        addSecurity: React.PropTypes.func.isRequired,
+        schema: React.PropTypes.object.isRequired
     };
 
     state = {
