@@ -36,7 +36,7 @@
     "promise-polyfill": "6.0.2",
     "react-addons-perf": "15.4.2",
     "react-addons-test-utils": "15.5.1",
-    "style-loader": "0.13.1",
+    "style-loader": "0.17.0",
     "url-loader": "0.5.8",
     "webpack": "2.4.1",
     "webpack-dev-server": "2.4.5",
