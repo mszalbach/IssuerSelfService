@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const validate = require('webpack-validator');
 const pkg = require("./package.json");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -26,8 +25,8 @@ const common = {
     },
 
     resolve: {
-        modulesDirectories: ['node_modules', './src/main/js'],
-        extensions: ['', '.js', '.jsx']
+        modules: ['node_modules', './src/main/js'],
+        extensions: ['.js', '.jsx']
     },
 
     node: {
@@ -37,13 +36,16 @@ const common = {
     module: {
         loaders: [
             {test: /\.js[x]?$/, exclude: /node_modules/, loader: 'babel-loader'},
-            {test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader')},
+            {test: /\.css$/, loader: ExtractTextPlugin.extract( {fallback: 'style-loader', use: 'css-loader'} )},
             //needed for bootstrap
-            {test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff'},
-            {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
-            {test: /\.json(\?v=\d+\.\d+\.\d+)?$/, loader: 'json'},
-            {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml'},
-            {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
+            {
+                test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+            },
+            {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader'},
+            {test: /\.json(\?v=\d+\.\d+\.\d+)?$/, loader: 'json-loader'},
+            {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&mimetype=image/svg+xml'},
+            {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&mimetype=application/octet-stream'},
         ]
     },
 
@@ -73,7 +75,7 @@ const common = {
 };
 
 
-var config;
+let config;
 
 // Detect how npm is run and branch based on that
 switch (process.env.npm_lifecycle_event) {
@@ -106,4 +108,4 @@ switch (process.env.npm_lifecycle_event) {
 
 }
 
-module.exports = validate(config);
+module.exports = config;
