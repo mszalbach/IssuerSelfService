@@ -1,11 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {Table} from "react-bootstrap";
 
 export default class SecurityTable extends React.Component {
 
     static propTypes = {
-        history: React.PropTypes.array.isRequired,
-        connectWebsocket: React.PropTypes.func.isRequired
+        history: PropTypes.array.isRequired,
+        connectWebsocket: PropTypes.func.isRequired
     };
 
     componentDidMount() {

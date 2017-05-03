@@ -1,12 +1,13 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {Alert, Button, ControlLabel, Form, FormControl, FormGroup} from "react-bootstrap";
 
 export default class LoginPage extends React.Component {
 
 
     static propTypes = {
-        login: React.PropTypes.func.isRequired,
-        errorMessage: React.PropTypes.string
+        login: PropTypes.func.isRequired,
+        errorMessage: PropTypes.string
     };
 
     state = {

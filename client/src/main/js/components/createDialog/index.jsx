@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Form from "react-jsonschema-form";
 import validator from "validator";
 import {Button, Modal} from "react-bootstrap";
@@ -7,8 +8,8 @@ export default class CreateDialog extends React.Component {
 
 
     static propTypes = {
-        addSecurity: React.PropTypes.func.isRequired,
-        schema: React.PropTypes.object.isRequired
+        addSecurity: PropTypes.func.isRequired,
+        schema: PropTypes.object.isRequired
     };
 
     state = {

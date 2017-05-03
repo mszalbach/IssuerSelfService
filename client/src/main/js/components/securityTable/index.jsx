@@ -1,14 +1,15 @@
 import React from "react";
 import {Table} from "react-bootstrap";
+import PropTypes from "prop-types";
 import SecurityRow from "./SecurityRow";
 
 export default class SecurityTable extends React.Component {
 
     static propTypes = {
-        securities: React.PropTypes.array.isRequired,
-        attributes: React.PropTypes.array.isRequired,
-        deleteSecurity: React.PropTypes.func.isRequired,
-        postSecurityLink: React.PropTypes.func.isRequired,
+        securities: PropTypes.array.isRequired,
+        attributes: PropTypes.array.isRequired,
+        deleteSecurity: PropTypes.func.isRequired,
+        postSecurityLink: PropTypes.func.isRequired,
     };
 
     render() {

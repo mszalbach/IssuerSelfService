@@ -1,13 +1,14 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {Button} from "react-bootstrap";
 
 export default class SecurityRow extends React.Component {
 
     static propTypes = {
-        security: React.PropTypes.object.isRequired,
-        attributes: React.PropTypes.array.isRequired,
-        deleteSecurity: React.PropTypes.func.isRequired,
-        postSecurityLink: React.PropTypes.func.isRequired
+        security: PropTypes.object.isRequired,
+        attributes: PropTypes.array.isRequired,
+        deleteSecurity: PropTypes.func.isRequired,
+        postSecurityLink: PropTypes.func.isRequired
     };
 
 

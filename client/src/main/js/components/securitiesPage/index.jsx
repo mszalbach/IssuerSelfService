@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import SecurityTable from "../../container/securityTable";
 import CreateDialog from "../../container/createDialog";
 
@@ -6,7 +7,7 @@ import CreateDialog from "../../container/createDialog";
 export default class SecuritiesPage extends React.Component {
 
     static propTypes = {
-        connectWebsocket: React.PropTypes.func.isRequired
+        connectWebsocket: PropTypes.func.isRequired
     };
 
     componentDidMount() {

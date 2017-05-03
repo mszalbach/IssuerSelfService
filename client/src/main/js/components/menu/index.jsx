@@ -1,14 +1,15 @@
 import React from "react";
 import {Link} from "react-router";
+import PropTypes from "prop-types";
 import {MenuItem, Nav, Navbar, NavDropdown, NavItem} from "react-bootstrap";
 import {LinkContainer} from "react-router-bootstrap";
 
 export default class Menu extends React.Component {
 
     static propTypes = {
-        username: React.PropTypes.string,
-        logout: React.PropTypes.func,
-        isAuthenticated: React.PropTypes.bool,
+        username: PropTypes.string,
+        logout: PropTypes.func,
+        isAuthenticated: PropTypes.bool,
     };
 
     render() {
