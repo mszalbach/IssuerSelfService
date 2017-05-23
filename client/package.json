@@ -51,7 +51,7 @@
     "react-bootstrap": "0.31.0",
     "react-dom": "15.5.4",
     "react-jsonschema-form": "0.48.2",
-    "react-redux": "5.0.4",
+    "react-redux": "5.0.5",
     "react-redux-toastr": "4.4.6",
     "react-router": "3.0.2",
     "react-router-bootstrap": "0.23.1",
