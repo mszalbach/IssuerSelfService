@@ -23,12 +23,12 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <encoding>UTF-8</encoding>
-        <serenity.version>1.2.4</serenity.version>
+        <serenity.version>1.4.0</serenity.version>
         <selenium.version>2.53.1</selenium.version>
         <spring-boot.version>1.5.1.RELEASE</spring-boot.version>
         <java.version>1.8</java.version>
         <node.version>v6.10.3</node.version>
-        <yarn.version>v0.23.4</yarn.version>
+        <yarn.version>v0.24.4</yarn.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -45,7 +45,7 @@
             <dependency>
                 <groupId>net.serenity-bdd</groupId>
                 <artifactId>serenity-cucumber</artifactId>
-                <version>1.1.27</version>
+                <version>1.1.34</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -123,12 +123,12 @@
                 <plugin>
                     <groupId>io.fabric8</groupId>
                     <artifactId>docker-maven-plugin</artifactId>
-                    <version>0.20.1</version>
+                    <version>0.21.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.0.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>

@@ -1,7 +1,8 @@
 package de.blogspot.mszalbach.iss.screenplay.abilities;
 
-import com.jayway.restassured.RestAssured;
-import com.jayway.restassured.specification.RequestSpecification;
+
+import io.restassured.RestAssured;
+import io.restassured.specification.RequestSpecification;
 import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.Ability;
 import net.serenitybdd.screenplay.Actor;

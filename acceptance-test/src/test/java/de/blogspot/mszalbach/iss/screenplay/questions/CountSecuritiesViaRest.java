@@ -1,8 +1,8 @@
 package de.blogspot.mszalbach.iss.screenplay.questions;
 
-import com.jayway.restassured.http.ContentType;
 import de.blogspot.mszalbach.iss.domain.Security;
 import de.blogspot.mszalbach.iss.screenplay.abilities.AccessRest;
+import io.restassured.http.ContentType;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
 
