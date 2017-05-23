@@ -6,9 +6,6 @@ import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.actions.Open;
 import net.thucydides.core.annotations.Step;
 
-/**
- * Created by ms on 09.12.16.
- */
 public class OpenLoginPage
     implements Task {
 

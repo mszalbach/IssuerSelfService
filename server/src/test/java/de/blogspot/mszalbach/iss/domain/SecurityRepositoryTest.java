@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Created by foobarkilla on 29.10.16.
+ * Created by Marcel Szalbach on 29.10.16.
  */
 public class SecurityRepositoryTest
     extends RestRepositoryTestBase {

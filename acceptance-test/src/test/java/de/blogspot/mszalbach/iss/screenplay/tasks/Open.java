@@ -2,9 +2,6 @@ package de.blogspot.mszalbach.iss.screenplay.tasks;
 
 import net.serenitybdd.core.steps.Instrumented;
 
-/**
- * Created by ms on 09.01.17.
- */
 public class Open {
 
     public static OpenSecurityListPage securityListPage() {

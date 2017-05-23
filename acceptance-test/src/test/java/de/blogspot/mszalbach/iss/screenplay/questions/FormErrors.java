@@ -7,9 +7,6 @@ import net.serenitybdd.screenplay.questions.Text;
 
 import java.util.List;
 
-/**
- * Created by ms on 10.01.17.
- */
 public class FormErrors
     implements Question<List<String>> {
 

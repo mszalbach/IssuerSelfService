@@ -20,9 +20,6 @@ import static net.serenitybdd.screenplay.actors.OnStage.theActorCalled;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 import static org.hamcrest.CoreMatchers.is;
 
-/**
- * Created by foobarkilla on 09.11.16.
- */
 public class AuthenticationSteps {
 
 

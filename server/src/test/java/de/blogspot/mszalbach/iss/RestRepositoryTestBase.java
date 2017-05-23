@@ -17,7 +17,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 /**
- * Created by ms on 07.12.16.
+ * Created by Marcel Szalbach on 07.12.16.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest

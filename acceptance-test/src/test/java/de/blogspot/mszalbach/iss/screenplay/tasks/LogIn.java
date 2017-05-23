@@ -9,9 +9,6 @@ import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.Enter;
 import net.thucydides.core.annotations.Step;
 
-/**
- * Created by ms on 09.12.16.
- */
 public class LogIn
     implements Task {
 

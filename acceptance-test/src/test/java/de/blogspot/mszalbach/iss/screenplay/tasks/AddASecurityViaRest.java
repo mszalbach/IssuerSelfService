@@ -11,9 +11,6 @@ import org.apache.http.HttpStatus;
 import static net.serenitybdd.screenplay.Tasks.instrumented;
 import static org.hamcrest.CoreMatchers.is;
 
-/**
- * Created by ms on 09.01.17.
- */
 public class AddASecurityViaRest
     implements Task {
 

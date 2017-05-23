@@ -7,9 +7,6 @@ import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.actions.Click;
 import net.thucydides.core.annotations.Step;
 
-/**
- * Created by ms on 09.12.16.
- */
 public class LogOut
     implements Task {
 

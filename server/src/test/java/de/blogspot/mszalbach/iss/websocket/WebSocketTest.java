@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Created by ms on 25.11.16.
+ * Created by Marcel Szalbach on 25.11.16.
  */
 public class WebSocketTest extends RestRepositoryTestBase {
 

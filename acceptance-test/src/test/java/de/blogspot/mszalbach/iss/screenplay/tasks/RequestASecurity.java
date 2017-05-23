@@ -6,9 +6,6 @@ import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.actions.Click;
 
 
-/**
- * Created by ms on 12.01.17.
- */
 public class RequestASecurity
     implements Task {
 

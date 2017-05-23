@@ -7,9 +7,6 @@ import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.Ability;
 import net.serenitybdd.screenplay.Actor;
 
-/**
- * Created by ms on 10.01.17.
- */
 public class AccessRest
     implements Ability {
 

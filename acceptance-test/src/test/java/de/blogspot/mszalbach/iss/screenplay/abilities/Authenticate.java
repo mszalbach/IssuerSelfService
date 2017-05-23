@@ -3,9 +3,6 @@ package de.blogspot.mszalbach.iss.screenplay.abilities;
 import net.serenitybdd.screenplay.Ability;
 import net.serenitybdd.screenplay.Actor;
 
-/**
- * Created by ms on 09.12.16.
- */
 public class Authenticate
     implements Ability {
 

@@ -4,9 +4,6 @@ import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.screenplay.targets.Target;
 import net.thucydides.core.annotations.DefaultUrl;
 
-/**
- * Created by foobarkilla on 29.10.16.
- */
 @DefaultUrl( "http://localhost:8080/#/securities" )
 public class SecurityEnterForm
     extends PageObject {

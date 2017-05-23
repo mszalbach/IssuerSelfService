@@ -4,9 +4,6 @@ import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.screenplay.targets.Target;
 import net.thucydides.core.annotations.DefaultUrl;
 
-/**
- * Created by foobarkilla on 08.11.16.
- */
 @DefaultUrl( "http://localhost:8080/#/login" )
 public class LoginPage
     extends PageObject {

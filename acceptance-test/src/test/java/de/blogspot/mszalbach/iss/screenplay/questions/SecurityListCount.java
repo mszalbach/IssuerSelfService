@@ -6,9 +6,6 @@ import net.serenitybdd.screenplay.Question;
 import net.serenitybdd.screenplay.annotations.Subject;
 import net.serenitybdd.screenplay.questions.Text;
 
-/**
- * Created by ms on 09.12.16.
- */
 @Subject( "Security Count" )
 public class SecurityListCount
     implements Question<Integer> {

@@ -5,9 +5,6 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
 import net.serenitybdd.screenplay.questions.Enabled;
 
-/**
- * Created by ms on 10.01.17.
- */
 public class SecurityCreateButton
     implements Question<Boolean> {
 

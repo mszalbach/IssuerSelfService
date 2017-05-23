@@ -7,9 +7,6 @@ import net.serenitybdd.screenplay.questions.Text;
 
 import static net.serenitybdd.screenplay.questions.ValueOf.the;
 
-/**
- * Created by ms on 12.01.17.
- */
 public class State
     implements Question<String> {
 

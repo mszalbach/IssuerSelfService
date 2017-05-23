@@ -6,9 +6,6 @@ import io.restassured.http.ContentType;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
 
-/**
- * Created by ms on 09.01.17.
- */
 public class CountSecuritiesViaRest
     implements Question<Integer> {
 

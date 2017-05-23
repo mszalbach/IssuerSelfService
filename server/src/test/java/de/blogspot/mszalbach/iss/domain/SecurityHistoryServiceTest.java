@@ -16,7 +16,7 @@ import static org.hamcrest.Matchers.comparesEqualTo;
 import static org.junit.Assert.assertThat;
 
 /**
- * Created by ms on 12.12.16.
+ * Created by Marcel Szalbach on 12.12.16.
  */
 public class SecurityHistoryServiceTest
     extends RestRepositoryTestBase {

@@ -15,7 +15,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by ms on 25.11.16.
+ * Created by Marcel Szalbach on 25.11.16.
  */
 public class TestChannelInterceptor extends ChannelInterceptorAdapter {
 

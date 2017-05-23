@@ -7,9 +7,6 @@ import net.serenitybdd.screenplay.questions.Text;
 
 import java.util.List;
 
-/**
- * Created by ms on 11.01.17.
- */
 public class Actions
     implements Question<List<String>> {
 

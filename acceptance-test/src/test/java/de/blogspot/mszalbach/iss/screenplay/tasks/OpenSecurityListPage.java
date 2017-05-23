@@ -8,9 +8,6 @@ import net.serenitybdd.screenplay.matchers.statematchers.IsPresentMatcher;
 import net.serenitybdd.screenplay.waits.WaitUntil;
 import net.thucydides.core.annotations.Step;
 
-/**
- * Created by ms on 09.12.16.
- */
 public class OpenSecurityListPage
     implements Task {
 

@@ -8,9 +8,6 @@ import net.serenitybdd.screenplay.questions.Text;
 
 import static net.serenitybdd.screenplay.questions.ValueOf.the;
 
-/**
- * Created by ms on 09.12.16.
- */
 @Subject( "Sign In Button Text" )
 public class SignInButton
     implements Question<String> {

@@ -14,7 +14,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * Created by ms on 21.11.16.
+ * Created by Marcel Szalbach on 21.11.16.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {SecurityStateMachineAdapter.class, SecurityStateMachineFactory.class})

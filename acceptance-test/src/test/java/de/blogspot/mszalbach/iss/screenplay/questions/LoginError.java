@@ -8,9 +8,6 @@ import net.serenitybdd.screenplay.questions.Text;
 
 import static net.serenitybdd.screenplay.questions.ValueOf.the;
 
-/**
- * Created by ms on 09.12.16.
- */
 @Subject("Login Error")
 public class LoginError
     implements Question<String> {

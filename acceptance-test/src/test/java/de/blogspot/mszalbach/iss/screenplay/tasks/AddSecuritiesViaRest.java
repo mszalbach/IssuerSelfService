@@ -10,9 +10,6 @@ import java.util.List;
 
 import static net.serenitybdd.screenplay.Tasks.instrumented;
 
-/**
- * Created by ms on 09.01.17.
- */
 public class AddSecuritiesViaRest
     implements Task {
 

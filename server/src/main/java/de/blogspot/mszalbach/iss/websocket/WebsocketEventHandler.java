@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import static de.blogspot.mszalbach.iss.websocket.WebSocketConfiguration.MESSAGE_PREFIX;
 
 /**
- * Created by ms on 25.11.16.
+ * Created by Marcel Szalbach on 25.11.16.
  */
 @Component
 @RepositoryEventHandler(Security.class)
