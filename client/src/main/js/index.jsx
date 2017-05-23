@@ -13,7 +13,7 @@ import SecuritiesPage from "container/securitiesPage";
 import SecuritiesHistoryPage from "container/securitiesHistoryPage";
 import {requireAuthentication} from "container/auth";
 import history from "config/history";
-import "react-redux-toastr/lib/css/react-redux-toastr.css";
+import "react-redux-toastr/lib/css/react-redux-toastr.min.css";
 
 const store = initStore();
 const syncHistory = syncHistoryWithStore(history, store);
