@@ -1,6 +1,8 @@
 import reducer from "../reducers";
 import middleware from "./middlewares";
 import {createStore} from "redux";
+import {syncHistoryWithStore} from "react-router-redux";
+import {history} from "./history";
 
 var initialize = (initialState = {}) => {
     const store = createStore(reducer, initialState, middleware);
@@ -12,6 +14,7 @@ var initialize = (initialState = {}) => {
             store.replaceReducer(nextReducer);
         });
     }
+    syncHistoryWithStore( history, store );
     return store;
 };
 

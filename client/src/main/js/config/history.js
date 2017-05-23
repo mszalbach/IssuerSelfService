@@ -1,4 +1,4 @@
-import {hashHistory} from "react-router";
+import {createHashHistory} from "history";
 
 
-export default hashHistory;
+export const history = createHashHistory();
