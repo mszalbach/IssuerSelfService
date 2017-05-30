@@ -3,7 +3,10 @@
 
 The Issuer Self Service is an example project to manage securities for an exchange platform. 
 The server is written in Java and uses Spring Boot. The sourcecode can be found at [github](https://github.com/mszalbach/IssuerSelfService).
-The project is developed to show the tools and concepts used in the master thesis "Methodik zur formalen Spezifikation von ausführbaren Anforderungen in der Agilen Systementwicklung".
+
+The project is developed to show the tools and concepts used in the master thesis 
+
+"Methodik zur formalen Spezifikation von ausführbaren Anforderungen in der Agilen Systementwicklung".
 
 # Precondition
 The project needs Java, Maven and Docker installed on your host. Node.js and Yarn are installed by Maven. 
