@@ -4,7 +4,7 @@ import {createStore} from "redux";
 import {syncHistoryWithStore} from "react-router-redux";
 import {history} from "./history";
 
-var initialize = (initialState = {}) => {
+let initialize = ( initialState = {} ) => {
     const store = createStore(reducer, initialState, middleware);
 
     if (module.hot) {
