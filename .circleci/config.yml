@@ -14,7 +14,7 @@ jobs:
       - restore_cache:
           key: iss-{{ checksum "pom.xml" }}-{{ checksum "client/package.json" }}
 
-      - run: mvn verify -B -Ddocker.keepContainer=true
+      - run: mvn package -B -Ddocker.keepContainer=true
 
       - save_cache:
           paths:
