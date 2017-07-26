@@ -3,7 +3,7 @@ import {shallow, mount} from "enzyme";
 import LoginPage from "components/loginPage";
 
 
-describe('<Menu/>', () => {
+describe('<LoginPage/>', () => {
     it('should exists', () => {
         let wrapper = shallow(<LoginPage />);
         expect(wrapper).not.toBe(null);
