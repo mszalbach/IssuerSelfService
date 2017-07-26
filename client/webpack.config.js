@@ -18,7 +18,7 @@ const common = {
         app: PATHS.app,
         vendor: Object.keys(pkg.dependencies)
     },
-    devtool: 'source-map',
+    devtool: 'eval-cheap-module-source-map',
     output: {
         path: PATHS.build,
         filename: '[name].js'
@@ -84,7 +84,7 @@ switch (process.env.npm_lifecycle_event) {
             output: {
                 filename: '[name].[chunkhash].js'
             },
-            devtool: 'cheap-source-map',
+            devtool: 'cheap-module-source-map',
             plugins: [new webpack.DefinePlugin({
                 'process.env.NODE_ENV': JSON.stringify('production')
 
@@ -94,18 +94,14 @@ switch (process.env.npm_lifecycle_event) {
                         warnings: false
                     }
                 }),
-                new webpack.optimize.CommonsChunkPlugin("vendor", "[name].[chunkhash].js"),
+                new webpack.optimize.CommonsChunkPlugin({name: "vendor", filename: "[name].[chunkhash].js"}),
                 new CleanWebpackPlugin(PATHS.build)
             ]
 
         });
         break;
     default:
-        config = merge(common, {
-                devtool: 'eval-source-map'
-            }
-        );
-
+        config = common;
 }
 
 module.exports = config;
