@@ -94,16 +94,6 @@
                 <artifactId>selenium-support</artifactId>
                 <version>${selenium.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.codehaus.groovy</groupId>
-                <artifactId>groovy-json</artifactId>
-                <version>2.4.10</version>
-            </dependency>
-            <dependency>
-                <groupId>org.codehaus.groovy</groupId>
-                <artifactId>groovy-xml</artifactId>
-                <version>2.4.10</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
