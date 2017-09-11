@@ -61,12 +61,6 @@
             <artifactId>selenium-remote-driver</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- needed to use deprecated FluentWait which seems to be used in screenplay -->
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-support</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
