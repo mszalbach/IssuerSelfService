@@ -135,7 +135,7 @@
                             <alias>server</alias>
                             <name>%g/iss-server:%v</name>
                             <build>
-                                <from>frolvlad/alpine-oraclejdk8:slim</from>
+                                <from>openjdk:8-jre-alpine</from>
                                 <assembly>
                                     <mode>dir</mode>
                                     <descriptor>server/assembly.xml</descriptor>
@@ -147,7 +147,7 @@
                             <alias>client</alias>
                             <name>%g/iss-client:%v</name>
                             <build>
-                                <from>nginx</from>
+                                <from>nginx:1.7.5</from>
                                 <assembly>
                                     <mode>dir</mode>
                                     <basedir>/usr/share/nginx/html</basedir>
@@ -159,7 +159,7 @@
                             <alias>proxy</alias>
                             <name>%g/iss-proxy:%v</name>
                             <build>
-                                <from>nginx</from>
+                                <from>nginx:1.7.5</from>
                                 <assembly>
                                     <mode>dir</mode>
                                     <descriptor>proxy/assembly.xml</descriptor>

@@ -1,6 +1,6 @@
 import React from "react";
 import {mount, shallow} from "enzyme";
-import Menu, {SignInButton, UserDropdown} from "components/menu";
+import Menu, {SignInButton, UserDropdown} from "./index";
 import {MemoryRouter} from 'react-router-dom';
 
 const mountWithRouter = node => mount( <MemoryRouter>{node}</MemoryRouter> );

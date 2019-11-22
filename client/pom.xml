@@ -20,30 +20,36 @@
                     <execution>
                         <id>install node and npm</id>
                         <goals>
-                            <goal>install-node-and-yarn</goal>
+                            <goal>install-node-and-npm</goal>
                         </goals>
                         <configuration>
                             <nodeVersion>${node.version}</nodeVersion>
-                            <yarnVersion>${yarn.version}</yarnVersion>
+                            <npmVersion>${npm.version}</npmVersion>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>yarn install</id>
+                        <id>npm install</id>
                         <goals>
-                            <goal>yarn</goal>
+                            <goal>npm</goal>
                         </goals>
                     </execution>
                     <execution>
                         <id>javascript tests</id>
                         <goals>
-                            <goal>karma</goal>
+                            <goal>npm</goal>
                         </goals>
+                        <configuration>
+                            <arguments>run test-ci</arguments>
+                        </configuration>
                     </execution>
                     <execution>
-                        <id>webpack build</id>
+                        <id>build</id>
                         <goals>
-                            <goal>webpack</goal>
+                            <goal>npm</goal>
                         </goals>
+                        <configuration>
+                            <arguments>build</arguments>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import ReduxToastr from "react-redux-toastr";
 import {Provider} from "react-redux";
-import initStore from "config/store";
+import initStore from "./config/store";
 import Menu from "./container/menu";
 import {HashRouter} from "react-router-dom";
 import Main from "./components/main";

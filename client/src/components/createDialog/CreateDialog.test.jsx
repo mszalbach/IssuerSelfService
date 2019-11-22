@@ -1,6 +1,6 @@
 import React from "react";
 import {shallow, mount} from "enzyme";
-import CreateDialog from "components/createDialog";
+import CreateDialog from "./index";
 
 
 const schema = {

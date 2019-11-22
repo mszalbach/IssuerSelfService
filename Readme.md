@@ -9,8 +9,8 @@ The project is developed to show the tools and concepts used in the master thesi
 "Methodik zur formalen Spezifikation von ausführbaren Anforderungen in der Agilen Systementwicklung".
 
 # Precondition
-The project needs Java, Maven and Docker installed on your host. Node.js and Yarn are installed by Maven. 
-Just run `mvn verify` to install Node.js and Yarn and to see if everything is working.
+The project needs Java, Maven and Docker installed on your host. Node.js and NPM are installed by Maven. 
+Just run `mvn verify` to install Node.js and NPM and to see if everything is working.
 
 # Starting locally
 To start the Server part execute the following command:
@@ -23,5 +23,5 @@ or start the `de.blogspot.mszalbach.iss.Application` class from your IDE.
 To start the Client part execute the following command:
 ```
 cd client
-myarn start
+npm.cmd start
 ```
